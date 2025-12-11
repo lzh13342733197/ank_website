@@ -43,10 +43,10 @@
 
 .card-peek-list-wrapper {
   position: relative;
-  left: -20px;
+  // left: -20px;
   width: 100%;
-  margin: 20px 0;
-  padding: 5px 0px;
+  margin: 0 0 20px 0;
+  padding:  0 0 5px 0px;
   overflow-x: hidden;
   // border: 2px solid blue;
   border-radius: 30px;
@@ -56,13 +56,30 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: @item-gap;
   width: 100%;
+  gap: 10px;
   transition: transform 0.3s ease-in-out;
+  flex-wrap: wrap;
+
   // border-radius: @border-radius-base;
   // border: 2px solid red;
 }
+.card-peek-list > * {
+  flex-basis: calc((100% - 20px) / 2);
 
+}
+@media (min-width: 768px) {
+  .card-peek-list > * {
+    /* 三栏，中间有 2 个 gap (2 * 20px = 40px) */
+    flex-basis: calc((100% - 40px) / 3); 
+    flex-shrink: 0;
+ 
+  }
+    .card-peek-list{
+  gap: @item-gap;
+
+  }
+}
 .card-preview {
   flex-shrink: 0;
   min-width: fit-content;
@@ -84,4 +101,11 @@
   font-size: 28px;
   font-weight: 600;
   padding: @item-gap / 2 0;
+}
+
+@media (max-width: 768px) {
+.card-peek-list{
+   padding: 10px;
+  padding-right: 0px;
+}
 }

@@ -13,9 +13,9 @@ const router = createRouter({
       redirect: (to?: any) => {
         if (to.query.s) {
           // 处理搜索参数
-          return { path: isMobileDevice() ? '/mobile' : '/pc', query: { s: to.query.s } }
+          return { path: isMobileDevice() ? '/pc' : '/pc', query: { s: to.query.s } }
         }
-        return isMobileDevice() ? '/mobile' : '/pc'
+        return isMobileDevice() ? '/pc' : '/pc'
       },
     },
     {

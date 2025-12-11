@@ -36,11 +36,11 @@
   </div>
   <PosterBanner />
   <SkeletonComponent :loading="loading" />
-  <div v-if="!loading" style="display: flex; gap: 20px;">
+  <div v-if="!loading" class="card-wrap-container" style="display: flex; gap: 40px;">
     <div class="leftOption">
       <production-option :category-list="categoryList" @changeOption="handleChangeOption"/>
     </div>
-   <div>
+   <div class="rightProduction">
      <div v-for="item in categoryList" :key="item.id">
       <card-peek-list ref="cardPeekListRef" v-if="item.id === activeId" :id="item.id" :title="item.name"
         :card-list="item.productSpuList" />
@@ -180,3 +180,25 @@ defineExpose({
   jumpToCategory,
 })
 </script>
+
+
+<style scoped>
+.card-wrap-container {
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .card-wrap-container {
+    flex-direction: column;
+  }
+  .leftOption{
+  display: flex;
+  justify-content: center;
+}
+}
+@media (min-width: 768px) {
+  .card-wrap-container {
+    flex-direction: row;
+  }
+}
+
+</style>

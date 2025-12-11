@@ -2,10 +2,10 @@
   <div class="box">
     <div class="production_info">产品信息</div>
     <div class="optionItem" v-for="item in categoryList" :key="item.id" @click="handleChange(item.id)"
-      @mouseenter="handleMouseEnter(item.id)" @mouseleave="handleMouseLeave">
+      @mouseenter="handleMouseEnter(item.id)" @mouseleave="handleMouseLeave" :class="{ 'actived': item.id === activeId }">
       <div :class="{ 'hovered': item.id === hoverId }" style="white-space-collapse: collapse;" type="" link
         @click="handleChange(item.id)">{{ item.name }}</div>
-      <div v-if="item.id === activeId || item.id === hoverId" style="color: #ccc;">></div>
+      <div class="arrow" v-if="item.id === activeId || item.id === hoverId" style="color: #ccc;">></div>
     </div>
   </div>
 </template>
@@ -32,6 +32,7 @@ const handleChange = (id: string) => {
 }
 onMounted(async () => {
   await nextTick()
+  activeId.value = props.categoryList[0].id
   emit('changeOption', props.categoryList[0].id)
 })
 
@@ -53,7 +54,8 @@ const handleMouseLeave = () => {
   gap: 10px;
   border: 1px solid #ccc;
   font-size: 16px;
-  font-weight: 400
+  font-weight: 400;
+  background-color: #fff;
 }
 
 .optionItem {
@@ -76,8 +78,6 @@ const handleMouseLeave = () => {
   font-family: '微软雅黑';
   background-color: rgba(229, 229, 229, 0.9);
   text-align: left;
-
-
 }
 
 .optionItem:last-child {
@@ -91,5 +91,56 @@ const handleMouseLeave = () => {
 .hovered {
   transform: translateX(5px);
   transition: transform 0.3s ease-out
+}
+
+
+/* 
+
+
+@media (max-width: 768px) {
+ 
+}
+
+@media (min-width: 768px) {
+
+}
+
+*/
+
+/* 移动 */
+@media (max-width: 768px) {
+ .production_info{
+  display: none;
+ }
+ .box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  border: none;
+  font-size: 12px;
+  font-weight: 400;
+  overflow: auto;
+  gap: 10px;
+  padding-left: 10px;
+  scrollbar-width: none;
+}
+.optionItem{
+  border: none;
+  border: 1px solid #000;
+}
+.optionItem:last-child {
+  border-bottom: 1px solid #000;
+}
+.actived{
+  background-color: #000;
+  color: #fff;
+}
+.arrow{
+  display: none;
+}
+}
+/* pc */
+@media (min-width: 768px) {
+
 }
 </style>

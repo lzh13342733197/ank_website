@@ -1,5 +1,6 @@
 <template>
-  <NavigationBar @jumpToCategory="jumpToCategory" />
+  <NavigationBarPC @jumpToCategory="jumpToCategory" />
+  <NavigationBarMobile @jumpToCategory="jumpToCategory" />
   <div class="content-container" :class="{ 'full-width': $route.path !== '/pc/home' }">
     <router-view v-slot="{ Component }">
       <component :is="Component" ref="currentComponent" />
@@ -9,7 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import NavigationBar from '@/layout/pc/navigation-bar.vue'
+import NavigationBarPC from '@/layout/pc/navigation-bar.vue'
+import NavigationBarMobile from '@/layout/pc/navigation-bar-mobile.vue'
 import Footer from '@/layout/pc/footer.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ref, nextTick } from 'vue'
@@ -50,5 +52,11 @@ const jumpToCategory = async (id: string) => {
 ::v-deep.noFull-width {
   max-width: 1600px;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .NavigationBarPC{
+    display: none;
+  }
 }
 </style>
