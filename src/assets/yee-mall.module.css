@@ -1,0 +1,45 @@
+.navigation-bar {
+  /* border: 1px solid red; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  z-index: 1000;
+  padding: 0 20px;
+}
+
+.navigation-bar-item {
+  /* border: 1px solid blue; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.navigation-bar-item:last-child {
+  /* margin-right: 10px; */
+}
+
+.view-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  padding-bottom: 40px;
+  text-align: center;
+}
+
+.operation-button {
+  height: 42px;
+  width: 100%;
+  text-align: center;
+  line-height: 42px;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: black;
+  color: white;
+}

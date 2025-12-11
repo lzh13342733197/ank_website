@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+  font-family:
+    SF Pro Display,
+    SF Pro Icons,
+    Helvetica Neue,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  margin: 0;
+}
+
+@supports (padding-top: env (safe-area-inset-top)) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    /* 可根据需要设置其他安全区域内边距*/
+  }
+}
