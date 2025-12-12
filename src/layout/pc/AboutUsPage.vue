@@ -32,11 +32,11 @@
                 @click="toggleMobileMenu">
                 <span class="main-class-text">{{ currentTitle }}</span>
                 <span class="class-title-icon icon iconfont" :class="isMobileMenuOpen ? 'icon-jian' : 'icon-jia'">{{
-                  isMobileMenuOpen ? '-' : '+' }}</span>
+                  isMobileMenuOpen ? '⋁' : '⋀' }}</span>
               </header>
               <ul class="one-classify mobile-menu" :class="{ 'open': isMobileMenuOpen }">
                 <li v-for="item in menuItems" :key="item.id" class="main-class-item"
-                  @click="selectMenuItem(item.id); toggleMobileMenu();">
+                  @click="selectMenuItem(item.id);">
                   <div class="main-class-link">
                     <span class="main-class-text">{{ item.text }}</span>
                   </div>
@@ -335,6 +335,7 @@ const currentTitle = computed(() => {
 
 .content-text-body {
   padding-top: 10px;
+  min-height: 500px;
 }
 
 .content-paragraph {

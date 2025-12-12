@@ -189,6 +189,7 @@ const setLang = (lang: string) => {
 }
 
 .main-nav-link {
+  white-space: nowrap;
   display: block;
   padding: 15px 0;
   text-decoration: none;
