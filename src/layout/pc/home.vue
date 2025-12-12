@@ -1,5 +1,5 @@
 <template>
-  <div style="
+  <!-- <div style="
       margin: 60px 200px;
       transform: translateX(-20px);
       display: flex;
@@ -33,8 +33,9 @@
         </div>
       </div>
     </div>
-  </div>
-  <PosterBanner />
+  </div> -->
+  <!-- <PosterBanner /> -->
+  <SwiperModule :images="slideData" class="swiperModule_" />
   <SkeletonComponent :loading="loading" />
   <div v-if="!loading" class="card-wrap-container" style="display: flex; gap: 40px;">
     <div class="leftOption">
@@ -47,6 +48,11 @@
     </div>
    </div>
   </div>
+
+<ProductShowcase :products="productList" />
+<AboutUsModule />
+<NewsSlider />
+<partner />
 </template>
 
 <script setup lang="ts">
@@ -59,6 +65,11 @@ import PosterBanner from '@/layout/pc/posterBanner_copy.vue'
 import eightLanguage from '@/constants/language'
 import { useRoute } from 'vue-router'
 import productionOption from '@/layout/pc/components/productionOption.vue'
+import SwiperModule from '@/layout/pc/components/SwiperModule.vue'
+import ProductShowcase from '@/layout/pc/ProductShowcase.vue'
+import AboutUsModule from '@/layout/pc/components/AboutUsModule.vue'
+import NewsSlider from '@/layout/pc/components/NewsSlider.vue'
+import partner from '@/layout/pc/components/partner.vue'
 
 const route = useRoute()
 
@@ -72,7 +83,62 @@ const getImageUrl = (item: any) => {
   }
   return `/1mii.png`
 }
-
+const slideData = [
+  { 
+    src: '//img.wds168.cn/comdata/83627/202410/20241023113633996389.jpg', 
+    url: '/cn/ProductDetail/123.html', 
+    alt: 'Slide 1' 
+  },
+  { 
+    src: '//img.wds168.cn/comdata/83627/202305/20230505152811565d19.jpg', 
+    url: '/cn/ProductDetail/456.html', 
+    alt: 'Slide 2' 
+  },
+  { 
+    src: '//img.wds168.cn/comdata/83627/202212/202212311105406851b3.jpg', 
+    url: '', // 没有链接
+    alt: 'Slide 3' 
+  },
+  
+]
+const productList = ref([
+  {
+    id: 1,
+    name: "主动降噪蓝牙耳机 NB-1092",
+    imageUrl: "//img.wds168.cn/comdata/83627/product/20241023114758D3E5F06E231A69AB_s.jpg",
+    link: "/cn/ProductDetail/4875130.html"
+  },
+  {
+    id: 2,
+    name: "多媒体蓝牙耳机 BEM-1100",
+    imageUrl: "//img.wds168.cn/comdata/83627/product/20210219095054AF5724D15301E86C_s.jpg",
+    link: "/cn/ProductDetail/4801155.html"
+  },
+  {
+    id: 3,
+    name: "真无线蓝牙耳机 T20",
+    imageUrl: "//img.wds168.cn/comdata/83627/product/20210608171919E3E5AC7C20637A1A_s.jpg",
+    link: "/cn/ProductDetail/5214554.html"
+  },
+  {
+    id: 4,
+    name: "高性能麦克风 M-630",
+    imageUrl: "//img.wds168.cn/comdata/83627/product/2021082310255599B1BE4B43C62E1D_s.jpg",
+    link: "/cn/ProductDetail/5453615.html"
+  },
+  {
+    id: 5,
+    name: "便携式蓝牙音箱 BT-360",
+    imageUrl: "//img.wds168.cn/comdata/83627/product/202110191549120165FA7100140E46_s.jpg",
+    link: "/cn/ProductDetail/5292943.html"
+  },
+  {
+    id: 6,
+    name: "蓝牙运动耳机 W22",
+    imageUrl: "//img.wds168.cn/comdata/83627/product/202107061038324E83B064203CD75F_s.jpg",
+    link: "/cn/ProductDetail/5293033.html"
+  }
+]);
 const loading = ref(true)
 const activeId = ref('')
 
@@ -183,10 +249,13 @@ defineExpose({
 
 
 <style scoped>
+  .swiperModule_{
+    margin-bottom: 40px;
+  }
 .card-wrap-container {
   width: 100%;
 }
-@media (max-width: 768px) {
+@media (max-width: 1355px) {
   .card-wrap-container {
     flex-direction: column;
   }
@@ -195,7 +264,7 @@ defineExpose({
   justify-content: center;
 }
 }
-@media (min-width: 768px) {
+@media (min-width: 1355px) {
   .card-wrap-container {
     flex-direction: row;
   }

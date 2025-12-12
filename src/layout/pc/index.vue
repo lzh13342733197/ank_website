@@ -1,7 +1,8 @@
 <template>
-  <NavigationBarPC @jumpToCategory="jumpToCategory" />
-  <NavigationBarMobile @jumpToCategory="jumpToCategory" />
-  <div class="content-container" :class="{ 'full-width': $route.path !== '/pc/home' }">
+  <NavigationBarPC @jumpToCategory="jumpToCategory" class="NavigationBarPC" />
+  <NavigationBarMobile @jumpToCategory="jumpToCategory" class="NavigationBarMobile" />
+  <!-- <div class="content-container" :class="{ 'full-width': $route.path !== '/pc/home' }"> -->
+    <div class="content-container" :class="{ 'home-layout': $route.path === '/pc/home', 'full-width': $route.path !== '/pc/home' }">
     <router-view v-slot="{ Component }">
       <component :is="Component" ref="currentComponent" />
     </router-view>
@@ -15,7 +16,6 @@ import NavigationBarMobile from '@/layout/pc/navigation-bar-mobile.vue'
 import Footer from '@/layout/pc/footer.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ref, nextTick } from 'vue'
-
 const router = useRouter()
 const route = useRoute()
 const currentComponent = ref<any>(null)
@@ -41,7 +41,16 @@ const jumpToCategory = async (id: string) => {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
-  margin-top: 100px;
+  /* margin-top: 10px; */
+}
+/* 1. 当处于首页 (.home-layout) 时，针对 router-view 渲染的第一个子元素（即轮播图）进行样式穿透 */
+.content-container.home-layout :deep(> :first-child) {
+  /* 强制移除 max-width，使其占满整个浏览器宽度 (100% of the viewport) */
+  max-width: none !important;
+  /* 移除任何可能导致的内部间距 */
+  width: 100vw; /* 使用视口宽度，确保占满整个浏览器 */
+  margin-left: calc(50% - 50vw); /* 抵消 max-width: 1600px 带来的居中偏移 */
+  padding: 0;
 }
 
 .content-container.full-width {
@@ -54,9 +63,20 @@ const jumpToCategory = async (id: string) => {
   margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  .NavigationBarPC{
+
+@media (min-width: 769px) {
+  .NavigationBarMobile {
     display: none;
   }
+
+  .NavigationBarPC {}
+}
+
+@media (max-width: 768px) {
+  .NavigationBarPC {
+    display: none;
+  }
+
+  .NavigationBarMobile {}
 }
 </style>

@@ -1,29 +1,50 @@
 <template>
-  <div :class="styles.navigationBarWrapper">
-    <div :class="[styles.navigationBarItemList, { expanded: isSearchExpanded }]" :style="expandedStyle">
-      <!-- <div class="navigation-bar-icon" style="cursor: pointer" @click="handleClick('home')"> -->
-      <div :class="styles.navigationBarItem" style="cursor: pointer" @click="jumpTo(router, '/', {})">
-        <img src="@/assets/images/1mii.png" alt="logo" style="height: 40px" />
+  <div class="mobile-navigation-container">
+    <div class="navigation_top" >
+      <div class="hamburger-icon" @click="drawer = true">☰</div>
+      <div class="navigation_top_logo">
+        <router-link to="/" target="_self" class="privacy-policy"> <img src="@/assets/images/1mii.png" alt="logo"
+            style="height: 40px" />
+        </router-link>
       </div>
-      <div @click="handleClick(item.id)" :class="styles.navigationBarItem" v-for="item in categoryList" :key="item.id"
-        class="navigation-bar-item">
-        {{ item.name }}
-      </div>
-      <!-- <div class="navigation-bar-item" @click="$router.push('/pc/company-profile')" style="cursor: pointer;">brand
-        Introduction</div>
-      <div class="navigation-bar-item" @click="$router.push('/pc/Contact_us')" style="cursor: pointer;">contact us</div> -->
-      <div :class="[styles.navigationBarItem, 'search-container']" @click="toggleSearch"
-        style="color: black; text-shadow: -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white;">
-        <SvgIcon :name="`search`" size="20" color="black" style="filter: drop-shadow(0 0 1px white); ">
-        </SvgIcon>
+      <div>
+        <div :class="[styles.navigationBarItem, 'search-container']" @click="toggleSearch"
+          style="color: black; text-shadow: -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white;">
+          <SvgIcon :name="`search`" size="23" color="white"  style="filter: drop-shadow(0 0 1px black); " >
+          </SvgIcon>
+        </div>
       </div>
     </div>
+    <div :class="styles.navigationBarWrapper" style="width: 100%;">
+      <!-- <div :class="[styles.navigationBarItemList, { expanded: isSearchExpanded }]" :style="expandedStyle">
+        <div :class="styles.navigationBarItem" style="cursor: pointer" @click="jumpTo(router, '/', {})">
+          <img src="@/assets/images/1mii.png" alt="logo" style="height: 40px" />
+        </div>
+        <div @click="handleClick(item.id)" :class="styles.navigationBarItem" v-for="item in categoryList" :key="item.id"
+          class="navigation-bar-item">
+          {{ item.name }}
+        </div>
 
-    <!-- 使用新的搜索组件 -->
-    <SearchModal :is-visible="isSearchExpanded" @close="closeSearch" @select="handleSearchSelect"
-      @open="isSearchExpanded = true" />
+        <div :class="[styles.navigationBarItem, 'search-container']" @click="toggleSearch"
+          style="color: black; text-shadow: -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white;">
+          <SvgIcon :name="`search`" size="20" color="black" style="filter: drop-shadow(0 0 1px white); ">
+          </SvgIcon>
+        </div>
+      </div> -->
 
-    <!-- <div style="cursor: pointer" @click="language.setLanguage('zh')">{{ '切换语言' }}</div> -->
+      <SearchModal :is-visible="isSearchExpanded" @close="closeSearch" @select="handleSearchSelect"
+        @open="isSearchExpanded = true" />
+      <el-drawer v-model="drawer" direction="ltr" resizable size="300px" :show-close="false">
+        <div class="drawer-menu">
+          <ul class="menu-list">
+            <li v-for="item in categoryList" :key="item.id" class="menu-item" @click="handleMenuItemClick(item.id)">
+              {{ item.name }}
+            </li>
+          </ul>
+        </div>
+      </el-drawer>
+      <!-- <div style="cursor: pointer" @click="language.setLanguage('zh')">{{ '切换语言' }}</div> -->
+    </div>
   </div>
 </template>
 
@@ -39,6 +60,7 @@ import { jumpTo } from '@/utils/utils'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const drawer = ref(false)
 
 const route = useRoute()
 const isSearchVisible = ref(false)
@@ -58,6 +80,11 @@ const handleClick = (id: string) => {
       emit('jumpToCategory', id)
     })
   }
+}
+
+const handleMenuItemClick = (id: string) => {
+  drawer.value = false // 关闭侧边栏
+  handleClick(id) // 调用现有的点击处理函数
 }
 const toBottom = () => {
   window.scrollTo({
@@ -125,6 +152,13 @@ language.addRequest(fetchCategoryList)
 </script>
 
 <style scoped>
+  .mobile-navigation-container {
+  position: sticky; 
+  top: 0;
+  z-index: 1000;
+  background-color: #fff; /* 默认白色背景 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
 .search-container {
   position: relative;
   cursor: pointer;
@@ -138,5 +172,78 @@ language.addRequest(fetchCategoryList)
 .navigation-bar-item {
   color: black;
   text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+}
+
+.navigation_top {
+  height: 50px;
+  background-color: black;
+  display: flex;
+  padding: 0 20px;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0px;
+  z-index: 100;
+}
+
+.hamburger-icon {
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.navigation_top_logo {
+  display: inline-block;
+}
+
+/* 侧边栏菜单样式 */
+.drawer-menu {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.menu-header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.close-btn {
+  font-size: 28px;
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+.close-btn:hover {
+  background-color: #f0f0f0;
+  border-radius: 50%;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+  color: #1890ff;
+  transform: translateX(5px);
 }
 </style>

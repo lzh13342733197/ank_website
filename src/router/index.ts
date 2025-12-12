@@ -86,6 +86,14 @@ const router = createRouter({
           path: 'Contact_us',
           component: () => import('../layout/pc/components/Contact_us.vue'),
         },
+        {
+          path: 'AboutUs',
+          component: () => import('../layout/pc/AboutUsPage.vue'),
+        },
+        {
+          path: 'NewsList',
+          component: () => import('../layout/pc/NewsList.vue'),
+        },
       ],
     },
     {

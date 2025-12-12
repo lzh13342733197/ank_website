@@ -55,12 +55,12 @@ const handleMouseLeave = () => {
   border: 1px solid #ccc;
   font-size: 16px;
   font-weight: 400;
-  background-color: #fff;
 }
 
 .optionItem {
   padding: 10px 20px;
   border-bottom: 1px solid #ccc;
+  background-color: #fff;
   cursor: pointer;
   transition: all 0.3s linear;
   white-space: nowrap;
@@ -108,7 +108,7 @@ const handleMouseLeave = () => {
 */
 
 /* 移动 */
-@media (max-width: 768px) {
+@media (max-width: 1355px) {
  .production_info{
   display: none;
  }
@@ -140,7 +140,9 @@ const handleMouseLeave = () => {
 }
 }
 /* pc */
-@media (min-width: 768px) {
-
+@media (min-width: 1355px) {
+.box{
+  background-color: white;
+}
 }
 </style>

@@ -5,12 +5,12 @@
         <div class="search-header">
           <h2 class="search-title">Search</h2>
           <button class="search-close" @click="closeSearch">
-            <SvgIcon name="close" size="24" color="#666"></SvgIcon>
+            <SvgIcon name="close" size="24" color="#666" ></SvgIcon>
           </button>
         </div>
 
         <div class="search-input-container">
-          <SvgIcon name="search" size="20" color="#999" class="search-icon"></SvgIcon>
+          <SvgIcon name="search" size="20" color="black" class="search-icon"></SvgIcon>
           <input type="text" placeholder="Search products..." class="search-input" v-model="searchQuery"
             @input="handleSearch" @keydown="handleKeydown" ref="searchInputRef" />
         </div>
@@ -22,9 +22,9 @@
           <div class="results-list">
             <div v-for="(result, index) in searchResults" :key="result.id" class="result-item"
               :class="{ active: activeIndex === index }" @mouseenter="activeIndex = index">
-              <div class="result-icon">
+              <!-- <div class="result-icon">
                 <SvgIcon name="product" size="16" color="#666"></SvgIcon>
-              </div>
+              </div> -->
               <div class="result-content" style="display: flex; align-items: center; gap: 20px">
                 <img :src="result.productImageUrl" alt="" style="height: 100px; content-fit: cover" />
                 <div>
@@ -44,7 +44,7 @@
 
         <div class="search-empty" v-else-if="searchQuery && !isLoading">
           <div class="empty-icon">
-            <SvgIcon name="search" size="48" color="#ccc"></SvgIcon>
+            <SvgIcon name="search" size="48" color="#ccc" ></SvgIcon>
           </div>
           <div class="empty-text">No results found</div>
         </div>
@@ -230,9 +230,9 @@ const showTooltip = (event: MouseEvent, content: string) => {
   border-radius: 16px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   padding: 0;
-  min-width: 500px;
+  min-width: 400px;
   max-width: 600px;
-  max-height: 80vh;
+  max-height: 70vh;
   overflow: hidden;
 }
 
@@ -356,7 +356,7 @@ const showTooltip = (event: MouseEvent, content: string) => {
   .result-detail {
     position: absolute;
     right: 10px;
-    bottom: 5px;
+    bottom: 1px;
     font-size: 14px;
     color: #007aff;
     cursor: pointer;
@@ -365,6 +365,11 @@ const showTooltip = (event: MouseEvent, content: string) => {
 
   .result-detail:hover {
     color: #0056b3;
+  }
+}
+@media  (max-width: 768px)  {
+  .result-item {
+    padding: 12px 6px;
   }
 }
 
@@ -487,6 +492,7 @@ const showTooltip = (event: MouseEvent, content: string) => {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 400px;
+  font-size: 13px;
 }
 
 :deep(.highlight) {

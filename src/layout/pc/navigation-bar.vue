@@ -1,142 +1,384 @@
 <template>
-  <div :class="styles.navigationBarWrapper">
-    <div :class="[styles.navigationBarItemList, { expanded: isSearchExpanded }]" :style="expandedStyle">
-      <!-- <div class="navigation-bar-icon" style="cursor: pointer" @click="handleClick('home')"> -->
-      <div :class="styles.navigationBarItem" style="cursor: pointer" @click="jumpTo(router, '/', {})">
-        <img src="@/assets/images/1mii.png" alt="logo" style="height: 40px" />
+  <header class="header-container">
+    <div class="header-content">
+
+      <div class="nav-item nav-logo">
+        <a href="/cn/" class="logo-link">
+          <img src="//img.wds168.cn/comdata/84470/202108/20210809163100fa244f.png" alt="Company Logo" class="logo-image">
+        </a>
       </div>
-      <div @click="handleClick(item.id)" :class="styles.navigationBarItem" v-for="item in categoryList" :key="item.id"
-        class="navigation-bar-item">
-        {{ item.name }}
-      </div>
-      <!-- <div class="navigation-bar-item" @click="$router.push('/pc/company-profile')" style="cursor: pointer;">brand
-        Introduction</div>
-      <div class="navigation-bar-item" @click="$router.push('/pc/Contact_us')" style="cursor: pointer;">contact us</div> -->
-      <div :class="[styles.navigationBarItem, 'search-container']" @click="toggleSearch"
-        style="color: black; text-shadow: -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white;">
-        <SvgIcon :name="`search`" size="20" color="black" style="filter: drop-shadow(0 0 1px white); ">
-        </SvgIcon>
+
+      <nav class="nav-item nav-main-menu menu-pc">
+        <div 
+          v-for="menu in menus" 
+          :key="menu.id" 
+          class="main-nav-group"
+          @mouseenter="openSubMenu(menu.id)"
+          @mouseleave="closeSubMenu(menu.id)"
+        >
+          <a :href="menu.url" class="main-nav-link" :class="{ 'is-active': menu.isActive }">
+            {{ menu.name }}
+          </a>
+          <ul v-if="menu.children && menu.children.length" class="sub-nav-group" :class="{ 'is-open': activeSubMenuId === menu.id }">
+            <li v-for="sub in menu.children" :key="sub.url">
+              <a :href="sub.url" class="sub-nav-link">{{ sub.name }}</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="nav-item nav-toolbar">
+        
+        <div class="tools-pc">
+          <div class="lang-switch">
+            <img src="//img.wds168.cn/comdata/84470/201905/201905151545264d908e.jpg" alt="中文" title="中文">
+            <img src="//img.wds168.cn/comdata/84470/201905/2019051515452626c55d.jpg" alt="English" title="English">
+          </div>
+          <div class="search-box">
+            <input type="text" placeholder="请输入关键字" class="search-input">
+            <i class="search-icon">🔍</i>
+          </div>
+        </div>
+        
+        <div class="tools-mobile">
+          <div class="mobile-lang-switch" @click="toggleMobileLang">
+             {{ currentLang }} 
+             <span class="arrow-icon">{{ isMobileLangOpen ? '▲' : '▼' }}</span>
+             <ul v-if="isMobileLangOpen" class="mobile-lang-list">
+                 <li @click.stop="setLang('中文')">中文</li>
+                 <li @click.stop="setLang('English')">English</li>
+             </ul>
+          </div>
+          <button class="hamburger-btn" @click="toggleMobileMenu">
+            <span class="hamburger-icon">☰</span>
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- 使用新的搜索组件 -->
-    <SearchModal :is-visible="isSearchExpanded" @close="closeSearch" @select="handleSearchSelect"
-      @open="isSearchExpanded = true" />
+    <div v-if="isMobileMenuOpen" class="mobile-menu-overlay">
+      <a v-for="menu in menus" :key="menu.id" :href="menu.url" class="mobile-nav-link">
+        {{ menu.name }}
+      </a>
+      <div class="mobile-search-box">
+          <input type="text" placeholder="请输入关键字" class="search-input">
+          <i class="search-icon">🔍</i>
+      </div>
+    </div>
 
-    <!-- <div style="cursor: pointer" @click="language.setLanguage('zh')">{{ '切换语言' }}</div> -->
-  </div>
+  </header>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, nextTick } from 'vue'
-import { useFetchWithLanguage } from '@/utils/http'
-import styles from './pc.module.less'
-import SvgIcon from '@/components/SvgIcon.vue'
-import SearchModal from './search-modal.vue'
-import { useLanguageStore } from '@/stores/language'
-import { useRoute } from 'vue-router'
-import { jumpTo } from '@/utils/utils'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
-const router = useRouter()
+// ---------------------------
+// 响应式数据
+// ---------------------------
 
-const route = useRoute()
-const isSearchVisible = ref(false)
+// 菜单数据 (根据你提供的 HTML 结构简化)
+const menus = ref([
+  { id: 1, name: '首页', url: '/cn/', isActive: true },
+  { id: 2, name: '关于我们', url: 'AboutUs', isActive: false, 
+    children: [
+      { name: '公司简介', url: '/Content/505034.html' },
+      { name: '愿景与使命', url: '/Content/505035.html' },
+      // ... 更多子菜单
+    ] 
+  },
+  { id: 3, name: '产品中心', url: '/cn/Content/504099.html', isActive: false },
+  { id: 4, name: '新闻动态', url: 'NewsList', isActive: false },
+  { id: 5, name: '加入我们', url: '/cn/Content/504533.html', isActive: false },
+  { id: 6, name: '联系我们', url: '/Content/504101.html', isActive: false,
+    children: [
+      { name: '联系方式', url: '/Content/507451.html' },
+      { name: '在线留言', url: '/Content/507453.html' },
+    ]
+  },
+])
 
-const language = useLanguageStore()
-const categoryList = ref<any[]>([])
-const isSearchExpanded = ref(false)
+// PC 端下拉菜单状态
+const activeSubMenuId = ref<number | null>(null)
 
-const emit = defineEmits(['jumpToCategory'])
-const handleClick = (id: string) => {
-  if (route.path === '/pc/home') {
-    emit('jumpToCategory', id)
-    return
-  } else {
-    // 使用路由跳转回调替代setTimeout
-    router.push({ path: 'home' }).then(() => {
-      emit('jumpToCategory', id)
-    })
-  }
-}
-const toBottom = () => {
-  window.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: 'smooth',
-  })
-}
+// 移动端菜单展开状态 (汉堡包菜单)
+const isMobileMenuOpen = ref(false)
 
-const expandedStyle = computed(() => {
-  if (isSearchExpanded.value) {
-    return {
-      background: 'white',
-      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-      borderRadius: '20px',
-      padding: '0 40px',
-      zIndex: '1005',
-      height: '60px',
-      transition: 'all 0.3s ease',
-    }
-  }
-  return {
-    transition: 'all 0.3s ease',
-  }
-})
+// 移动端语言切换状态
+const isMobileLangOpen = ref(false)
+const currentLang = ref('中文')
 
-const toggleSearch = () => {
-  isSearchExpanded.value = !isSearchExpanded.value
+// ---------------------------
+// 方法
+// ---------------------------
+
+const openSubMenu = (id: number) => {
+  activeSubMenuId.value = id
 }
 
-const closeSearch = () => {
-  isSearchExpanded.value = false
+const closeSubMenu = (id: number) => {
+  activeSubMenuId.value = null
 }
 
-const handleSearchSelect = (result: any) => {
-  console.log('Selected search result:', result)
-  // 这里可以处理搜索结果的选择
-  // 比如跳转到产品详情页
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
 }
 
-const fetchCategoryList = async () => {
-  const data = await useFetchWithLanguage.post(
-    `${import.meta.env.VITE_API_URL}/product/getCategoryList`,
-    {},
-  )
-
-  const getLeafNode = (item: any, catagoryList: any[]) => {
-    if (item.children.length > 0) {
-      item.children.forEach((child: any) => {
-        getLeafNode(child, catagoryList)
-      })
-    } else {
-      categoryList.value.push(item)
-    }
-  }
-
-  categoryList.value = []
-  data.forEach((item: any) => {
-    getLeafNode(item, categoryList.value)
-  })
+const toggleMobileLang = () => {
+  isMobileLangOpen.value = !isMobileLangOpen.value
 }
 
-onMounted(fetchCategoryList)
+const setLang = (lang: string) => {
+    currentLang.value = lang
+    isMobileLangOpen.value = false
+    // 实际应用中：此处应执行语言切换逻辑，如修改 URL 或 Store 状态
+}
 
-language.addRequest(fetchCategoryList)
 </script>
 
 <style scoped>
-.search-container {
+/* ==================================================
+   全局布局与 Flex 容器
+   ================================================== */
+.header-container {
+  /* 模拟原 CMS 导航栏的固定或浮动效果 */
+  position: sticky; 
+  top: 0;
+  z-index: 1000;
+  background-color: #fff; /* 默认白色背景 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px; /* 模拟内容区域最大宽度 */
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+.nav-item {
+  /* 对应原 Bootstrap 栅格的宽度分配 */
+  /* Logo: PC端约占 2份，菜单 7份，工具栏 3份 */
+}
+
+/* ==================================================
+   1. Logo 样式
+   ================================================== */
+.nav-logo {
+    flex-shrink: 0;
+}
+.logo-image {
+  max-height: 40px; /* 调整 Logo 大小 */
+}
+
+/* ==================================================
+   2. PC 端菜单样式 (.menu-pc)
+   ================================================== */
+.menu-pc {
+  flex-grow: 1; /* 占据中间大部分空间 */
+  display: flex;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.main-nav-group {
   position: relative;
+  padding: 0 15px;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.search-container:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+.main-nav-link {
+  display: block;
+  padding: 15px 0;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
-.navigation-bar-item {
-  color: black;
-  text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+.main-nav-link:hover, .main-nav-link.is-active {
+  color: #f10215; /* 模拟hover/active 颜色 */
+}
+
+/* 下拉菜单 */
+.sub-nav-group {
+  position: absolute;
+  top: 100%; /* 位于主菜单下方 */
+  left: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  border: 1px solid #eee;
+  min-width: 150px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none; /* 默认隐藏 */
+  z-index: 1010;
+}
+.sub-nav-group.is-open {
+    display: block; /* 鼠标悬停时显示 */
+}
+
+.sub-nav-link {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #666;
+}
+
+.sub-nav-link:hover {
+  background-color: #f5f5f5;
+  color: #f10215;
+}
+
+/* ==================================================
+   3. 工具栏样式 (.nav-toolbar)
+   ================================================== */
+
+.nav-toolbar {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* PC 端工具栏样式 */
+.tools-pc {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lang-switch img {
+    height: 20px;
+    cursor: pointer;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    width: 120px;
+}
+
+/* ==================================================
+   4. 移动端菜单和工具栏 (.menu-mobile / .tools-mobile)
+   ================================================== */
+.tools-mobile {
+  display: none; /* 默认在 PC 上隐藏 */
+  align-items: center;
+  gap: 15px;
+}
+
+.hamburger-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.mobile-lang-switch {
+    position: relative;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.mobile-lang-list {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    list-style: none;
+    padding: 5px 0;
+    margin-top: 5px;
+    z-index: 1020;
+}
+.mobile-lang-list li {
+    padding: 5px 10px;
+    white-space: nowrap;
+}
+
+
+/* 移动端展开的导航 (全屏或全宽) */
+.mobile-menu-overlay {
+    position: absolute;
+    top: 100%; /* 紧接在 header-content 下方 */
+    left: 0;
+    width: 100%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mobile-nav-link {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px dashed #eee;
+}
+
+.mobile-search-box {
+    width: 80%;
+    margin-top: 15px;
+    display: flex;
+}
+.mobile-search-box .search-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+.mobile-search-box .search-icon {
+    padding: 8px;
+    background-color: #f10215;
+    color: white;
+    cursor: pointer;
+}
+
+/* ==================================================
+   5. 响应式媒体查询 (切换 PC/Mobile 视图)
+   ================================================== */
+
+@media (max-width: 992px) {
+  /* 在平板和移动设备上隐藏 PC 菜单和工具 */
+  .menu-pc,
+  .tools-pc {
+    display: none !important;
+  }
+  
+  /* 在平板和移动设备上显示移动端工具 */
+  .tools-mobile {
+    display: flex;
+  }
+}
+
+@media (min-width: 993px) {
+  /* 在 PC 屏幕上显示 PC 菜单和工具 */
+  .menu-pc,
+  .tools-pc {
+    display: flex;
+  }
+  
+  /* 在 PC 屏幕上隐藏移动端工具 */
+  .tools-mobile {
+    display: none !important;
+  }
 }
 </style>

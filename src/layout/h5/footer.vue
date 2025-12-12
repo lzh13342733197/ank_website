@@ -8,7 +8,7 @@
           {{ 'Contact Details: ' }}
         </div>
         <div class="collapse-right">
-          {{ 'support@1mii.com' }}
+          {{ 'sales@ankbit.com' }}
         </div>
       </div>
     </div>

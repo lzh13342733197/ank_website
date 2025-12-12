@@ -30,7 +30,7 @@
         </span>
         <div class="info-text">
           <span class="label">{{ $t('contact.email') }}</span>
-          <span>Support@1Mii.com</span>
+          <span>sales@ankbit.com</span>
         </div>
       </div>
     </div>

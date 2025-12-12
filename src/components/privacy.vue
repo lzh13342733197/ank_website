@@ -226,7 +226,7 @@
         <h2>10. Contact Us</h2>
         <p>Should you have any questions about our privacy practices or this Privacy Policy, or if you would like to
           exercise any of the rights available to you, please email us at <span
-            style="text-decoration: underline;">Support@1Mii.com</span> or contact us at Chatham
+            style="text-decoration: underline;">sales@ankbit.com</span> or contact us at Chatham
 
           Road South, Room 803, Chevalier Building 45-51, Tsim Sha Tsu, KL, HK, or call <span
             style="text-decoration: underline;">+852-27896065</span></p>

@@ -19,7 +19,7 @@
     </div>
 
     <!-- 关于我们区块 -->
-    <div class="brief-information-block">
+    <!-- <div class="brief-information-block">
       <div class="brief-information-block-title">
         {{ eightLanguage.footer.aboutUs['en'] }}
       </div>
@@ -34,10 +34,10 @@
           {{ eightLanguage.footer.globalLayout['en'] }}
         </RouterLink>
       </div>
-    </div>
+    </div> -->
 
     <!-- 联系我们区块 -->
-    <div class="brief-information-block">
+    <!-- <div class="brief-information-block">
       <div class="brief-information-block-title">
         {{ eightLanguage.footer.contactUs['en'] }}
       </div>
@@ -46,7 +46,7 @@
           {{ eightLanguage.footer.contactUs['en'] }}
         </RouterLink>
       </div>
-    </div>
+    </div> -->
 
     <!-- 关注我们区块 -->
     <div class="brief-information-block">
@@ -84,8 +84,7 @@ import router from '@/router';
 .brief-introduction-container {
   display: flex;
   align-items: flex-start;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-between;
   font-family:
     SF Pro Text,
     SF Pro Icons,
@@ -96,7 +95,6 @@ import router from '@/router';
 }
 
 .brief-information-block {
-  flex: 1;
   min-width: 0;
   padding: 10px 0;
   display: flex;
@@ -121,7 +119,6 @@ import router from '@/router';
 }
 
 .brief-information-block-content-item {
-  cursor: pointer;
   background-color: transparent;
   border: none;
   font-size: 12px;
