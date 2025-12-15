@@ -70,24 +70,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router' // 引入 useRoute
 
 // ---------------------------
 // 响应式数据
 // ---------------------------
 
-// 菜单数据 (根据你提供的 HTML 结构简化)
+// 菜单数据 (保持不变)
 const menus = ref([
-  { id: 1, name: '首页', url: '/cn/', isActive: true },
-  { id: 2, name: '关于我们', url: 'AboutUs', isActive: false, 
+  { id: 1, name: '首页', url: '/pc/home', isActive: true },
+  { id: 2, name: '关于我们', url: '/pc/AboutUs', isActive: false, 
     children: [
-      { name: '公司简介', url: '/Content/505034.html' },
+      { name: '公司简介', url: '/pc/AboutUs' },
       { name: '愿景与使命', url: '/Content/505035.html' },
       // ... 更多子菜单
     ] 
   },
-  { id: 3, name: '产品中心', url: '/cn/Content/504099.html', isActive: false },
-  { id: 4, name: '新闻动态', url: 'NewsList', isActive: false },
+  { id: 3, name: '产品中心', url: '/pc/ProductCenter', isActive: false },
+  { id: 4, name: '新闻动态', url: '/pc/NewsList', isActive: false },
   { id: 5, name: '加入我们', url: '/cn/Content/504533.html', isActive: false },
   { id: 6, name: '联系我们', url: '/Content/504101.html', isActive: false,
     children: [
@@ -108,9 +109,52 @@ const isMobileLangOpen = ref(false)
 const currentLang = ref('中文')
 
 // ---------------------------
-// 方法
+// 新增：路由相关逻辑
 // ---------------------------
 
+const route = useRoute()
+
+// 匹配并设置激活状态的函数
+const updateMenuActivation = (currentPath: string) => {
+    // 遍历所有一级菜单
+    menus.value.forEach(menu => {
+        // 核心逻辑：判断菜单的 url 是否与当前路由路径匹配
+        // 注意：这里需要根据你实际的路由配置和菜单 URL 结构进行调整
+        // 例如：使用 startsWith() 来匹配嵌套路由，或者进行精确匹配
+
+        // 示例：精确匹配 (对于首页或没有子菜单的页面)
+        let isMatch = menu.url === currentPath;
+
+        // 示例：包含子菜单的情况，需要检查子菜单的 URL
+        if (!isMatch && menu.children) {
+            // 检查子菜单的 URL 是否与当前路径匹配
+            isMatch = menu.children.some(child => child.url === currentPath);
+        }
+        
+        // 示例：如果你的菜单 URL 只是一个前缀（如 /pc/ProductCenter），而实际路由是 /pc/ProductCenter/detail/123
+        // 你可能需要使用 currentPath.startsWith(menu.url)
+        // 但根据你提供的菜单URL，这里使用精确匹配或子菜单匹配更合适。
+
+        menu.isActive = isMatch;
+    })
+}
+
+// 1. 首次加载时调用
+updateMenuActivation(route.path)
+
+// 2. 监听路由变化，动态更新状态
+// 当路由对象发生变化时，重新调用激活函数
+watch(
+    () => route.path,
+    (newPath) => {
+        updateMenuActivation(newPath);
+    },
+    { immediate: true } // 确保组件初始化时也会执行一次
+)
+
+// ---------------------------
+// 现有方法 (保持不变)
+// ---------------------------
 const openSubMenu = (id: number) => {
   activeSubMenuId.value = id
 }
@@ -130,9 +174,8 @@ const toggleMobileLang = () => {
 const setLang = (lang: string) => {
     currentLang.value = lang
     isMobileLangOpen.value = false
-    // 实际应用中：此处应执行语言切换逻辑，如修改 URL 或 Store 状态
+    // 实际应用中：此处应执行语言切换逻辑
 }
-
 </script>
 
 <style scoped>
@@ -169,7 +212,9 @@ const setLang = (lang: string) => {
     flex-shrink: 0;
 }
 .logo-image {
-  max-height: 40px; /* 调整 Logo 大小 */
+ max-height: 40px; /* 您已设置 */
+  height: 40px; /* 显式设置高度 */
+  width: auto; /* 保持等比例 */
 }
 
 /* ==================================================
@@ -251,7 +296,8 @@ const setLang = (lang: string) => {
 }
 
 .lang-switch img {
-    height: 20px;
+    height: 20px; /* 您已设置 */
+    width: 20px; /* 显式设置宽度 */
     cursor: pointer;
 }
 

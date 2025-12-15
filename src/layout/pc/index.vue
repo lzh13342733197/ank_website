@@ -79,4 +79,10 @@ const jumpToCategory = async (id: string) => {
 
   .NavigationBarMobile {}
 }
+
+</style>
+<style>
+  ::deep(.el-popup-parent--hidden) {
+  width: 100%;
+}
 </style>

@@ -1,62 +1,30 @@
 <template>
-  <!-- <div style="
-      margin: 60px 200px;
-      transform: translateX(-20px);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    ">
-    <div style="font-size: 38px; font-weight: 600; line-height: 1.125;white-space: nowrap;">{{ homdic?.homeTitle
-      || eightLanguage.websiteTitle.title['en'] }}</div>
-    <div style="font-size: 32px; color: #6e6e73; font-weight: 600; line-height: 1.125 ;white-space: nowrap;">{{
-      homdic?.homeSubTitle ||
-      eightLanguage.websiteTitle.subTitle['en'] }}</div>
-    <div style="display: flex; gap: 60px; margin: 40px 0">
-      <div v-for="item in categoryList" @click="jumpToCategory(item.id)" :key="item.id" style="
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          border-radius: 10px;
-          cursor: pointer;
-          /* border: 1px solid #e5e5e5; */
-        ">
-        <img :src="item.imageUrl" alt="logo" style="width: 140px; height: 140px; border-radius: 14px" />
-        <div style="
-            font-size: 14px;
-            color: #1d1d20;
-            font-weight: 600;   
-            line-height: 1;
-            text-align: center;
-            width: 140px;
-          ">
-          {{ item.name }}
-        </div>
-      </div>
-    </div>
-  </div> -->
-  <!-- <PosterBanner /> -->
   <SwiperModule :images="slideData" class="swiperModule_" />
   <SkeletonComponent :loading="loading" />
-  <ProductShowcase :products="productList" />
-  <AboutUsModule />
-  <NewsSlider />
-  <partner />
+  <div style="max-width: 1600px; margin: 0 auto;">
+      <div v-if="!loading" class="card-wrap-container" style="display: flex; gap: 40px;">
+    <div class="leftOption">
+      <production-option :category-list="categoryList" @changeOption="handleChangeOption"/>
+    </div>
+   <div class="rightProduction">
+     <div v-for="item in categoryList" :key="item.id">
+      <card-peek-list ref="cardPeekListRef" v-if="item.id === activeId" :id="item.id" :title="item.name"
+        :card-list="item.productSpuList" />
+    </div>
+   </div>
+  </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import cardPeekList from './card-peek-list.vue'
-import { useTemplateRef, onMounted, ref, computed, nextTick } from 'vue'
+import { useTemplateRef, onMounted, ref} from 'vue'
 import { useFetchWithLanguage } from '@/utils/http'
 import SkeletonComponent from '@/components/skeleton-component.vue'
 import { useLanguageStore } from '@/stores/language'
-import PosterBanner from '@/layout/pc/posterBanner_copy.vue'
-import eightLanguage from '@/constants/language'
 import { useRoute } from 'vue-router'
 import productionOption from '@/layout/pc/components/productionOption.vue'
 import SwiperModule from '@/layout/pc/components/SwiperModule.vue'
-import ProductShowcase from '@/layout/pc/ProductShowcase.vue'
-import AboutUsModule from '@/layout/pc/components/AboutUsModule.vue'
-import NewsSlider from '@/layout/pc/components/NewsSlider.vue'
 import partner from '@/layout/pc/components/partner.vue'
 
 const route = useRoute()
@@ -72,61 +40,14 @@ const getImageUrl = (item: any) => {
   return `/1mii.png`
 }
 const slideData = [
-  {
-    src: '//img.wds168.cn/comdata/83627/202410/20241023113633996389.jpg',
-    url: '/cn/ProductDetail/123.html',
-    alt: 'Slide 1'
-  },
-  {
-    src: '//img.wds168.cn/comdata/83627/202305/20230505152811565d19.jpg',
-    url: '/cn/ProductDetail/456.html',
-    alt: 'Slide 2'
-  },
-  {
-    src: '//img.wds168.cn/comdata/83627/202212/202212311105406851b3.jpg',
+  { 
+    src: '//img.wds168.cn/comdata/83627/202212/202212311105406851b3.jpg', 
     url: '', // 没有链接
-    alt: 'Slide 3'
+    alt: 'Slide 3' 
   },
-
+  
 ]
-const productList = ref([
-  {
-    id: 1,
-    name: "主动降噪蓝牙耳机 NB-1092",
-    imageUrl: "//img.wds168.cn/comdata/83627/product/20241023114758D3E5F06E231A69AB_s.jpg",
-    link: "/cn/ProductDetail/4875130.html"
-  },
-  {
-    id: 2,
-    name: "多媒体蓝牙耳机 BEM-1100",
-    imageUrl: "//img.wds168.cn/comdata/83627/product/20210219095054AF5724D15301E86C_s.jpg",
-    link: "/cn/ProductDetail/4801155.html"
-  },
-  {
-    id: 3,
-    name: "真无线蓝牙耳机 T20",
-    imageUrl: "//img.wds168.cn/comdata/83627/product/20210608171919E3E5AC7C20637A1A_s.jpg",
-    link: "/cn/ProductDetail/5214554.html"
-  },
-  {
-    id: 4,
-    name: "高性能麦克风 M-630",
-    imageUrl: "//img.wds168.cn/comdata/83627/product/2021082310255599B1BE4B43C62E1D_s.jpg",
-    link: "/cn/ProductDetail/5453615.html"
-  },
-  {
-    id: 5,
-    name: "便携式蓝牙音箱 BT-360",
-    imageUrl: "//img.wds168.cn/comdata/83627/product/202110191549120165FA7100140E46_s.jpg",
-    link: "/cn/ProductDetail/5292943.html"
-  },
-  {
-    id: 6,
-    name: "蓝牙运动耳机 W22",
-    imageUrl: "//img.wds168.cn/comdata/83627/product/202107061038324E83B064203CD75F_s.jpg",
-    link: "/cn/ProductDetail/5293033.html"
-  }
-]);
+
 const loading = ref(true)
 const activeId = ref('')
 
@@ -149,7 +70,7 @@ const homInit = async () => {
   if (pendingPromise) {
     console.log('等待当前数据加载完成...')
     await pendingPromise
-    return categoryList.value // 返回已加载的数据
+    return categoryList.value 
   }
 
   if (isLoadingData.value) return
@@ -237,28 +158,25 @@ defineExpose({
 
 
 <style scoped>
-.swiperModule_ {
-  margin-bottom: 40px;
-}
-
+  .swiperModule_{
+    margin-bottom: 40px;
+  }
 .card-wrap-container {
   width: 100%;
 }
-
 @media (max-width: 1355px) {
   .card-wrap-container {
     flex-direction: column;
   }
-
-  .leftOption {
-    display: flex;
-    justify-content: center;
-  }
+  .leftOption{
+  display: flex;
+  justify-content: center;
 }
-
+}
 @media (min-width: 1355px) {
   .card-wrap-container {
     flex-direction: row;
   }
 }
+
 </style>

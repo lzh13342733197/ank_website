@@ -5,7 +5,7 @@
 
         <div class="module-item module-title">
           <div class="title-container clearfix">
-            <div class="BodyCenter title-center-content clearfix">
+            <div class="BodyCenter  clearfix">
               <div class="text-content">
                 <p class="main-title">{{ props.titleMain }}</p>
                 <p class="sub-title">{{ props.titleSub }}</p>
@@ -204,17 +204,56 @@ const props = defineProps({
     text-align: center;
 }
 .moduleButton {
+    /* 必须设置为 relative，以便绝对定位的伪元素以它为基准 */
+    position: relative; 
+    
     display: inline-block;
     padding: 10px 30px;
-    background-color: #333;
+    background-color: #333; /* 默认背景色 */
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
-    width: 160px
+    width: 160px;
+    
+    /* 确保内部文本在伪元素之上，而不是被覆盖 */
+    z-index: 1; 
+    /* 确保溢出的伪元素不会被看到 */
+    overflow: hidden; 
+    
+    /* 添加平滑过渡，确保 color 变化不会太突兀 */
+    transition: color 0.4s ease; 
 }
-.moduleButton:hover{
-    background-color: #555;
-    animation: backgroundColorChange 1s linear;
+
+/* ==================================================
+   伪元素 (实现从左到右的填充效果)
+   ================================================== */
+.moduleButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #555; /* 悬停时的背景色 */
+    border-radius: 4px; /* 保持与按钮一致的圆角 */
+    z-index: -1; /* 将填充色放在按钮文本下方 */
+    
+    /* 核心动画设置：默认将 X 轴缩放为 0 */
+    transform: scaleX(0); 
+    
+    /* 设置缩放的原点在左侧，这样它就会从左向右展开 */
+    transform-origin: left; 
+    
+    /* 设置动画过渡时间 */
+    transition: transform 0.25s linear; /* 0.6秒完成填充 */
+}
+
+/* ==================================================
+   悬停状态
+   ================================================== */
+.moduleButton:hover::before {
+    /* 悬停时，将 X 轴缩放为 1 (100% 宽度)，实现填充 */
+    transform: scaleX(1); 
 }
 
 /* --- 视频模块样式 --- */

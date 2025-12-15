@@ -1,4 +1,6 @@
 <template>
+  <SwiperModule :images="slideData" class="swiperModule_" />
+
   <div class="news-list-container">
     <div class="main-content-grid">
       
@@ -63,7 +65,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
-
+import SwiperModule from '@/layout/pc/components/SwiperModule.vue'
 // --- 状态和数据 ---
 const newsData = [
   { id: 1, date: '06-27', title: '2022年6月深圳国际礼品展', url: '/cn/NewsDetail/3339327.html', imageUrl: '//img.wds168.cn/comdata/83627/202206/20220627102336cdc434.jpg', description: '展览会新闻详情概要...', isTop: true, isRecommended: true, categoryId: 1 },
@@ -73,7 +75,13 @@ const newsData = [
   { id: 5, date: '07-22', title: '2021新款挂脖耳机', url: '/cn/NewsDetail/2743523.html', imageUrl: '//img.wds168.cn/comdata/83627/202107/20210722103853ff97d0.jpg', description: '新产品发布介绍...', isTop: false, isRecommended: true, categoryId: 3 },
   { id: 6, date: '04-30', title: '2021.4月广交会', url: '/cn/NewsDetail/2593608.html', imageUrl: '//img.wds168.cn/comdata/84470/202104/20210430092526c5f855.jpg', description: '参加广交会信息...', isTop: false, isRecommended: false, categoryId: 1 },
 ];
-
+const slideData = [
+  { 
+    src: '//img.wds168.cn/comdata/83627/202212/202212311105406851b3.jpg', 
+    url: '', // 没有链接
+    alt: 'Slide 3' 
+  },
+]
 const categories = [
   { id: 0, name: '全部' },
   { id: 1, name: '展会活动' },

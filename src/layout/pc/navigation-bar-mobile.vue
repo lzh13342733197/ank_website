@@ -246,4 +246,12 @@ language.addRequest(fetchCategoryList)
   color: #1890ff;
   transform: translateX(5px);
 }
+
+
+</style>
+<style>
+.el-popup-parent--hidden {
+    padding-right: 0px !important;
+    overflow: hidden !important;
+}
 </style>

@@ -91,7 +91,7 @@ const props = defineProps({
 
 /* 标题样式 */
 .ModuleImageTextContent {
-  padding: 30px 0; /* 示例填充 */
+  /* padding: 30px 0;  */
 }
 
 /* 商品列表样式 */

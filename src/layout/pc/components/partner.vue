@@ -2,36 +2,88 @@
   <section class="partner-section">
     <h2 class="partner-title">合作伙伴</h2>
     <div class="partner-list">
-      <div class="partner-item" v-for="item in partners" :key="item.id">
-        <img :src="item.logo" :alt="item.name" class="partner-logo" />
+      <div class="partner-item" v-for="item in visiblePartners" :key="item.id">
+        <img :src="item.logo" :alt="item.name" :title="item.name" class="partner-logo" />
       </div>
     </div>
+
+    <div v-if="showToggleButton && !isExpanded" class="partner-toggle-wrapper">
+      <button @click="toggleExpanded" class="partner-toggle-btn">
+        {{ isExpanded ? 'less ▲' : 'more ▼' }}
+      </button>
+    </div>
+
   </section>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
-// 合作伙伴数据（实际项目中可替换为接口请求）
+// 合作伙伴数据
 const partners = ref([
-  { id: 1, name: '华硕', logo: 'https://picsum.photos/seed/pioneer/120/40' }, // 示例logo地址，可替换为实际图片链接
-  { id: 2, name: 'Midland', logo: 'https://picsum.photos/seed/midland/120/40' },
-  { id: 3, name: 'PDP', logo: 'https://picsum.photos/seed/pdp/120/40' },
-  { id: 4, name: '华米科技', logo: 'https://picsum.photos/seed/huami/120/40' },
-  { id: 5, name: '先锋', logo: 'https://picsum.photos/seed/pioneer/120/40' }
+  { id: 1, name: 'amazon', logo: '/src/assets/images/partner/图片1.png' },
+  { id: 2, name: 'MONDIAL', logo: '/src/assets/images/partner/图片2.png' },
+  { id: 3, name: 'aiwa', logo: '/src/assets/images/partner/图片3.png' },
+  { id: 4, name: 'Walmart', logo: '/src/assets/images/partner/图片4.png' },
+  { id: 5, name: 'ebay', logo: '/src/assets/images/partner/图片5.png' },
+  { id: 6, name: 'Qualcomm', logo: '/src/assets/images/partner/图片6.png' },
+  { id: 7, name: 'BROADCOM', logo: '/src/assets/images/partner/图片7.png' },
+  { id: 8, name: 'AIROHA', logo: '/src/assets/images/partner/图片8.png' },
+  { id: 9, name: 'ZOWIE', logo: '/src/assets/images/partner/图片9.png' }, // 默认显示到第9个
+  { id: 10, name: 'Spreetail', logo: '/src/assets/images/partner/图片10.png' },
+  { id: 11, name: 'REALTEK', logo: '/src/assets/images/partner/图片11.png' },
+  { id: 12, name: 'BES', logo: '/src/assets/images/partner/图片12.png' },
+  { id: 13, name: 'Actions', logo: '/src/assets/images/partner/图片13.png' },
+  { id: 14, name: 'PAI', logo: '/src/assets/images/partner/图片14.png' },
+  { id: 15, name: 'INPLAY', logo: '/src/assets/images/partner/图片15.png' },
+  { id: 16, name: 'KTMicro', logo: '/src/assets/images/partner/图片16.png' },
+  { id: 17, name: '京东', logo: '/src/assets/images/partner/图片17.png' },
+  { id: 18, name: '百瑞互联（BARROT）', logo: '/src/assets/images/partner/图片18.png' },
+  { id: 19, name: 'FEIE（飞鹅）', logo: '/src/assets/images/partner/图片19.png' }
 ])
+
+// 默认显示的 Logo 数量 (手机端默认 3行 * 3个/行 = 9个)
+const defaultVisibleCount = 7;
+
+// 状态：是否展开全部
+const isExpanded = ref(false);
+
+// 计算属性：当前应该显示的 Logo 列表
+const visiblePartners = computed(() => {
+  // 只有在非展开状态下，才截取前 defaultVisibleCount 个
+  if (!isExpanded.value) {
+    return partners.value.slice(0, defaultVisibleCount);
+  }
+  // 展开状态下显示全部
+  return partners.value;
+});
+
+// 方法：切换显示状态
+const toggleExpanded = () => {
+  isExpanded.value = !isExpanded.value;
+};
+
+// 计算属性：是否需要显示“显示更多”按钮
+const showToggleButton = computed(() => {
+  return partners.value.length > defaultVisibleCount;
+});
 </script>
 
 <style scoped>
+/* ==================================================
+ 默认样式 (适用于桌面端和 1200px 以上的设备)
+ ================================================== */
 .partner-section {
-  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
   text-align: center;
 }
 
 .partner-title {
   font-size: 1.8rem;
   color: #333;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .partner-list {
@@ -43,11 +95,93 @@ const partners = ref([
 }
 
 .partner-item {
+  flex: 0 0 auto;
   padding: 0.5rem;
 }
 
 .partner-logo {
-  height: 40px; /* 统一logo高度 */
+  max-width: 120px;
+  height: auto;
+  /* 确保 Logo 高度自适应 */
   object-fit: contain;
+  cursor: pointer;
+}
+
+/* ==================================================
+   新增：切换按钮的样式
+   ================================================== */
+.partner-toggle-wrapper {
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+.partner-toggle-btn {
+  padding: 8px 15px;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  color: #666;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.partner-toggle-btn:hover {
+  border-color: #f10215;
+  color: #f10215;
+}
+
+
+/* ==================================================
+ 媒体查询适配：小于等于 1200px (Tablet/Mid-size PC)
+ ================================================== */
+@media (max-width: 1200px) {
+  .partner-section {
+    padding: 2rem 1rem;
+  }
+
+  .partner-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .partner-list {
+    gap: 1rem;
+  }
+
+  .partner-item {
+    /* 每行大约 5 个 */
+    flex-basis: calc(20% - 1.5rem);
+  }
+
+  .partner-logo {
+    max-width: 100px;
+  }
+}
+
+
+/* ==================================================
+ 媒体查询适配：小于等于 768px (Mobile/Small Tablet)
+ ================================================== */
+@media (max-width: 768px) {
+  .partner-item {
+    /* 每行大约 3 个 */
+    flex-basis: calc(33.33% - 1rem);
+  }
+
+  .partner-logo {
+    height: 25px;
+    max-width: 80px;
+  }
+}
+
+/* ==================================================
+ 媒体查询适配：小于等于 480px (Small Mobile)
+ ================================================== */
+@media (max-width: 480px) {
+  .partner-item {
+    /* 每行大约 2 个 */
+    flex-basis: calc(50% - 0.5rem);
+  }
 }
 </style>

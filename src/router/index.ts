@@ -94,6 +94,10 @@ const router = createRouter({
           path: 'NewsList',
           component: () => import('../layout/pc/NewsList.vue'),
         },
+        {
+          path: 'ProductCenter',
+          component: () => import('../layout/pc/ProductCenter.vue'),
+        },
       ],
     },
     {
