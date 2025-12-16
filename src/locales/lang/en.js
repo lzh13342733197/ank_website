@@ -47,15 +47,15 @@ export default {
     title: 'Research & Development',
     teamIntro: 'Team Introduction',
     teamDesc1:
-      '1Mii Acoustic Technology Co., Ltd. has spent years building a large-scale and strong R&D center. It has built a professional and innovative scientific research team composed of undergraduate, master and doctoral degree researchers, including professional acoustic doctors with many years of industry R&D experience, leaders in the field of wireless audio, various designers, software and hardware engineers.',
+      'Shenzhen Ankbit Electronics Limited has spent years building a large-scale and strong R&D center. It has built a professional and innovative scientific research team composed of undergraduate, master and doctoral degree researchers, including professional acoustic doctors with many years of industry R&D experience, leaders in the field of wireless audio, various designers, software and hardware engineers.',
     teamDesc2:
-      "A comprehensive innovation center with up to 200 people guarantees 1Mii's high-quality products.",
+      "A comprehensive innovation center with up to 200 people guarantees Ankbit's high-quality products.",
     teamDesc3:
       "Over the years, relying on the company's strong strength, its own innovative R&D capabilities and in-depth quality philosophy,",
     teamDesc4:
-      '1Mii has formed a high-tech enterprise with a complete industrial chain, independent innovation capabilities, and integrated R&D, production and sales in the industry.',
+      'Ankbit has formed a high-tech enterprise with a complete industrial chain, independent innovation capabilities, and integrated R&D, production and sales in the industry.',
     teamDesc5:
-      'Under the guidance of the grand strategic layout of the board of directors and the management committee, 1Mii people are sailing towards the stars and seas belonging to all employees.',
+      'Under the guidance of the grand strategic layout of the board of directors and the management committee, Ankbit are sailing towards the stars and seas belonging to all employees.',
     stats: {
       designers: 'Designers',
       engineers: 'Software & Hardware Engineers',

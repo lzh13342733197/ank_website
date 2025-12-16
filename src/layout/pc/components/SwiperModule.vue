@@ -56,7 +56,7 @@ const props = defineProps<{
 // 轮播图配置选项
 const swiperOptions = {
   // === 核心调整：增加过渡速度，动画更柔和 ===
-  speed: 800, // 切换时间设置为 800 毫秒
+  speed: 1500, // 切换时间设置为 800 毫秒
   // ===================================
 
   autoplay: {
@@ -80,6 +80,7 @@ const swiperOptions = {
    ================================================== */
 .swiper-module-container {
   margin: 0 auto;
+  height: auto;
   position: relative;
   overflow: hidden;
   /* PC/默认: 使用 aspect-ratio 确保高度跟随宽度变化，这里设为 16:5 的宽幅比例 */
@@ -88,7 +89,7 @@ const swiperOptions = {
 
 .mySwiper {
   width: 100%;
-  height: 100%;
+  height: auto;
   /* 继承自父容器的 aspect-ratio 计算高度 */
 }
 
@@ -99,15 +100,15 @@ const swiperOptions = {
 .slide-image-wrapper {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   overflow: hidden;
 }
 
 .swiper-image {
   width: 100%;
-  height: 100%;
-  /* 确保图片填充整个容器，可能会裁剪边缘，保证轮播图没有黑边 */
   object-fit: cover;
+  height: auto;
+  /* 确保图片填充整个容器，可能会裁剪边缘，保证轮播图没有黑边 */
   display: block;
 }
 
@@ -159,7 +160,7 @@ const swiperOptions = {
 
   /* 移动端使用更高的宽高比，例如 16:9，使图片在手机上更高 */
   .swiper-module-container {
-    aspect-ratio: 16 / 9;
+    /* aspect-ratio: 16 / 9; */
   }
 
   /* 缩小移动端箭头的大小 */

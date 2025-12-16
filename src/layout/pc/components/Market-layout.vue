@@ -80,7 +80,7 @@ const cardIntroductionNumber = ref([
 
 .market-layout-content {
   text-align: center;
-  font-size: 1vw;
+  font-size: 1.5vw;
   height: 10vw;
   display: flex;
   justify-content: center;

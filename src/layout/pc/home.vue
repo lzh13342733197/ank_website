@@ -73,21 +73,30 @@ const getImageUrl = (item: any) => {
 }
 const slideData = [
   {
-    src: '//img.wds168.cn/comdata/83627/202410/20241023113633996389.jpg',
+    src: '/src/assets/images/home/banner1.png',
     url: '/cn/ProductDetail/123.html',
     alt: 'Slide 1'
   },
   {
-    src: '//img.wds168.cn/comdata/83627/202305/20230505152811565d19.jpg',
+    src: '/src/assets/images/home/banner2.png',
     url: '/cn/ProductDetail/456.html',
     alt: 'Slide 2'
   },
   {
-    src: '//img.wds168.cn/comdata/83627/202212/202212311105406851b3.jpg',
+    src: '/src/assets/images/home/banner3.png',
     url: '', // 没有链接
     alt: 'Slide 3'
   },
-
+  {
+    src: '/src/assets/images/home/banner4.png',
+    url: '', // 没有链接
+    alt: 'Slide 3'
+  },
+  {
+    src: '/src/assets/images/home/banner5.png',
+    url: '', // 没有链接
+    alt: 'Slide 3'
+  },
 ]
 const productList = ref([
   {

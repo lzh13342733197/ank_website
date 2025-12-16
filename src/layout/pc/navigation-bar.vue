@@ -4,7 +4,7 @@
 
       <div class="nav-item nav-logo">
         <a href="/cn/" class="logo-link">
-          <img src="//img.wds168.cn/comdata/84470/202108/20210809163100fa244f.png" alt="Company Logo" class="logo-image">
+          <img src="/ankbit.png" alt="Company Logo" class="logo-image">
         </a>
       </div>
 
@@ -212,8 +212,8 @@ const setLang = (lang: string) => {
     flex-shrink: 0;
 }
 .logo-image {
- max-height: 40px; /* 您已设置 */
-  height: 40px; /* 显式设置高度 */
+ max-height: 60px; /* 您已设置 */
+  height: 60px; /* 显式设置高度 */
   width: auto; /* 保持等比例 */
 }
 
@@ -244,7 +244,7 @@ const setLang = (lang: string) => {
 }
 
 .main-nav-link:hover, .main-nav-link.is-active {
-  color: #f10215; /* 模拟hover/active 颜色 */
+  color: #0095d7; /* 模拟hover/active 颜色 */
 }
 
 /* 下拉菜单 */
@@ -294,10 +294,12 @@ const setLang = (lang: string) => {
     align-items: center;
     gap: 10px;
 }
-
+.lang-switch{
+  width: 80px;
+}
 .lang-switch img {
-    height: 20px; /* 您已设置 */
-    width: 20px; /* 显式设置宽度 */
+    height: 30px; /* 您已设置 */
+    width: 40px; /* 显式设置宽度 */
     cursor: pointer;
 }
 

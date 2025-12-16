@@ -3,8 +3,8 @@
     <div class="navigation_top" >
       <div class="hamburger-icon" @click="drawer = true">☰</div>
       <div class="navigation_top_logo">
-        <router-link to="/" target="_self" class="privacy-policy"> <img src="@/assets/images/1mii.png" alt="logo"
-            style="height: 40px" />
+        <router-link to="/" target="_self" class="privacy-policy"> <img src="/ankbit.png" alt="logo"
+            style="height: 50px" />
         </router-link>
       </div>
       <div>
@@ -16,29 +16,15 @@
       </div>
     </div>
     <div :class="styles.navigationBarWrapper" style="width: 100%;">
-      <!-- <div :class="[styles.navigationBarItemList, { expanded: isSearchExpanded }]" :style="expandedStyle">
-        <div :class="styles.navigationBarItem" style="cursor: pointer" @click="jumpTo(router, '/', {})">
-          <img src="@/assets/images/1mii.png" alt="logo" style="height: 40px" />
-        </div>
-        <div @click="handleClick(item.id)" :class="styles.navigationBarItem" v-for="item in categoryList" :key="item.id"
-          class="navigation-bar-item">
-          {{ item.name }}
-        </div>
-
-        <div :class="[styles.navigationBarItem, 'search-container']" @click="toggleSearch"
-          style="color: black; text-shadow: -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white;">
-          <SvgIcon :name="`search`" size="20" color="black" style="filter: drop-shadow(0 0 1px white); ">
-          </SvgIcon>
-        </div>
-      </div> -->
-
       <SearchModal :is-visible="isSearchExpanded" @close="closeSearch" @select="handleSearchSelect"
         @open="isSearchExpanded = true" />
       <el-drawer v-model="drawer" direction="ltr" resizable size="300px" :show-close="false">
         <div class="drawer-menu">
           <ul class="menu-list">
-            <li v-for="item in categoryList" :key="item.id" class="menu-item" @click="handleMenuItemClick(item.id)">
-              {{ item.name }}
+            <li v-for="item in menus" :key="item.id" class="menu-item" @click="handleMenuItemClick(item.id)">
+               <a :href="item.url" class="main-nav-link" :class="{ 'is-active': item.isActive }">
+            {{ item.name }}
+           </a>
             </li>
           </ul>
         </div>
@@ -49,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, nextTick } from 'vue'
+import { ref, onMounted, computed, nextTick, watch } from 'vue'
 import { useFetchWithLanguage } from '@/utils/http'
 import styles from './pc.module.less'
 import SvgIcon from '@/components/SvgIcon.vue'
@@ -70,6 +56,28 @@ const categoryList = ref<any[]>([])
 const isSearchExpanded = ref(false)
 
 const emit = defineEmits(['jumpToCategory'])
+
+
+const menus = ref([
+  { id: 1, name: '首页', url: '/pc/home', isActive: true },
+  { id: 2, name: '关于我们', url: '/pc/AboutUs', isActive: false, 
+    children: [
+      { name: '公司简介', url: '/pc/AboutUs' },
+      { name: '愿景与使命', url: '/pc/patent' },
+      // ... 更多子菜单
+    ] 
+  },
+  { id: 3, name: '产品中心', url: '/pc/ProductCenter', isActive: false },
+  { id: 4, name: '新闻动态', url: '/pc/NewsList', isActive: false },
+  { id: 5, name: '加入我们', url: '/pc/JoinUs', isActive: false },
+  { id: 6, name: '联系我们', url: '/pc/ContactUs', isActive: false,
+    children: [
+      { name: '联系方式', url: '/pc/ContactUs' },
+      { name: '在线留言', url: '/pc/ContactUs' },
+    ]
+  },
+])
+
 const handleClick = (id: string) => {
   if (route.path === '/pc/home') {
     emit('jumpToCategory', id)
@@ -149,6 +157,44 @@ const fetchCategoryList = async () => {
 onMounted(fetchCategoryList)
 
 language.addRequest(fetchCategoryList)
+
+const updateMenuActivation = (currentPath: string) => {
+    // 遍历所有一级菜单
+    menus.value.forEach(menu => {
+        // 核心逻辑：判断菜单的 url 是否与当前路由路径匹配
+        // 注意：这里需要根据你实际的路由配置和菜单 URL 结构进行调整
+        // 例如：使用 startsWith() 来匹配嵌套路由，或者进行精确匹配
+
+        // 示例：精确匹配 (对于首页或没有子菜单的页面)
+        let isMatch = menu.url === currentPath;
+
+        // 示例：包含子菜单的情况，需要检查子菜单的 URL
+        if (!isMatch && menu.children) {
+            // 检查子菜单的 URL 是否与当前路径匹配
+            isMatch = menu.children.some(child => child.url === currentPath);
+        }
+        
+        // 示例：如果你的菜单 URL 只是一个前缀（如 /pc/ProductCenter），而实际路由是 /pc/ProductCenter/detail/123
+        // 你可能需要使用 currentPath.startsWith(menu.url)
+        // 但根据你提供的菜单URL，这里使用精确匹配或子菜单匹配更合适。
+
+        menu.isActive = isMatch;
+    })
+}
+
+// 1. 首次加载时调用
+updateMenuActivation(route.path)
+
+// 2. 监听路由变化，动态更新状态
+// 当路由对象发生变化时，重新调用激活函数
+watch(
+    () => route.path,
+    (newPath) => {
+        updateMenuActivation(newPath);
+    },
+    { immediate: true } // 确保组件初始化时也会执行一次
+)
+
 </script>
 
 <style scoped>
@@ -240,7 +286,21 @@ language.addRequest(fetchCategoryList)
   cursor: pointer;
   font-size: 16px;
   transition: all 0.3s ease;
+  
 }
+.main-nav-link {
+  white-space: nowrap;
+  display: block;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.main-nav-link:hover, .main-nav-link.is-active {
+  color: #0095d7; /* 模拟hover/active 颜色 */
+}
+
 
 .menu-item:hover {
   color: #1890ff;
