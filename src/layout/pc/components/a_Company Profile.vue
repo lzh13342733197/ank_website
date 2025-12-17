@@ -210,7 +210,7 @@ const currentTitle = computed(() => {
 
 .main-class-item:hover a,
 .main-class-item.active a {
-  color: #e74c3c;
+  color: #0095d7;
   padding-left: 10px;
 }
 
@@ -221,7 +221,7 @@ const currentTitle = computed(() => {
 }
 
 .main-class-item.active .main-class-icon {
-  color: #e74c3c;
+  color: #0095d7;
 }
 
 /* --- 移动端折叠菜单样式 --- */

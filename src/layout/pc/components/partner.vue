@@ -139,8 +139,8 @@ const showToggleButton = computed(() => {
 }
 
 .partner-toggle-btn:hover {
-  border-color: #f10215;
-  color: #f10215;
+  border-color: #0095d7;
+  color: #0095d7;
 }
 
 

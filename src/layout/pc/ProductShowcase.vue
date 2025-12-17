@@ -192,7 +192,7 @@ const props = defineProps({
 .pro-btn {
   margin-top: 10px;
   text-align: right;
-  color: #c00; /* 示例颜色 */
+  color: #0095d7; /* 示例颜色 */
   font-size: 12px;
 }
 

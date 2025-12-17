@@ -251,7 +251,7 @@ const handleSubmit = () => {
 }
 
 .error-msg {
-  color: #e74c3c;
+  color: #0095d7;
   margin: 0;
   font-size: 14px;
 }

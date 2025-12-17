@@ -309,7 +309,7 @@ const closeLightbox = () => {
 
 /* 其他内容和排版样式（与原版本一致） */
 .class-title {
-  border-bottom: 2px solid #0056b3;
+  border-bottom: 2px solid #0095D7;
   padding-bottom: 10px;
   margin-bottom: 15px;
   display: flex;
@@ -334,7 +334,7 @@ const closeLightbox = () => {
 
 .one-classify li:hover,
 .one-classify li.active {
-  color: #0056b3;
+  color: #0095D7;
   font-weight: bold;
 }
 
@@ -347,7 +347,7 @@ const closeLightbox = () => {
   display: block;
   font-size: 24px;
   font-weight: bold;
-  color: #0056b3;
+  color: #0095D7;
 }
 
 .news-title {

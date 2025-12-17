@@ -306,7 +306,7 @@ const currentTitle = computed(() => {
 }
 
 .main-class-item.active .main-class-icon {
-  color: #e74c3c;
+  color: #0095d7;
 }
 
 /* --- 移动端折叠菜单样式 --- */

@@ -223,7 +223,7 @@ const limitedNewsData = computed(() => {
 
 .staFun {
     display: inline-block;
-    background-color: #e74c3c;
+    background-color: #0095d7;
     color: #fff;
     font-size: 10px;
     font-style: normal;

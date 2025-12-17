@@ -217,7 +217,7 @@ const setLang = (lang: string) => {
 
 .sub-nav-link:hover {
   background-color: #f5f5f5;
-  color: #f10215;
+  color: #0095d7;
 }
 
 /* --- 工具栏 --- */
