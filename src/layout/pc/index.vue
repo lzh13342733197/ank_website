@@ -1,6 +1,6 @@
 <template>
   <NavigationBarPC @jumpToCategory="jumpToCategory" class="NavigationBarPC" />
-  <NavigationBarMobile @jumpToCategory="jumpToCategory" class="NavigationBarMobile" />
+  <!-- <NavigationBarMobile @jumpToCategory="jumpToCategory" class="NavigationBarMobile" /> -->
   <!-- <div class="content-container" :class="{ 'full-width': $route.path !== '/pc/home' }"> -->
     <div class="content-container" :class="{ 'home-layout': $route.path === '/pc/home', 'full-width': $route.path !== '/pc/home' }">
     <router-view v-slot="{ Component }">
@@ -73,9 +73,7 @@ const jumpToCategory = async (id: string) => {
 }
 
 @media (max-width: 768px) {
-  .NavigationBarPC {
-    display: none;
-  }
+ 
 
   .NavigationBarMobile {}
 }

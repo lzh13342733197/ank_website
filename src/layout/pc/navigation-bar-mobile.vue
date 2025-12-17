@@ -59,22 +59,16 @@ const emit = defineEmits(['jumpToCategory'])
 
 
 const menus = ref([
-  { id: 1, name: '首页', url: '/pc/home', isActive: true },
-  { id: 2, name: '关于我们', url: '/pc/AboutUs', isActive: false, 
-    children: [
-      { name: '公司简介', url: '/pc/AboutUs' },
-      { name: '愿景与使命', url: '/pc/patent' },
-      // ... 更多子菜单
-    ] 
+  { id: 1, name: 'Home', url: '/pc/home', isActive: true },
+  { id: 2, name: 'About us', url: '/pc/AboutUs', isActive: false, 
+    // children: [
+    //   { name: '公司简介', url: '/pc/AboutUs' },
+    //   { name: '愿景与使命', url: '/Content/505035.html' },
+    // ] 
   },
-  { id: 3, name: '产品中心', url: '/pc/ProductCenter', isActive: false },
-  { id: 4, name: '新闻动态', url: '/pc/NewsList', isActive: false },
-  { id: 5, name: '加入我们', url: '/pc/JoinUs', isActive: false },
-  { id: 6, name: '联系我们', url: '/pc/ContactUs', isActive: false,
-    children: [
-      { name: '联系方式', url: '/pc/ContactUs' },
-      { name: '在线留言', url: '/pc/ContactUs' },
-    ]
+  { id: 3, name: 'Products', url: '/pc/ProductCenter', isActive: false },
+  { id: 4, name: 'News', url: '/pc/NewsList', isActive: false },
+  { id: 6, name: 'Contact', url: '/pc/Contact_us', isActive: false,
   },
 ])
 

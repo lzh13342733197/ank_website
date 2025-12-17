@@ -47,8 +47,8 @@
           <div class="ModuleItem StaticModule" id="module_24442178">
             <div class="ModuleButtonGiant layout-102 layout-color-black module_24442178 clearfix">
               <div class="BodyCenter BodyCenter24442178 clearfix">
-                <a href="/cn/Content/504099.html" target="_self" class="moduleButton hvr-sweep-to-right">
-                  更多
+                <a href="/pc/productCenter" target="_self" class="moduleButton hvr-sweep-to-right">
+                  more
                 </a>
               </div>
             </div>
@@ -116,7 +116,7 @@ const props = defineProps({
 }
 
 /* 响应式断点：移动端（<=768px） -> 2 列 (100% / 2 = 50%) */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .pro-item {
     width: 50%; 
   }

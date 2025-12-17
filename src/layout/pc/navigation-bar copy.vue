@@ -3,7 +3,7 @@
     <div :class="[styles.navigationBarItemList, { expanded: isSearchExpanded }]" :style="expandedStyle">
       <!-- <div class="navigation-bar-icon" style="cursor: pointer" @click="handleClick('home')"> -->
       <div :class="styles.navigationBarItem" style="cursor: pointer" @click="jumpTo(router, '/', {})">
-        <img src="@/assets/images/ankbit.png" alt="logo" style="height: 40px" />
+        <img src="/ankbit.png" alt="logo" style="height: 40px" />
       </div>
       <div @click="handleClick(item.id)" :class="styles.navigationBarItem" v-for="item in categoryList" :key="item.id"
         class="navigation-bar-item">

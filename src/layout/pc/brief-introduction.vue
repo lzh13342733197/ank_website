@@ -18,36 +18,6 @@
       </div>
     </div>
 
-    <!-- 关于我们区块 -->
-    <!-- <div class="brief-information-block">
-      <div class="brief-information-block-title">
-        {{ eightLanguage.footer.aboutUs['en'] }}
-      </div>
-      <div class="brief-information-block-content">
-        <RouterLink to="/pc/company-profile" class="brief-information-block-content-item link-item" target="_blank">
-          {{ eightLanguage.footer.ourValue['en'] }}
-        </RouterLink>
-        <RouterLink to="/pc/Patent" class="brief-information-block-content-item link-item" target="_blank">
-          {{ eightLanguage.footer.R_D['en'] }}
-        </RouterLink>
-        <RouterLink to="/pc/Market-layout" class="brief-information-block-content-item link-item" target="_blank">
-          {{ eightLanguage.footer.globalLayout['en'] }}
-        </RouterLink>
-      </div>
-    </div> -->
-
-    <!-- 联系我们区块 -->
-    <!-- <div class="brief-information-block">
-      <div class="brief-information-block-title">
-        {{ eightLanguage.footer.contactUs['en'] }}
-      </div>
-      <div class="brief-information-block-content">
-        <RouterLink to="/pc/Contact_us" class="brief-information-block-content-item link-item" target="_blank">
-          {{ eightLanguage.footer.contactUs['en'] }}
-        </RouterLink>
-      </div>
-    </div> -->
-
     <!-- 关注我们区块 -->
     <div class="brief-information-block">
       <div class="brief-information-block-title">
@@ -57,46 +27,74 @@
         <div class="brief-information-block-content-item">
           {{ eightLanguage.footer.follow_channel['en'] }}
         </div>
-        <div style="display: flex; gap: 10px">
-          <a href="https://www.facebook.com/1MiiAudioZ" target="_blank" rel="noopener noreferrer">
-            <SvgIcon :name="`meta`" size="20" color="#222"></SvgIcon>
+        <div class="social-links">
+          <!-- <a href="https://www.facebook.com/1MiiAudioZ" target="_blank" rel="noopener noreferrer">
+            <SvgIcon :name="`meta`" size="20" color="#222" />
           </a>
           <a href="https://www.pinterest.com/1mii_official/_shop/" target="_blank" rel="noopener noreferrer">
-            <SvgIcon :name="`pinterest`" size="20" color="#222"></SvgIcon>
+            <SvgIcon :name="`pinterest`" size="20" color="#222" />
           </a>
           <a href="https://www.youtube.com/channel/UCOGsWBOuAQ1eVXOQZQKyLmQ" target="_blank" rel="noopener noreferrer">
-            <SvgIcon :name="`Youtube`" size="20" color="#222"></SvgIcon>
-          </a>
+            <SvgIcon :name="`Youtube`" size="20" color="#222" />
+          </a> -->
+            <div>
+            <a href="https://www.instagram.com/1mii.shop/" target="_blank">
+              <!-- <SvgIcon :name="`add`" size="24" color="#222"></SvgIcon> -->
+              <img v-lazy="facebook" alt="" class="iconImg">
+            </a>
+          </div>
+            <div>
+            <a href="https://www.instagram.com/1mii.shop/" target="_blank">
+              <!-- <SvgIcon :name="`add`" size="24" color="#222"></SvgIcon> -->
+              <img v-lazy="instagram" alt="" class="iconImg">
+            </a>
+          </div>
+          <div>
+            <a href="https://x.com/YeeMall_1Mii " target="_blank">
+              <img v-lazy="newTwiter" alt="" class="iconImg" style="scale: 0.8;">
+            </a>
+          </div>
+          <div>
+            <a href="https://www.tiktok.com/@1mii.us?lang=zh-Hans" target="_blank">
+              <img v-lazy="tiktok" alt="" class="iconImg">
+            </a>
+          </div>
+          <div style="width: 20px; height: 20px;">
+            <a href="https://www.youtube.com/@YeeMall.1Mii" target="_blank">
+              <img v-lazy="youtube" alt="" class="iconImg">
+
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-
 <script setup lang="ts">
 import SvgIcon from '@/components/SvgIcon.vue'
 import eightLanguage from '@/constants/language'
-import router from '@/router';
+import facebook from '@/assets/images/footer/Facebook.png'
+import instagram from '@/assets/images/footer/instagram.png'
+import newTwiter from '@/assets/images/footer/newTwiter.png'
+import tiktok from '@/assets/images/footer/Tiktok.png'
+import youtube from '@/assets/images/footer/youtube.png'
 </script>
 
 <style scoped>
 .brief-introduction-container {
   display: flex;
-  align-items: flex-start;
+  flex-wrap: wrap; /* 移动端换行 */
+  align-items: center;
   justify-content: space-between;
-  font-family:
-    SF Pro Text,
-    SF Pro Icons,
-    Helvetica Neue,
-    Helvetica,
-    Arial,
-    sans-serif;
+  gap: 20px;
+  font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+  padding: 20px;
 }
 
+/* 单个信息区块 */
 .brief-information-block {
-  min-width: 0;
-  padding: 10px 0;
+  flex: 1 1 120px; /* 自适应宽度，最小250px */
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -105,76 +103,64 @@ import router from '@/router';
 .brief-information-block-title {
   font-size: 18px;
   font-weight: 600;
-  text-transform: UPPERCASE;
+  text-transform: uppercase;
   color: #030303;
 }
 
 .brief-information-block-content {
   display: flex;
   flex-direction: column;
-  /* gap: 10px; */
   font-size: 12px;
-  line-height: 2.5;
+  line-height: 2;
   color: #222;
 }
 
 .brief-information-block-content-item {
-  background-color: transparent;
-  border: none;
   font-size: 12px;
 }
 
-.brief-information-block-content-item.link-item {
-  color: #222;
-  text-decoration: none;
-  transition: color 0.3s;
-  text-align: left;
-  line-height: 2.5;
+.social-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+.iconImg {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
 }
 
-.brief-information-block-content-item.link-item:hover {
-  color: #888787;
+.iconImg:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s;
 }
 
-.popover-container {
-  position: relative;
-  display: inline-block;
-}
+/* 响应式：小于 1200px */
+@media screen and (max-width: 1200px) {
+  .brief-introduction-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  padding: 20px 0  0 20px ;
 
-.social-icon-container {
-  cursor: pointer;
-}
+  }
 
-.qrcode-container {
-  position: absolute;
-  top: -140px;
-  left: -30%;
-  transform: translateX(-100%);
-  padding: 10px;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-  z-index: 10;
-}
+  .brief-information-block {
+    width: 100%;
+    min-width: auto;
+  }
 
-.popover-container:hover .qrcode-container {
-  opacity: 1;
-  visibility: visible;
-}
+  .brief-information-block-title {
+    font-size: 16px;
+  }
 
-.qrcode-image {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-}
+  .brief-information-block-content {
+    font-size: 11px;
+    line-height: 1.8;
+  }
 
-.qrcode-text {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #333;
+  .social-links {
+    gap: 8px;
+  }
 }
 </style>

@@ -2,7 +2,7 @@
   <div :class="styles.navigationBar">
     <div :class="styles.navigationBarItem"></div>
     <div :class="styles.navigationBarItem" @click="jumpTo(router, '/', {})">
-      <img src="@/assets/images/ankbit.png" style="width: 80px; transform: translateX(46px)" alt="logo" />
+      <img src="/ankbit.png" style="width: 80px; transform: translateX(46px)" alt="logo" />
     </div>
     <div :class="styles.navigationBarItem">
       <SvgIcon name="search" size="28" @click="toggleSearch" />

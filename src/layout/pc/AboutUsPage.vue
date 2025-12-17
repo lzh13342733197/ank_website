@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div style="width: 100%; display: flex; justify-content: center;">
-      <img src="http://img.wds168.cn/comdata/83627/202410/20241023113633996389.jpg" alt="Content Image"
-        class="top-banner-image" />
-    </div>
+      <div class="section-header-company-profile">
+        <h2 class="section-title-company-profile">ABOUT US</h2>
+        <div class="section-divider"></div>
+      </div>
 
     <div class="page-container BodyCenter clearfix">
       <div class="module-grid-container">
@@ -32,12 +32,12 @@
                 @click="toggleMobileMenu">
                 <span class="main-class-text">{{ currentTitle }}</span>
                 <span class="class-title-icon icon iconfont" :class="isMobileMenuOpen ? 'icon-jian' : 'icon-jia'">{{
-                  isMobileMenuOpen ? '⋁' : '⋀' }}</span>
+                  isMobileMenuOpen ? '▼' : '▲' }}</span>
               </header>
               <ul class="one-classify mobile-menu" :class="{ 'open': isMobileMenuOpen }">
                 <li v-for="item in menuItems" :key="item.id" class="main-class-item"
                   @click="selectMenuItem(item.id);">
-                  <div class="main-class-link">
+                  <div class="main-class-link" :class="{ 'main-class-link-active': item.id === currentId }">
                     <span class="main-class-text">{{ item.text }}</span>
                   </div>
                 </li>
@@ -164,7 +164,33 @@ const currentTitle = computed(() => {
 
 <style scoped>
 /* 样式保持不变，确保了响应式布局和视觉效果 */
+.section-header-company-profile {
+  text-align: left;
+  margin-bottom: 30px;
+  background-image: url('@/assets/images/公司简介.jpg');
+  background-size: cover;
+  background-position: center center;
+  padding: 100px 100px;
+  box-sizing: border-box;
+  max-width: 100% !important;
+  color: white;
+}
+.section-divider {
+  width: 80px;
+  background-color: var(--primary-color);
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .section-header-company-profile {
+    height: 200px;
+    padding: 60px 20px;
+    background-position: center 30%;
+  }
 
+  .section-title-company-profile {
+    font-size: 2rem;
+  }
+}
 .page-container {
   margin-top: 10px;
 }
@@ -263,10 +289,13 @@ const currentTitle = computed(() => {
   color: #666;
   transition: color 0.3s, padding-left 0.3s;
 }
-
+.main-class-link-active {
+  color: #0095d7;
+  padding-left: 10px;
+}
 .main-class-item:hover .main-class-link,
 .main-class-item.active .main-class-link {
-  color: #e74c3c;
+  color: #0095d7;
   padding-left: 10px;
 }
 

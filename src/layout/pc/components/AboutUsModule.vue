@@ -7,8 +7,8 @@
           <div class="title-container clearfix">
             <div class="BodyCenter  clearfix">
               <div class="text-content">
-                <p class="main-title">{{ props.titleMain }}</p>
-                <p class="sub-title">{{ props.titleSub }}</p>
+                <p class="main-title">{{ props.titleSub }}</p>
+                <p class="sub-title">{{ props.titleMain }}</p>
               </div>
             </div>
           </div>
@@ -41,7 +41,7 @@
         <div class="module-item module-button">
           <div class="BodyCenter button-center-content clearfix">
             <a :href="props.moreLink" target="_self" class="moduleButton hvr-sweep-to-right">
-              更多
+              more
             </a>
           </div>
         </div>
@@ -49,7 +49,7 @@
         <div class="module-item module-video">
           <div class="BodyCenter video-center-content clearfix">
             <div class="videoBox">
-              <div class="videogiant-container">
+              <!-- <div class="videogiant-container">
                 <div class="videoWrapper">
                   <video width="100%" height="100%" controls controlslist="nodownload" x5-playsinline webkit-playsinline playsinline x5-video-player-fullscreen="true" x5-video-orientation="portraint" x5-video-player-type="h5">
                     <source :src="props.videoSource" type="video/mp4">
@@ -57,9 +57,12 @@
                 </div>
                 <div class="videoPlayBtn"></div>
                 <div class="videoCoverPic" :style="{ backgroundImage: 'url(' + props.videoCover + ')' }"></div>
+              </div> -->
+              <div  class="videogiant-container">
+              <img v-lazy="video_pre" alt="" class="videoCoverPic" />
               </div>
               <div class="videoTitle">{{ props.videoTitle }}</div>
-              <div class="videoDescrib">{{ props.videoDescription }}</div>
+              <!-- <div class="videoDescrib">{{ props.videoDescription }}</div> -->
             </div>
           </div>
         </div>
@@ -70,7 +73,7 @@
 
 <script setup>
 import { defineProps } from 'vue';
-
+import video_pre from '@/assets/images/video_pre.png'
 const props = defineProps({
   // 标题
   titleMain: {
@@ -86,35 +89,34 @@ const props = defineProps({
   descriptionPC: {
     type: Array,
     default: () => [
-      'KO-STAR克星，品牌成立于2009年，是深圳市贝诗沃德科技有限公司自有品牌。创始人成长于耳机工厂世家，热爱音乐，思维活跃，擅长探索求证，吸引了大批优秀人才和精锐玩家。整个团队富有见识，大胆激情，除了专业，都有一颗笃定而诚实的心──中国智造，做性价比最高的时尚耳机。',
-      '总厂房面积6000平方米，技术工人200余人。我们的产品包括：高性能无线降噪耳机、真无线耳机、蓝牙耳机。品牌从研发、设计、生产到销售一条龙自主操作，严格控制产品质量。开发队团队中有中国、英国、韩国时尚设计师和结构设计师，20多年经验的电声工程师精益求精，研发和生产的喇叭配合各种独特腔体，音质纯正，深得知名播音员的喜爱。KO-STAR耳机，已得到全球各地年轻消费者的青睐和媒体的追捧。'
+      'Founded in February 2012, we are a modern high-tech enterprise integrating R&D, production, and sales. Since 2019, we have focused on the field of audio equipment and digital products, including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headsets, noise-cancelling headphones, gaming headsets, and more, aiming to provide users with a higher-quality audiovisual experience and a more comfortable lifestyle.',
     ]
   },
 
   // 移动端介绍 (单字符串)
   descriptionMobile: {
     type: String,
-    default: 'KO-STAR克星，品牌成立于2009年，是深圳市贝诗沃德科技有限公司自有品牌。创始人成长于耳机工厂世家，热爱音乐，思维活跃，擅长探索求证，吸引了大批优秀人才和精锐玩家。整个团队富有见识，大胆激情，除了专业，都有一颗笃定而诚实的心──中国智造，做性价比最高的时尚耳机。总厂房面积6000平方米，技术工人200余人。我们的产品包括：高性能无线降噪耳机、真无线耳机、蓝牙耳机。品牌从研发、设计、生产到销售一条龙自主操作，严格控制产品质量。开发队团队中有中国、英国、韩国时尚设计师和结构设计师，20多年经验的电声工程师精益求精，研发和生产的喇叭配合各种独特腔体，音质纯正，深得知名播音员的喜爱。KO-STAR耳机，已得到全球各地年轻消费者的青睐和媒体的追捧。'
+    default: 'Founded in February 2012, we are a modern high-tech enterprise integrating R&D, production, and sales. Since 2019, we have focused on the field of audio equipment and digital products, including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headsets, noise-cancelling headphones, gaming headsets, and more, aiming to provide users with a higher-quality audiovisual experience and a more comfortable lifestyle.'
   },
   
   // 更多链接
   moreLink: {
     type: String,
-    default: '/cn/Content/504098.html'
+    default: '/pc/AboutUs'
   },
 
   // 视频数据
   videoSource: {
     type: String,
-    default: 'https://vod-icbu.alicdn.com/7c569251818fbca4/lrIeLQohAdjyNwhME6x/Hw6HJprjxHdlGECK2rw_306085000821_mp4_264_hd.mp4'
+    default: '@/assets/images/video_pre.png'
   },
   videoCover: {
     type: String,
-    default: '//img.wds168.cn/comdata/83627/202104/20210420203722d45e6e.jpg?t=0.03176706279976527'
+    default: '@/assets/images/video_pre.png'
   },
   videoTitle: {
     type: String,
-    default: '深圳市贝诗沃德科技有限公司'
+    default: ' ANKBIT INTERNATIONAL LIMITED'
   },
   videoDescription: {
     type: String,
@@ -213,7 +215,7 @@ const props = defineProps({
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
-    width: 160px;
+    /* width: 160px; */
     
     /* 确保内部文本在伪元素之上，而不是被覆盖 */
     z-index: 1; 
@@ -266,7 +268,6 @@ const props = defineProps({
     width: 100%;
     /* 保持 16:9 比例 */
     padding-bottom: 56.25%; 
-    height: 0;
     overflow: hidden;
 }
 .videoWrapper, video {

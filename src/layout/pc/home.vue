@@ -35,12 +35,14 @@
     </div>
   </div> -->
   <!-- <PosterBanner /> -->
-  <SwiperModule :images="slideData" class="swiperModule_" />
   <SkeletonComponent :loading="loading" />
-  <ProductShowcase :products="productList" />
-  <AboutUsModule />
-  <NewsSlider />
-  <partner />
+  <div v-if="!loading">
+    <SwiperModule :images="slideData" class="swiperModule_" />
+    <ProductShowcase :products="productList" />
+    <AboutUsModule />
+    <!-- <NewsSlider /> -->
+    <partner />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -58,6 +60,11 @@ import ProductShowcase from '@/layout/pc/ProductShowcase.vue'
 import AboutUsModule from '@/layout/pc/components/AboutUsModule.vue'
 import NewsSlider from '@/layout/pc/components/NewsSlider.vue'
 import partner from '@/layout/pc/components/partner.vue'
+import banner1 from '@/assets/images/home/banner1.png'
+import banner2 from '@/assets/images/home/banner2.png'
+import banner3 from '@/assets/images/home/banner3.png'
+import banner4 from '@/assets/images/home/banner4.png'
+import banner5 from '@/assets/images/home/banner5.png'
 
 const route = useRoute()
 
@@ -71,31 +78,32 @@ const getImageUrl = (item: any) => {
   }
   return `/1mii.png`
 }
+
 const slideData = [
   {
-    src: '/src/assets/images/home/banner1.png',
+    src: banner1,
     url: '/cn/ProductDetail/123.html',
     alt: 'Slide 1'
   },
   {
-    src: '/src/assets/images/home/banner2.png',
+    src: banner2,
     url: '/cn/ProductDetail/456.html',
     alt: 'Slide 2'
   },
   {
-    src: '/src/assets/images/home/banner3.png',
+    src: banner3,
     url: '', // 没有链接
     alt: 'Slide 3'
   },
   {
-    src: '/src/assets/images/home/banner4.png',
+    src: banner4,
     url: '', // 没有链接
-    alt: 'Slide 3'
+    alt: 'Slide 4'
   },
   {
-    src: '/src/assets/images/home/banner5.png',
+    src: banner5,
     url: '', // 没有链接
-    alt: 'Slide 3'
+    alt: 'Slide 5'
   },
 ]
 const productList = ref([

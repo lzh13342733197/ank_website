@@ -1,22 +1,29 @@
 <template>
   <div class="market-layout">
     <div class="market-layout-header">
-      <div class="market-layout-header-title">
+      <!-- <div class="market-layout-header-title">
         {{ $t('common.contactUs') }}
         <div class="market-layout-header-title-content">
           <div>{{ $t('contact.header.description1') }}</div>
           <div>{{ $t('contact.header.description2') }}</div>
         </div>
-      </div>
-      <img class="market-img" src="@/assets/images/contact_us.jpg" alt="contact us banner">
+      </div> -->
+      <img class="market-img" :src="isPC" alt="contact us banner">
     </div>
   </div>
   <ContactForm></ContactForm>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref ,onMounted,computed,onUnmounted} from 'vue'
 import ContactForm from '@/layout/pc/components/ContactForm.vue'
+import contact_mb from '@/assets/images/contact_us_mb.png'
+import contact_pc from '@/assets/images/contact_us_pc.png'
+// 如果超过1200px，显示pc图片
+const isPC = computed(() => {
+   return window.innerWidth > 1200 ? contact_pc : contact_mb
+})
+
 </script>
 
 <style scoped>

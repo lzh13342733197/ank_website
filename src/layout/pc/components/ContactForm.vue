@@ -11,7 +11,7 @@
         </span>
         <div class="info-text">
           <span class="label">{{ $t('contact.address') }}</span>
-          <span style="white-space: nowrap;">{{ $t('contact.addressDetail') }}</span>
+          <span >{{ $t('contact.addressDetail') }}</span>
         </div>
       </div>
       <!-- <div class="info-item">
@@ -35,12 +35,13 @@
       </div>
     </div>
     <!-- 右侧表单区域 -->
-    <!-- <div class="form-section">
+    <div class="form-section">
+      <div class="form-title">INQUIRY</div>
       <form @submit.prevent="handleSubmit">
-        <div class="row">
+        <!-- <div class="row">
           <div class="form-item">
-            <input type="text" v-model="formData.name" :placeholder="$t('contact.form.name')" class="input-field" />
-            <p class="error-msg" v-if="errors.name">{{ $t('contact.form.required') }}</p>
+            <input type="text" v-model="formData.Contact" :placeholder="$t('contact.form.name')" class="input-field" />
+            <p class="error-msg" v-if="errors.Contact">{{ $t('contact.form.required') }}</p>
           </div>
           <div class="form-item">
             <input type="text" v-model="formData.phone" :placeholder="$t('contact.form.phone')" class="input-field" />
@@ -50,9 +51,18 @@
             <input type="text" v-model="formData.email" :placeholder="$t('contact.form.email')" class="input-field" />
             <p class="error-msg" v-if="errors.email">{{ $t('contact.form.required') }}</p>
           </div>
+        </div> -->
+        <div class="form-item">
+         <input type="text" v-model="formData.Contact" :placeholder="$t('contact.form.Contact')" class="input-field" />
+            <p class="error-msg" v-if="errors.Contact">{{ $t('contact.form.required') }}</p>
         </div>
         <div class="form-item">
-          <input type="text" v-model="formData.subject" :placeholder="$t('contact.form.subject')" class="input-field" />
+          <input type="text" v-model="formData.Email" :placeholder="$t('contact.form.Email')" class="input-field" />
+          <p class="error-msg" v-if="errors.Email">{{ $t('contact.form.required') }}</p>
+        </div>
+        <div class="form-item">
+          <input type="text" v-model="formData.Address" :placeholder="$t('contact.form.Address')" class="input-field" />
+          <p class="error-msg" v-if="errors.Address">{{ $t('contact.form.required') }}</p>
         </div>
         <div class="form-item">
           <textarea v-model="formData.message" :placeholder="$t('contact.form.message')"
@@ -61,7 +71,7 @@
         <button type="submit" class="submit-btn">{{ $t('contact.form.submit') }}</button>
         <p class="general-error" v-if="generalError">{{ $t('contact.form.generalError') }}</p>
       </form>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -70,17 +80,16 @@ import { ref } from 'vue';
 import svgIcon from '@/components/SvgIcon.vue'
 // 表单数据
 const formData = ref({
-  name: '',
-  phone: '',
-  email: '',
-  subject: '',
+  Contact: '',
+  Email: '',
+  Address: '',
   message: ''
 });
 // 错误信息
 const errors = ref({
-  name: false,
-  phone: false,
-  email: false
+  Contact: false,
+  Email: false,
+  Address: false,
 });
 // 整体错误提示
 const generalError = ref(false);
@@ -89,9 +98,10 @@ const generalError = ref(false);
 const handleSubmit = () => {
   // 重置错误状态
   errors.value = {
-    name: !formData.value.name.trim(),
-    phone: !formData.value.phone.trim(),
-    email: !formData.value.email.trim()
+    Contact: !formData.value.Contact.trim(),
+    message: !formData.value.message.trim(),
+    Email: !formData.value.Email.trim(),
+    Address: !formData.value.Address.trim(),
   };
   // 判断是否有错误
   const hasError = Object.values(errors.value).some((val) => val);
@@ -101,10 +111,9 @@ const handleSubmit = () => {
     console.log('表单数据：', formData.value);
     // 提交成功后可重置表单（可选）
     formData.value = {
-      name: '',
-      phone: '',
-      email: '',
-      subject: '',
+      Contact: '',
+      Email: '',
+      Address: '',
       message: ''
     };
     generalError.value = false;
@@ -146,7 +155,7 @@ const handleSubmit = () => {
 }
 
 .icon {
-  width: 40px;
+  min-width: 40px;
   height: 40px;
   border-radius: 50%;
   background-color: #f7b731;
@@ -193,7 +202,12 @@ const handleSubmit = () => {
   background-color: #f8f8f8;
   padding: 40px;
   box-sizing: border-box;
-  margin-top: 20px;
+  margin-top: 10px;
+}
+.form-title{
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 .row {
