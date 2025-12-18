@@ -48,7 +48,7 @@
             <div class="ModuleButtonGiant layout-102 layout-color-black module_24442178 clearfix">
               <div class="BodyCenter BodyCenter24442178 clearfix">
                 <a href="/pc/productCenter" target="_self" class="moduleButton hvr-sweep-to-right">
-                  more
+                  {{ $t('home.MORE') }}
                 </a>
               </div>
             </div>

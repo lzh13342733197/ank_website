@@ -96,7 +96,7 @@ const menuItems = computed(() => [
   { id: 2, text: t('aboutUs.menu.VisionAndMission'), link: '#', target: '_self' },
   { id: 3, text: t('aboutUs.menu.CoreValue'), link: '#', target: '_self' },
   { id: 4, text: t('aboutUs.menu.DevelopmentCourse'), link: '#', target: '_self' },
-  { id: 5, text: t('aboutUs.menu.RAD'), link: '/pc/company-profile', target: '_self' },
+  { id: 5, text: t('aboutUs.menu.RAD'), link: '/pc/patent', target: '_self' },
   { id: 6, text: t('aboutUs.menu.GlobalLayout'), link: '/pc/Market-layout', target: '_self' },
 ]);
 
@@ -154,7 +154,7 @@ const contentParagraphs = computed(() => {
 });
 
 const selectMenuItem = (id) => {
-  if (id === 5) { window.location.href = '/pc/company-profile'; return; }
+  if (id === 5) { window.location.href = '/pc/patent'; return; }
   if (id === 6) { window.location.href = '/pc/Market-layout'; return; }
   currentId.value = id;
   isMobileMenuOpen.value = false;
@@ -277,6 +277,9 @@ const currentTitle = computed(() => {
 @media (max-width: 767px) {
   .sidebar-container, .content-container { flex-basis: 100%; max-width: 100%; padding-right: 0; padding-left: 0; }
   .sidebar-pc { display: none; }
+  .content-header{
+    display: none;
+  }
 }
 .class-title {
   font-size: 18px;

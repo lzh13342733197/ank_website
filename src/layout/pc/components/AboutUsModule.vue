@@ -19,7 +19,7 @@
             <div class="text-container">
               <div class="text-content">
                 <p v-for="(paragraph, index) in props.descriptionPC" :key="'pc-p-' + index" 
-                   class="paragraph" v-html="paragraph">
+                   class="paragraph" v-html="t('home.homeAboutUs')">
                 </p>
               </div>
             </div>
@@ -119,7 +119,7 @@ const props = defineProps({
   },
   videoTitle: {
     type: String,
-    default: ' ANKBIT INTERNATIONAL LIMITED'
+    default: ' Shenzhen Ankbit Electronics Limited'
   },
   videoDescription: {
     type: String,
@@ -143,11 +143,12 @@ const props = defineProps({
 
 /* 核心布局和居中 */
 .main-wrapper {
-    margin: 0 auto;
+    background-color: #2e2e2e; 
+  /* margin: 0 auto;
     background: none;
     background-color: rgba(0, 0, 0, 0);
     background-image: url('https://img.wds168.cn/comdata/83627/201905/201905141646571ff8b3.jpg');
-    background-size: auto;
+    background-size: auto; */
     background-position: 50% 50%;
     background-attachment: fixed;
     padding: 30px;

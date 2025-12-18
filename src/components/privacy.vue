@@ -7,9 +7,9 @@
 
     <div class="terms-content">
 
-      <p>This Privacy Policy describes how 1MII INNOVATIONS LIMITED and its affiliates (collectively, "1Mii", "we",
+      <p>This Privacy Policy describes how  SHENZHEN ANKBIT ELECTRONICS LIMITED and its affiliates (collectively, "Ankbit", "we",
         "us", or "our") collects, uses, and discloses your personal information when you visit, use our services, from
-        <a href="https://1mii.com/" target="_blank">https://1mii.com/</a> (the "Site")
+        <a href="https://ankbit.com/" target="_blank">https://ankbit.com/</a> (the "Site")
         (collectively, the "Services"). For purposes of this Privacy
         Policy, "you" and "your" means you as the user of the Services, whether you are a website visitor, or another
         individual whose information we have collected pursuant to this Privacy Policy.
@@ -226,10 +226,7 @@
         <h2>10. Contact Us</h2>
         <p>Should you have any questions about our privacy practices or this Privacy Policy, or if you would like to
           exercise any of the rights available to you, please email us at <span
-            style="text-decoration: underline;">sales@ankbit.com</span> or contact us at Chatham
-
-          Road South, Room 803, Chevalier Building 45-51, Tsim Sha Tsu, KL, HK, or call <span
-            style="text-decoration: underline;">+852-27896065</span></p>
+            style="text-decoration: underline;">sales@ankbit.com</span> or contact us at Chatham Road South, Room 803, Chevalier Building 45-51, Tsim Sha Tsu, KL, HK.</p>
         <p>For the purpose of applicable data protection laws and if not explicitly stated otherwise, we are the data
           controller of your personal information.</p>
       </section>

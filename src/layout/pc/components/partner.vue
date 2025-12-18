@@ -1,6 +1,6 @@
 <template>
   <section class="partner-section">
-    <h2 class="partner-title">合作伙伴</h2>
+    <h2 class="partner-title">{{ $t('home.partner') }}</h2>
     <div class="partner-list">
       <div class="partner-item" v-for="item in visiblePartners" :key="item.id">
         <img :src="item.logo" :alt="item.name" :title="item.name" class="partner-logo" />
@@ -9,7 +9,7 @@
 
     <div v-if="showToggleButton && !isExpanded" class="partner-toggle-wrapper">
       <button @click="toggleExpanded" class="partner-toggle-btn">
-        {{ isExpanded ? 'less ▲' : 'more ▼' }}
+        {{ isExpanded ? less : $t('home.MORE') }}
       </button>
     </div>
 

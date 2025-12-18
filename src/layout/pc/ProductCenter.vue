@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import cardPeekList from './card-peek-list.vue'
-import { useTemplateRef, onMounted, ref,watch} from 'vue'
+import { useTemplateRef, onMounted, ref,watch,computed } from 'vue'
 import { useFetchWithLanguage } from '@/utils/http'
 import SkeletonComponent from '@/components/skeleton-component.vue'
 import { useLanguageStore } from '@/stores/language'
@@ -27,6 +27,8 @@ import productionOption from '@/layout/pc/components/productionOption.vue'
 import SwiperModule from '@/layout/pc/components/SwiperModule.vue'
 import partner from '@/layout/pc/components/partner.vue'
 import { useI18n } from 'vue-i18n'
+import product_pc from '@/assets/images/product/product_pc.png'
+import product_mb from '@/assets/images/product/product_mb.png'
 
 const { locale } = useI18n()
 const route = useRoute()
@@ -41,14 +43,14 @@ const getImageUrl = (item: any) => {
   }
   return `/ankbit.png`
 }
-const slideData = [
+const slideData = computed(()=>[
   { 
-    src: '//img.wds168.cn/comdata/83627/202212/202212311105406851b3.jpg', 
+    src: window.innerWidth > 768 ? product_pc : product_mb, 
     url: '', // 没有链接
     alt: 'Slide 3' 
   },
   
-]
+])
 
 const loading = ref(true)
 const activeId = ref('')

@@ -6,12 +6,14 @@ export default {
     Products: "Products",
     News: "News",
     Contact: "Contact",
+    pleaseInputKeyword: "Please input keyword",
   },
    home:{
     MORE: "MORE",
     aboutUs: "ABOUT US",
     homeAboutUs:'Founded in February 2012, we are a modern high-tech enterprise integrating R&D, production, and sales. Since 2019, we have focused on the field of audio equipment and digital products, including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headsets, noise-cancelling headphones, gaming headsets, and more, aiming to provide users with a higher-quality audiovisual experience and a more comfortable lifestyle.',
-    companyName: "ANKBIT INTERNATIONAL LIMITED",
+    companyName: "Shenzhen Ankbit Electronics Limited",
+    partner: "Partners",
   },
   common: {
     contactUs: "Contact Us",
@@ -28,7 +30,7 @@ export default {
     shopNow: "Shop Now",
   },
   contact: {
-    companyTitle: "ANKBIT INTERNATIONAL LIMITED",
+    companyTitle: "Shenzhen Ankbit Electronics Limited",
     description:
       "Send us your specific description so that we can contact you as soon as possible!",
     address: "Address",
@@ -71,9 +73,9 @@ export default {
     teamDesc3:
       "Over the years, relying on the company's strong strength, its own innovative R&D capabilities and in-depth quality philosophy,",
     teamDesc4:
-      "Ankbit has formed a high-tech enterprise with a complete industrial chain, independent innovation capabilities, and integrated R&D, production and sales in the industry.",
+      "Ankbit has formed a high-tech enterprise with a complete industrial chain, independent innovation capabilities, and integrated R&D, production and sales in the industry.Under the guidance of the grand strategic layout of the board of directors and the management committee, Ankbit are sailing towards the stars and seas belonging to all employees.",
     teamDesc5:
-      "Under the guidance of the grand strategic layout of the board of directors and the management committee, Ankbit are sailing towards the stars and seas belonging to all employees.",
+      "The company's independently developed products have passed 3C, CE, FCC, BQB, ROHS, Hi-Res and other inspections and certifications, and have obtained more than 150 utility model patents in the United States, the European Union, the United Kingdom, Japan and other countries.",
     stats: {
       designers: "Designers",
       engineers: "Software & Hardware Engineers",
@@ -87,7 +89,7 @@ export default {
     profile: {
       title: "Company Profile",
       founding:
-        "Ankbit was established in China in 2018. It is a technology company dedicated to researching and developing various audio equipment, providing a medium for connecting humans and sounds for users all over the world.",
+        "ankbit was established in China in 2018. It is a technology company dedicated to researching and developing various audio equipment, providing a medium for connecting humans and sounds for users all over the world.",
       products:
         "Covering wireless devices and consumer digital products, including Bluetooth audio devices, professional decoders, headphone amplifiers, power amplifiers, as well as high-quality true wireless Bluetooth headsets (TWS), head-mounted headphones, game headphones, etc.",
       brands: "It has three sub-brands: 1Mii, Ankbit and Lavaudio.",

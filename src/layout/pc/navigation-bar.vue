@@ -37,7 +37,7 @@
           </div>
           </div>
           <div class="search-box" @click="isSearchExpanded = true; isMobileMenuOpen = false">
-            <input type="text" placeholder="please input keyword" class="search-input" @keydown.enter.prevent>
+            <input type="text" :placeholder="t('navigationBar.pleaseInputKeyword')" class="search-input" @keydown.enter.prevent>
             <div :class="[styles.navigationBarItem, 'search-container']" 
               style="color: white; text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;">
               <SvgIcon :name="`search`" size="25" color="white" style="filter: drop-shadow(0 0 1px black); ">
@@ -79,7 +79,7 @@
         </nav>
 
         <div class="mobile-search-box" @click="isSearchExpanded = true; isMobileMenuOpen = false">
-          <input type="text" placeholder="please input keyword" class="search-input" @keydown.enter.prevent>
+          <input type="text" :placeholder="t('navigationBar.pleaseInputKeyword')" class="search-input" @keydown.enter.prevent>
           <div :class="[styles.navigationBarItem, 'search-container']"  class=""
               style="color: white; text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;">
               <SvgIcon :name="`search`" size="25" color="white" style="filter: drop-shadow(0 0 1px black); ">
