@@ -7,6 +7,12 @@ export default {
     News: "新闻动态",
     Contact: "联系我们",
   },
+  home:{
+    MORE: "更多",
+    aboutUs: "关于我们",
+    homeAboutUs:'我们是一家成立于2012年2月，集研发、生产、销售于一体的现代化高新技术企业。自2019年起，我们专注于音频设备及数码产品领域，涵盖音频收发器、专业解码器、耳机、功率放大器、高品质真无线立体声（TWS）蓝牙耳机、降噪耳机、游戏耳机等产品线，致力于为用户提供更优质的视听体验与更舒适的生活方式。',
+    companyName: "爱科贝国际有限公司",
+  },
   common: {
     contactUs: "联系我们",
     companyProfile: "公司简介",
@@ -81,7 +87,7 @@ export default {
       brands: "旗下拥有1Mii、ankbit与Lavaudio三个子品牌。",
       brandAnkbit: "ankbit主要是针对于耳机领域进行研究创造",
       brandLavaudio: "Lavaudio则是潜心于研究高端音频无损解码设备",
-      brand1Mii: "1Mii专注于创造蓝牙音频领域的产品",
+      brand1Mii: "Ankbit专注于创造蓝牙音频领域的产品",
       motto:
         "正如一魔人的座右铭一样：一魔声学致力于将绝佳的视听盛宴带给每一位用户，让音乐成为绚烂生活中不可或缺的部分。",
     },

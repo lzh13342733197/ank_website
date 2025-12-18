@@ -7,8 +7,8 @@
           <div class="title-container clearfix">
             <div class="BodyCenter  clearfix">
               <div class="text-content">
-                <p class="main-title">{{ props.titleSub }}</p>
-                <p class="sub-title">{{ props.titleMain }}</p>
+                <p class="main-title">{{ t('home.aboutUs') }}</p>
+                <!-- <p class="sub-title">{{ props.titleMain }}</p> -->
               </div>
             </div>
           </div>
@@ -31,7 +31,7 @@
                 <div class="text-container">
                     <div class="text-content">
                         <p class="paragraph-mobile">
-                            {{ props.descriptionMobile }}
+                           {{ t('home.homeAboutUs') }}
                         </p>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
         <div class="module-item module-button">
           <div class="BodyCenter button-center-content clearfix">
             <a :href="props.moreLink" target="_self" class="moduleButton hvr-sweep-to-right">
-              more
+              {{ t('home.MORE') }}
             </a>
           </div>
         </div>
@@ -61,7 +61,7 @@
               <div  class="videogiant-container">
               <img v-lazy="video_pre" alt="" class="videoCoverPic" />
               </div>
-              <div class="videoTitle">{{ props.videoTitle }}</div>
+              <div class="videoTitle">{{ t('home.companyName') }}</div>
               <!-- <div class="videoDescrib">{{ props.videoDescription }}</div> -->
             </div>
           </div>
@@ -72,8 +72,11 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps ,computed } from 'vue';
 import video_pre from '@/assets/images/video_pre.png'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+
 const props = defineProps({
   // 标题
   titleMain: {
@@ -89,14 +92,14 @@ const props = defineProps({
   descriptionPC: {
     type: Array,
     default: () => [
-      'Founded in February 2012, we are a modern high-tech enterprise integrating R&D, production, and sales. Since 2019, we have focused on the field of audio equipment and digital products, including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headsets, noise-cancelling headphones, gaming headsets, and more, aiming to provide users with a higher-quality audiovisual experience and a more comfortable lifestyle.',
+     'Founded in February 2012, we are a modern high-tech enterprise integrating R&D, production, and sales. Since 2019, we have focused on the field of audio equipment and digital products, including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headsets, noise-cancelling headphones, gaming headsets, and more, aiming to provide users with a higher-quality audiovisual experience and a more comfortable lifestyle.'
     ]
   },
 
   // 移动端介绍 (单字符串)
   descriptionMobile: {
     type: String,
-    default: 'Founded in February 2012, we are a modern high-tech enterprise integrating R&D, production, and sales. Since 2019, we have focused on the field of audio equipment and digital products, including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headsets, noise-cancelling headphones, gaming headsets, and more, aiming to provide users with a higher-quality audiovisual experience and a more comfortable lifestyle.'
+    default: () => 'Founded in February 2012, we are a modern high-tech enterprise integrating R&D, production, and sales. Since 2019, we have focused on the field of audio equipment and digital products, including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headsets, noise-cancelling headphones, gaming headsets, and more, aiming to provide users with a higher-quality audiovisual experience and a more comfortable lifestyle.'
   },
   
   // 更多链接

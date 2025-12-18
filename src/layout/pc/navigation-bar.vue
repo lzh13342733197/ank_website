@@ -98,17 +98,38 @@ import { useRoute } from 'vue-router'
 import SearchModal from './search-modal.vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import styles from './pc.module.less'
-import { setLanguage } from '@/locales/index.js'
+import { setLanguage } from '@/locales'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
-const menus = computed(() => [
-  { id: 1, name: t('navigationBar.Home'), url: '/pc/home', isActive: true },
-  { id: 2, name: t('navigationBar.AboutUs'), url: '/pc/AboutUs', isActive: false },
-  { id: 3, name: t('navigationBar.Products'), url: '/pc/ProductCenter', isActive: false },
-  { id: 4, name: t('navigationBar.News'), url: '/pc/NewsList', isActive: false },
-  { id: 6, name: t('navigationBar.Contact'), url: '/pc/Contact_us', isActive: false },
-])
+const menus = computed(() => {
+  // 获取当前路由路径
+  const currentPath = route.path;
+
+  // 这里的数组会随着语言切换而重新计算
+  const menuList = [
+    { id: 1, name: t('navigationBar.Home'), url: '/pc/home' },
+    { id: 2, name: t('navigationBar.AboutUs'), url: '/pc/AboutUs' },
+    { id: 3, name: t('navigationBar.Products'), url: '/pc/ProductCenter' },
+    { id: 4, name: t('navigationBar.News'), url: '/pc/NewsList' },
+    { id: 6, name: t('navigationBar.Contact'), url: '/pc/Contact_us' },
+  ];
+
+  // 直接在生成数组时计算 isActive
+  return menuList.map(menu => {
+    let isMatch = menu.url === currentPath;
+    
+    // 如果有子菜单，也进行匹配逻辑
+    if (!isMatch && menu.children) {
+      isMatch = menu.children.some(child => child.url === currentPath);
+    }
+
+    return {
+      ...menu,
+      isActive: isMatch
+    };
+  });
+});
 const isSearchExpanded = ref(false)
 const closeSearch = () => {
   isSearchExpanded.value = false
@@ -125,25 +146,6 @@ const currentLang = ref( localStorage.getItem('appLanguage') || 'Chinese')
 
 
 const route = useRoute()
-
-const updateMenuActivation = (currentPath: string) => {
-  menus.value.forEach(menu => {
-    let isMatch = menu.url === currentPath;
-    if (!isMatch && menu.children) {
-      isMatch = menu.children.some(child => child.url === currentPath);
-    }
-    menu.isActive = isMatch;
-  })
-}
-
-watch(
-  () => route.path,
-  (newPath) => {
-    updateMenuActivation(newPath);
-  },
-  { immediate: true }
-)
-
 
 const openSubMenu = (id: number) => { activeSubMenuId.value = id }
 const closeSubMenu = (id: number) => { activeSubMenuId.value = null }

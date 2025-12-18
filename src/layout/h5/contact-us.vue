@@ -47,7 +47,7 @@ import { ref } from 'vue';
 const instructions = [
     {
         svg: 'mail',
-        texts: ['shopify@1mii.com']
+        texts: ['shopify@ankbit.com']
     },
     {
         svg: 'support',

@@ -29,15 +29,6 @@
           {{ $t('footer.FollowUsInfo') }}
         </div>
         <div class="social-links">
-          <!-- <a href="https://www.facebook.com/1MiiAudioZ" target="_blank" rel="noopener noreferrer">
-            <SvgIcon :name="`meta`" size="20" color="#222" />
-          </a>
-          <a href="https://www.pinterest.com/1mii_official/_shop/" target="_blank" rel="noopener noreferrer">
-            <SvgIcon :name="`pinterest`" size="20" color="#222" />
-          </a>
-          <a href="https://www.youtube.com/channel/UCOGsWBOuAQ1eVXOQZQKyLmQ" target="_blank" rel="noopener noreferrer">
-            <SvgIcon :name="`Youtube`" size="20" color="#222" />
-          </a> -->
             <div>
             <a href="https://www.instagram.com/1mii.shop/" target="_blank">
               <!-- <SvgIcon :name="`add`" size="24" color="#222"></SvgIcon> -->

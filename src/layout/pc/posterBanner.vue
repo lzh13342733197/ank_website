@@ -4,7 +4,7 @@
       <div class="slider-container">
         <transition-group name="slide" tag="div" class="slider-wrapper">
           <img v-for="(item, index) in bannerList" v-show="currentIndex === index && !item.isVideo" :key="index"
-            :src="item.image" style="object-fit: cover;" alt="1Mii" class="poster-image">
+            :src="item.image" style="object-fit: cover;" alt="ankbit" class="poster-image">
           <video v-for="(item, index) in bannerList" v-show="currentIndex === index && item.isVideo"
             :key="'video' + index" :src="item.image" autoplay loop muted class="poster-image"></video>
         </transition-group>

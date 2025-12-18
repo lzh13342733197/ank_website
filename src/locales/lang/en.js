@@ -7,6 +7,12 @@ export default {
     News: "News",
     Contact: "Contact",
   },
+   home:{
+    MORE: "MORE",
+    aboutUs: "ABOUT US",
+    homeAboutUs:'Founded in February 2012, we are a modern high-tech enterprise integrating R&D, production, and sales. Since 2019, we have focused on the field of audio equipment and digital products, including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headsets, noise-cancelling headphones, gaming headsets, and more, aiming to provide users with a higher-quality audiovisual experience and a more comfortable lifestyle.',
+    companyName: "ANKBIT INTERNATIONAL LIMITED",
+  },
   common: {
     contactUs: "Contact Us",
     companyProfile: "Company Profile",
@@ -81,16 +87,16 @@ export default {
     profile: {
       title: "Company Profile",
       founding:
-        "1Mii was established in China in 2018. It is a technology company dedicated to researching and developing various audio equipment, providing a medium for connecting humans and sounds for users all over the world.",
+        "Ankbit was established in China in 2018. It is a technology company dedicated to researching and developing various audio equipment, providing a medium for connecting humans and sounds for users all over the world.",
       products:
         "Covering wireless devices and consumer digital products, including Bluetooth audio devices, professional decoders, headphone amplifiers, power amplifiers, as well as high-quality true wireless Bluetooth headsets (TWS), head-mounted headphones, game headphones, etc.",
-      brands: "It has three sub-brands: 1Mii, ankbit and Lavaudio.",
+      brands: "It has three sub-brands: 1Mii, Ankbit and Lavaudio.",
       brandAnkbit: "Ankbit mainly focuses on research and creation in the field of headphones",
       brandLavaudio:
         "Lavaudio is dedicated to researching high-end audio lossless decoding equipment",
-      brand1Mii: "1Mii focuses on creating products in the field of Bluetooth audio",
+      brand1Mii: "Ankbit focuses on creating products in the field of Bluetooth audio",
       motto:
-        "Just like the motto of 1Mii people: 1Mii Acoustics is committed to bringing a wonderful audio-visual feast to every user, making music an indispensable part of a splendid life.",
+        "Just like the motto of Ankbit people: Ankbit Acoustics is committed to bringing a wonderful audio-visual feast to every user, making music an indispensable part of a splendid life.",
     },
     culture: {
       title: "[Corporate Culture]",

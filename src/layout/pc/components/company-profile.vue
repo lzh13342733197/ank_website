@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="about-image">
-            <img src="@/assets/images/公司图片.jpg" alt="1Mii团队在办公室协作" style="height: 340px; object-fit: cover;">
+            <img src="@/assets/images/公司图片.jpg" alt="ankbit团队在办公室协作" style="height: 340px; object-fit: cover;">
           </div>
         </div>
       </div>

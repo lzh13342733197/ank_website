@@ -46,15 +46,11 @@
 </template>
 
 <script setup lang="ts">
-import cardPeekList from './card-peek-list.vue'
 import { useTemplateRef, onMounted, ref, computed, nextTick } from 'vue'
 import { useFetchWithLanguage } from '@/utils/http'
 import SkeletonComponent from '@/components/skeleton-component.vue'
 import { useLanguageStore } from '@/stores/language'
-import PosterBanner from '@/layout/pc/posterBanner_copy.vue'
-import eightLanguage from '@/constants/language'
 import { useRoute } from 'vue-router'
-import productionOption from '@/layout/pc/components/productionOption.vue'
 import SwiperModule from '@/layout/pc/components/SwiperModule.vue'
 import ProductShowcase from '@/layout/pc/ProductShowcase.vue'
 import AboutUsModule from '@/layout/pc/components/AboutUsModule.vue'
@@ -76,7 +72,7 @@ const getImageUrl = (item: any) => {
   if (item.productDetail) {
     return item.productDetail.imageUrl
   }
-  return `/1mii.png`
+  return `/ankbit.png`
 }
 
 const slideData = [

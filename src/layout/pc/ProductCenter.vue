@@ -39,7 +39,7 @@ const getImageUrl = (item: any) => {
   if (item.productDetail) {
     return item.productDetail.imageUrl
   }
-  return `/1mii.png`
+  return `/ankbit.png`
 }
 const slideData = [
   { 

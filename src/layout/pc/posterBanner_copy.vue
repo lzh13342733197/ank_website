@@ -3,7 +3,7 @@
   margin: 20px 0;">
     <el-carousel height="auto" style="text-align: center; border-radius: 40px;" autoplay>
       <el-carousel-item style="height: auto;" class="carousel-item" v-for="(item, index) in bannerList" :key="item.id">
-        <img v-if="!item.isVideo" :key="index" :src="item.image" style="object-fit: cover;" alt="1Mii"
+        <img v-if="!item.isVideo" :key="index" :src="item.image" style="object-fit: cover;" alt="ankbit"
           class="poster-image">
         <video v-if="item.isVideo" :key="'video' + index" :src="item.image" autoplay loop muted
           class="poster-image"></video>
