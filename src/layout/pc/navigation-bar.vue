@@ -27,22 +27,32 @@
 
         <div class="tools-pc">
           <div class="lang-switch">
-            <img src="//img.wds168.cn/comdata/84470/201905/201905151545264d908e.jpg" alt="中文" title="中文">
-            <img src="//img.wds168.cn/comdata/84470/201905/2019051515452626c55d.jpg" alt="English" title="English">
+            <div class="lang-switch-border" @click="toggleMobileLang">
+            {{ currentLang === 'zh' ? 'Chinese' : 'English' }}
+            <span class="arrow-icon">{{ isMobileLangOpen ? '▲' : '▼' }}</span>
+            <ul v-if="isMobileLangOpen" class="mobile-lang-list">
+              <li @click.stop="setLang('zh')">Chinese</li>
+              <li @click.stop="setLang('en')">English</li>
+            </ul>
           </div>
-          <div class="search-box">
-            <input type="text" placeholder="请输入关键字" class="search-input">
-            <i class="search-icon">🔍</i>
+          </div>
+          <div class="search-box" @click="isSearchExpanded = true; isMobileMenuOpen = false">
+            <input type="text" placeholder="please input keyword" class="search-input" @keydown.enter.prevent>
+            <div :class="[styles.navigationBarItem, 'search-container']" 
+              style="color: white; text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;">
+              <SvgIcon :name="`search`" size="25" color="white" style="filter: drop-shadow(0 0 1px black); ">
+              </SvgIcon>
+            </div>
           </div>
         </div>
 
         <div class="tools-mobile">
           <div class="mobile-lang-switch" @click="toggleMobileLang">
-            {{ currentLang }}
+            {{ currentLang === 'zh' ? 'Chinese' : 'English' }}
             <span class="arrow-icon">{{ isMobileLangOpen ? '▲' : '▼' }}</span>
             <ul v-if="isMobileLangOpen" class="mobile-lang-list">
-              <li @click.stop="setLang('中文')">中文</li>
-              <li @click.stop="setLang('English')">English</li>
+              <li @click.stop="setLang('zh')">Chinese</li>
+              <li @click.stop="setLang('en')">English</li>
             </ul>
           </div>
           <button class="hamburger-btn" @click="toggleMobileMenu">
@@ -69,26 +79,35 @@
         </nav>
 
         <div class="mobile-search-box" @click="isSearchExpanded = true; isMobileMenuOpen = false">
-          <input type="text" placeholder="请输入关键字" class="search-input" @keydown.enter.prevent>
-          <i class="search-icon">🔍</i>
+          <input type="text" placeholder="please input keyword" class="search-input" @keydown.enter.prevent>
+          <div :class="[styles.navigationBarItem, 'search-container']"  class=""
+              style="color: white; text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;">
+              <SvgIcon :name="`search`" size="25" color="white" style="filter: drop-shadow(0 0 1px black); ">
+              </SvgIcon>
+            </div>
         </div>
       </div>
     </el-drawer>
-      
+
   </header>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import SearchModal from './search-modal.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
+import styles from './pc.module.less'
+import { setLanguage } from '@/locales/index.js'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
-const menus = ref([
-  { id: 1, name: 'Home', url: '/pc/home', isActive: true },
-  { id: 2, name: 'About us', url: '/pc/AboutUs', isActive: false },
-  { id: 3, name: 'Products', url: '/pc/ProductCenter', isActive: false },
-  { id: 4, name: 'News', url: '/pc/NewsList', isActive: false },
-  { id: 6, name: 'Contact', url: '/pc/Contact_us', isActive: false },
+const menus = computed(() => [
+  { id: 1, name: t('navigationBar.Home'), url: '/pc/home', isActive: true },
+  { id: 2, name: t('navigationBar.AboutUs'), url: '/pc/AboutUs', isActive: false },
+  { id: 3, name: t('navigationBar.Products'), url: '/pc/ProductCenter', isActive: false },
+  { id: 4, name: t('navigationBar.News'), url: '/pc/NewsList', isActive: false },
+  { id: 6, name: t('navigationBar.Contact'), url: '/pc/Contact_us', isActive: false },
 ])
 const isSearchExpanded = ref(false)
 const closeSearch = () => {
@@ -102,7 +121,7 @@ const handleSearchSelect = (result: any) => {
 const activeSubMenuId = ref<number | null>(null)
 const isMobileMenuOpen = ref(false)
 const isMobileLangOpen = ref(false)
-const currentLang = ref('中文')
+const currentLang = ref( localStorage.getItem('appLanguage') || 'Chinese')
 
 
 const route = useRoute()
@@ -132,6 +151,7 @@ const toggleMobileMenu = () => { isMobileMenuOpen.value = !isMobileMenuOpen.valu
 const toggleMobileLang = () => { isMobileLangOpen.value = !isMobileLangOpen.value }
 const setLang = (lang: string) => {
   currentLang.value = lang
+  setLanguage(lang)
   isMobileLangOpen.value = false
 }
 </script>
@@ -234,7 +254,16 @@ const setLang = (lang: string) => {
 }
 
 .lang-switch {
-  width: 80px;
+  position: relative;
+}
+.lang-switch-border{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 9px;
+  cursor: pointer;
+  display: flex;
+  width: 100px;
+  justify-content: space-around;
 }
 
 .lang-switch img {
@@ -249,6 +278,7 @@ const setLang = (lang: string) => {
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 5px;
+  cursor: pointer;
 }
 
 .search-input {
@@ -288,10 +318,13 @@ const setLang = (lang: string) => {
 }
 
 .mobile-search-box {
-  margin-top: 20px;
-  display: flex;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+margin-top: 20px;
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px;
+    justify-content: center;
+    align-items: center;
 }
 
 .mobile-search-box .search-input {
@@ -358,6 +391,7 @@ const setLang = (lang: string) => {
   }
 }
 
+
 /* --- 响应式媒体查询 --- */
 @media (max-width: 992px) {
 
@@ -380,6 +414,9 @@ const setLang = (lang: string) => {
 
   .tools-mobile {
     display: none !important;
+  }
+  .search-input{
+    width: 150px;
   }
 }
 </style>

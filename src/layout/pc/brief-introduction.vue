@@ -3,17 +3,18 @@
     <!-- 联系信息区块 -->
     <div class="brief-information-block">
       <div class="brief-information-block-title">
-        {{ eightLanguage.footer.contactInfo['en'] }}
+        <!-- {{ eightLanguage.footer.contactInfo['en'] }} -->
+         {{ $t('footer.ContactInformation') }}
       </div>
       <div class="brief-information-block-content">
         <div class="brief-information-block-content-item">
-          {{ eightLanguage.footer.address['en'] }}
+          {{ $t('footer.Address') }}
         </div>
         <div class="brief-information-block-content-item">
-          {{ eightLanguage.footer.after_sales_email['en'] }}
+          {{ $t('footer.Email') }}
         </div>
         <div class="brief-information-block-content-item">
-          {{ eightLanguage.footer.sales_email['en'] }}
+          {{ $t('footer.Phone') }}
         </div>
       </div>
     </div>
@@ -21,11 +22,11 @@
     <!-- 关注我们区块 -->
     <div class="brief-information-block">
       <div class="brief-information-block-title">
-        {{ eightLanguage.footer.followUS['en'] }}
+        {{ $t('footer.FollowUs') }}
       </div>
       <div class="brief-information-block-content">
         <div class="brief-information-block-content-item">
-          {{ eightLanguage.footer.follow_channel['en'] }}
+          {{ $t('footer.FollowUsInfo') }}
         </div>
         <div class="social-links">
           <!-- <a href="https://www.facebook.com/1MiiAudioZ" target="_blank" rel="noopener noreferrer">

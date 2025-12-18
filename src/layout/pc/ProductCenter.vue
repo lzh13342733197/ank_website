@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import cardPeekList from './card-peek-list.vue'
-import { useTemplateRef, onMounted, ref} from 'vue'
+import { useTemplateRef, onMounted, ref,watch} from 'vue'
 import { useFetchWithLanguage } from '@/utils/http'
 import SkeletonComponent from '@/components/skeleton-component.vue'
 import { useLanguageStore } from '@/stores/language'
@@ -26,7 +26,9 @@ import { useRoute } from 'vue-router'
 import productionOption from '@/layout/pc/components/productionOption.vue'
 import SwiperModule from '@/layout/pc/components/SwiperModule.vue'
 import partner from '@/layout/pc/components/partner.vue'
+import { useI18n } from 'vue-i18n'
 
+const { locale } = useI18n()
 const route = useRoute()
 
 const language = useLanguageStore()
@@ -150,7 +152,11 @@ const jumpToCategory = async (id: string) => {
     behavior: 'smooth',
   })
 }
-
+// 监听 locale 的变化
+watch(locale, (newLang) => {
+  console.log('语言已切换为:', newLang)
+  homInit() // 触发重新请求
+}, { immediate: true }) // immediate 确保组件加载时也会执行一次
 defineExpose({
   jumpToCategory,
 })

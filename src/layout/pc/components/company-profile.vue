@@ -317,6 +317,9 @@ section {
     max-height: 300px;
     width: 100%;
   }
+  .section-title-company-profile{
+    font-size: 2rem;
+  }
 }
 
 .about-text {

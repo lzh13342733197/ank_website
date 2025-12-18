@@ -35,9 +35,9 @@
     </div>
   </div> -->
   <!-- <PosterBanner /> -->
+  <SwiperModule v-if="!loading" :images="slideData" class="swiperModule_" />
   <SkeletonComponent :loading="loading" />
   <div v-if="!loading">
-    <SwiperModule :images="slideData" class="swiperModule_" />
     <ProductShowcase :products="productList" />
     <AboutUsModule />
     <!-- <NewsSlider /> -->

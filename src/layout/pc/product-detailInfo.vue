@@ -26,7 +26,7 @@
           style="cursor: pointer"
           @click="jumpTo(router, productDetail.purchaseLink, {})"
         >
-          SHOP NOW
+          {{ $t('productDetail.shopNow') }}
         </div>
       </div>
 
@@ -36,7 +36,7 @@
           v-if="productDetail.productSpuAboutList.length > 0"
           class="product-detail-info-item-title"
         >
-          {{ eightLanguage.productDetailInfo.about_this_Item['en'] }}
+          {{ $t('productDetail.AboutThisItem') }}
         </div>
         <div
           v-for="(item, index) in productDetail.productSpuAboutList"
@@ -51,7 +51,7 @@
           v-if="productDetail.manuals.length > 0"
           class="product-detail-info-item-title"
         >
-          {{ eightLanguage.productDetailInfo.productManual['en'] }}
+          {{ $t('productDetail.ProductManual') }}
         </div>
         <div
           v-if="productDetail.manuals.length > 0"

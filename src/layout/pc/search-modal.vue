@@ -10,7 +10,12 @@
         </div>
 
         <div class="search-input-container">
-          <SvgIcon name="search" size="20" color="black" class="search-icon"></SvgIcon>
+          <!-- <SvgIcon name="search" size="20" color="black" class="search-icon"></SvgIcon> -->
+            <div :class="[styles.navigationBarItem, 'search-container']"  class="search-icon"
+              style="color: white; text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;">
+              <SvgIcon :name="`search`" size="25" color="white" style="filter: drop-shadow(0 0 1px black); ">
+              </SvgIcon>
+            </div>
           <input type="text" placeholder="Search products..." class="search-input" v-model="searchQuery"
             @input="handleSearch" @keydown="handleKeydown" ref="searchInputRef" />
         </div>
@@ -29,7 +34,7 @@
                 <img :src="result.productImageUrl" alt="" style="height: 100px; content-fit: cover" />
                 <div>
                   <div class="result-title" v-html="highlightText(result.productSpuName || '')"></div>
-                  <div class="result-category" v-html="highlightText(result.productCategoryName || '')"></div>
+                  <!-- <div class="result-category" v-html="highlightText(result.productCategoryName || '')"></div> -->
                   <div class="result-description" v-if="result.productSpuAboutContent || ''"
                     :title="result.productSpuAboutContent || ''"
                     @mouseenter="showTooltip($event, result.productSpuAboutContent || '')"
@@ -70,7 +75,7 @@ import { useFetchWithLanguage } from '@/utils/http'
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-
+import styles from './pc.module.less'
 const route = useRoute()
 
 onMounted(() => {
@@ -277,7 +282,7 @@ const showTooltip = (event: MouseEvent, content: string) => {
 
 .search-icon {
   position: absolute;
-  left: 32px;
+  left: 39px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;

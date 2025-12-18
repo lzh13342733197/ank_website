@@ -9,12 +9,12 @@ import VueLazyload from 'vue3-lazyload'
 import i18n from './locales'
 
 const routes = router.options.routes
-
 export const createApp = ViteSSG(App, { routes }, ({ app }) => {
+  const pinia = createPinia()
+  app.use(pinia)
+  app.use(i18n)
   app.use(VueLazyload, {
     loading: '/loading-placeholder-gray.jpg',
     error: '/error-placeholder.webp',
   })
-  app.use(createPinia())
-  app.use(i18n)
 })

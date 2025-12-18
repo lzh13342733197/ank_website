@@ -71,16 +71,12 @@ const props = defineProps({
   }
 });
 
-// 移除了模板中的冗余 class (col-xs-2 col-sm- col-md- col-lg-3)，
-// 通过 CSS 样式更好地控制响应式布局。
 </script>
 
 <style scoped>
-/* 简化并提取必要的样式以保证布局，具体颜色和字号请根据您的设计稿调整 */
 
-/* 容器和清除浮动 */
 .BodyCenter {
-  width: 1200px; /* 假设的中心宽度 */
+  width: 1200px; 
   margin: 0 auto;
 }
 .clearfix::after {
@@ -89,24 +85,24 @@ const props = defineProps({
   clear: both;
 }
 
-/* 标题样式 */
+
 .ModuleImageTextContent {
   /* padding: 30px 0;  */
 }
 
-/* 商品列表样式 */
+
 .pro-container {
   list-style: none;
   padding: 0;
-  margin: 0 -15px; /* 用于抵消 grid item 的 padding */
+  margin: 0 -15px; 
   display: flex;
   flex-wrap: wrap;
 }
 
 .pro-item {
   box-sizing: border-box;
-  padding: 0 5px; /* 示例 padding */
-  margin-bottom: 15px; /* 示例底部间距 */
+  padding: 0 5px; 
+  margin-bottom: 15px; 
   flex-shrink: 0;
 }
 
@@ -121,25 +117,19 @@ const props = defineProps({
     width: 50%; 
   }
 
-  /* 调整中心宽度以适应较小的屏幕，如果需要 */
   .BodyCenter {
     width: 95%; 
     max-width: 1200px;
   }
 }
 
-/* 移动端最小尺寸（例如，小于 576px），可以考虑单列 */
-/* @media (max-width: 576px) {
-  .pro-item {
-    width: 100%; 
-  }
-} */
+
 
 
 .pro-item a {
   text-decoration: none;
   display: block;
-  border: 1px solid #eee; /* 示例边框 */
+  border: 1px solid #eee; 
   transition: all 0.3s ease;
 }
 .pro-item a:hover {
@@ -150,7 +140,7 @@ const props = defineProps({
   position: relative;
 }
 .pro-img .dummy {
-  padding-top: 100%; /* 创建 1:1 的图片容器 */
+  padding-top: 100%; 
 }
 .pro-img img {
   position: absolute;
@@ -179,7 +169,7 @@ const props = defineProps({
 .pro-name {
   color: #333;
   font-size: 14px;
-  /* 模拟原始的单行省略样式 */
+
   height: 21px; 
   word-break: break-word; 
   overflow: hidden; 
@@ -192,11 +182,11 @@ const props = defineProps({
 .pro-btn {
   margin-top: 10px;
   text-align: right;
-  color: #0095d7; /* 示例颜色 */
+  color: #0095d7;
   font-size: 12px;
 }
 
-/* 更多按钮样式 */
+
 .moduleButton {
   display: inline-block;
   padding: 10px 30px;

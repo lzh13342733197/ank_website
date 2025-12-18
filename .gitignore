@@ -36,3 +36,4 @@ coverage
 *.zip
 *.tsbuildinfo
 .vite/
+.vite-ssg-temp/

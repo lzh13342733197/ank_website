@@ -15,6 +15,7 @@ const getMockData = (url: string) => {
   }
   return { code: 1, data: null }
 }
+import { getCurrentLang } from '@/locales'
 
 const _request = async (url: string, method: 'post' | 'get', params?: any) => {
   try {
@@ -31,7 +32,7 @@ const _request = async (url: string, method: 'post' | 'get', params?: any) => {
     // 客户端环境正常请求
     const { data, error } = await useFetch(url, {
       headers: {
-        'Accept-Language': languageStore.language,
+        'Accept-Language': getCurrentLang(),
         'Content-Type': 'application/json',
       },
     })

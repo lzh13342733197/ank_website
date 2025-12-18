@@ -7,7 +7,7 @@
       <div class="sidebar">
         <div class="module-classify">
           <header class="class-title classify" @click="toggleSidebar">
-            <span class="class-title-text">新闻动态</span>
+            <span class="class-title-text">{{ $t('news.title') }}</span>
             <!-- <span class="class-title-icon iconfont" :class="isSidebarOpen ? 'icon-up' : 'icon-down'">></span> -->
           </header>
 
