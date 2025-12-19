@@ -127,6 +127,7 @@ const handleSearchSelect = (result: any) => {
 }
 
 const fetchCategoryList = async () => {
+  if (import.meta.env.SSR) return
   const data = await useFetchWithLanguage.post(
     `${import.meta.env.VITE_API_URL}/product/getCategoryList`,
     {},

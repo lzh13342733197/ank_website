@@ -65,7 +65,7 @@ let pendingPromise: Promise<void> | null = null
 
 const homdic = ref<any>()
 const homInit = async () => {
-
+if (import.meta.env.SSR) return
   const res = await useFetchWithLanguage.post(
     `${import.meta.env.VITE_API_URL}/siteConfig/getSiteConfig`,
     {},
@@ -83,6 +83,7 @@ const homInit = async () => {
 
   pendingPromise = new Promise<void>((resolve) => {
     const fetchData = async () => {
+      if (import.meta.env.SSR) return
       try {
         const data = await useFetchWithLanguage.post(
           `${import.meta.env.VITE_API_URL}/product/getCategoryList`,

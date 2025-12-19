@@ -142,7 +142,7 @@ const handleSearchSelect = (result: any) => {
 const activeSubMenuId = ref<number | null>(null)
 const isMobileMenuOpen = ref(false)
 const isMobileLangOpen = ref(false)
-const currentLang = ref( localStorage.getItem('appLanguage') || 'Chinese')
+const currentLang = ref( import.meta.env.SSR ? null : localStorage.getItem('appLanguage') || 'Chinese')
 
 
 const route = useRoute()
