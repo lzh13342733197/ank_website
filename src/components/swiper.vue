@@ -130,7 +130,7 @@ const updateIndicators = () => {
 const startAutoPlay = () => {
   if (swiperLength.value <= 1) return
 
-  autoPlayTimer = window.setInterval(() => {
+  autoPlayTimer = globalThis.setInterval(() => {
     slide('next')
   }, autoPlayInterval)
 }

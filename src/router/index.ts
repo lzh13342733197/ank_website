@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, createMemoryHistory } from 'vue-router'
 import { isMobileDevice } from '@/utils/utils'
-const isServer = typeof window === 'undefined'
+const isServer = typeof globalThis === 'undefined'
 const history = isServer
   ? createMemoryHistory(import.meta.env.BASE_URL)
   : createWebHistory(import.meta.env.BASE_URL)
@@ -13,54 +13,54 @@ const router = createRouter({
       redirect: (to?: any) => {
         if (to.query.s) {
           // 处理搜索参数
-          return { path:  '/pc' , query: { s: to.query.s } }
+          return { path:  '/home' , query: { s: to.query.s } }
         }
-        return  '/pc' 
+        return  '/home' 
       },
     },
     {
-      path: '/pc',
-      component: () => import('../layout/pc/index.vue'),
+      path: '/',
+      component: () => import('../layout/index.vue'),
       children: [
         {
           path: '',
           redirect: () => {
-            return '/pc/home'
+            return '/home'
           },
         },
         {
           path: 'home',
-          component: () => import('../layout/pc/home.vue'),
+          component: () => import('../layout/home.vue'),
         },
         {
           path: 'product-detailInfo',
-          component: () => import('../layout/pc/product-detailInfo.vue'),
+          component: () => import('../layout/product-detailInfo.vue'),
         },
         {
           path: 'patent',
-          component: () => import('../layout/pc/components/ResearchDevelopment.vue'),
+          component: () => import('../layout/components/ResearchDevelopment.vue'),
         },
 
         {
           path: 'Market-layout',
-          component: () => import('../layout/pc/components/Market-layout.vue'),
+          component: () => import('../layout/components/Market-layout.vue'),
         },
 
         {
           path: 'Contact_us',
-          component: () => import('../layout/pc/components/Contact_us.vue'),
+          component: () => import('../layout/components/Contact_us.vue'),
         },
         {
           path: 'AboutUs',
-          component: () => import('../layout/pc/AboutUsPage.vue'),
+          component: () => import('../layout/AboutUsPage.vue'),
         },
         {
           path: 'NewsList',
-          component: () => import('../layout/pc/NewsList.vue'),
+          component: () => import('../layout/NewsList.vue'),
         },
         {
           path: 'ProductCenter',
-          component: () => import('../layout/pc/ProductCenter.vue'),
+          component: () => import('../layout/ProductCenter.vue'),
         },
       ],
     },

@@ -1,2 +1,2 @@
-export const isServer = typeof window === 'undefined'
+export const isServer = typeof globalThis === 'undefined'
 export const isClient = !isServer

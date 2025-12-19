@@ -16,7 +16,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SkeletonComponent: typeof import('./src/components/skeleton-component.vue')['default']
-    PosterBanner: typeof import('./src/layout/pc/posterBanner.vue')['default']
+    PosterBanner: typeof import('./src/layout/posterBanner.vue')['default']
     SvgIcon: typeof import('./src/components/SvgIcon.vue')['default']
     Swiper: typeof import('./src/components/swiper.vue')['default']
     VanSkeleton: typeof import('vant/es')['Skeleton']

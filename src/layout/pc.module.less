@@ -1,0 +1,111 @@
+@primary-color: #1890ff; // 定义一个主色调变量
+@font-size-base: 14px; // 定义一个基础字体大小变量
+@spacing-unit: 8px; // 定义一个间距单位变量
+@item-gap: 20px;
+@border-radius-base: 20px;
+
+.navigation-bar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 @item-gap;
+  gap: @item-gap * 3;
+  position: sticky;
+  top: 20px;
+  z-index: 100;
+}
+
+.navigation-bar-item-list {
+  display: flex;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: @border-radius-base;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  gap: @item-gap * 3;
+  padding: 0 @item-gap * 2;
+  font-weight: 600;
+}
+
+.navigation-bar-item {
+  white-space: nowrap;
+  //   overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  cursor: pointer;
+  flex-shrink: 0;
+  min-width: fit-content;
+}
+
+.card-peek-list-wrapper {
+  position: relative;
+  // left: -20px;
+  width: 100%;
+  margin: 0 0 20px 0;
+  padding:  0 0 5px 0px;
+  overflow-x: hidden;
+  // border: 2px solid blue;
+  border-radius: 30px;
+}
+
+.card-peek-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  transition: transform 0.3s ease-in-out;
+  flex-wrap: wrap;
+
+  // border-radius: @border-radius-base;
+  // border: 2px solid red;
+}
+.card-peek-list > * {
+  flex-basis: calc((100% - 20px) / 2);
+
+}
+@media (min-width: 1355px) {
+  .card-peek-list > * {
+    /* 三栏，中间有 2 个 gap (2 * 20px = 40px) */
+    flex-basis: calc((100% - 40px) / 3); 
+    flex-shrink: 0;
+ 
+  }
+    .card-peek-list{
+  gap: @item-gap;
+
+  }
+}
+.card-preview {
+  flex-shrink: 0;
+  min-width: fit-content;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.04);
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.card-preview:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+}
+
+.card-peek-title {
+  transform: translateX(-20px);
+  font-size: 28px;
+  font-weight: 600;
+  padding: @item-gap / 2 0;
+}
+
+@media (max-width: 1355px) {
+.card-peek-list{
+   padding: 10px;
+  padding-right: 0px;
+}
+}

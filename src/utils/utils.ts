@@ -15,7 +15,7 @@ export const toUpperCase = (str: string): string => {
  */
 export const jumpTo = (router: any, path: string, query: any) => {
   if (path.startsWith('http') || path.startsWith('https')) {
-    window.open(path, '_self')
+    globalThis.open(path, '_self')
   } else {
     router.push({
       path: path,
@@ -90,8 +90,8 @@ export const getCardPeekListPosition = (wrapperRef: any) => {
   if (wrapperRef.value) {
     const rect = wrapperRef.value.getBoundingClientRect()
     return {
-      top: rect.top + window.scrollY,
-      left: rect.left + window.scrollX,
+      top: rect.top + globalThis.scrollY,
+      left: rect.left + globalThis.scrollX,
       width: rect.width,
       height: rect.height,
     }
