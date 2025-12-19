@@ -81,12 +81,12 @@ import youtube from '@/assets/images/footer/youtube.png'
   justify-content: space-between;
   gap: 20px;
   font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
-  padding: 20px;
+  padding: 20px 160px;
 }
 
 /* 单个信息区块 */
 .brief-information-block {
-  flex: 1 1 120px; /* 自适应宽度，最小250px */
+ /* flex: 1 1 120px;  自适应宽度，最小250px */
   display: flex;
   flex-direction: column;
   gap: 10px;

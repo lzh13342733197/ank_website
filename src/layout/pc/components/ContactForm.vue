@@ -112,7 +112,7 @@ const state = reactive({
 const generalError = ref(false);
 const getCaptchaUrl = () => {
   formData.value.uuid = getUuid();
-  state.captchaUrl = `https://test-boss.yeemall.com:9080/ym/captcha?uuid=${formData.value.uuid}`;
+  state.captchaUrl = `https://boss.yeemall.com:9080/ym/captcha?uuid=${formData.value.uuid}`;
 };
 // 表单提交处理
 const handleSubmit = () => {

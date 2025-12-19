@@ -100,7 +100,7 @@ const errors = reactive({
 })
 const getCaptchaUrl = () => {
   formData.uuid = getUuid();
-  state.captchaUrl = `https://test-boss.yeemall.com:9080/ym/captcha?uuid=${formData.uuid}`;
+  state.captchaUrl = `https://boss.yeemall.com:9080/ym/captcha?uuid=${formData.uuid}`;
 };
 /** 提交处理 */
 const handleSubmit = () => {

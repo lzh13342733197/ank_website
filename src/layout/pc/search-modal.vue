@@ -3,7 +3,7 @@
     <div class="search-modal" v-show="isVisible">
       <div class="search-content">
         <div class="search-header">
-          <h2 class="search-title">Search</h2>
+          <h2 class="search-title">{{ $t('navigationBar.search') }}</h2>
           <button class="search-close" @click="closeSearch">
             <SvgIcon name="close" size="24" color="#666" ></SvgIcon>
           </button>
@@ -16,7 +16,7 @@
               <SvgIcon :name="`search`" size="25" color="white" style="filter: drop-shadow(0 0 1px black); ">
               </SvgIcon>
             </div>
-          <input type="text" placeholder="Search products..." class="search-input" v-model="searchQuery"
+          <input type="text" :placeholder="$t('navigationBar.searchPlaceholder')" class="search-input" v-model="searchQuery"
             @input="handleSearch" @keydown="handleKeydown" ref="searchInputRef" />
         </div>
 
@@ -42,7 +42,7 @@
                   </div>
                 </div>
               </div>
-              <div class="result-detail" @click="selectResult(result)">Show Details ></div>
+              <div class="result-detail" @click="selectResult(result)">{{ $t('navigationBar.showDetails') }}></div>
             </div>
           </div>
         </div>

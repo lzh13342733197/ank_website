@@ -1,5 +1,5 @@
 <template>
-  <SwiperModule :images="slideData" class="swiperModule_" />
+  <SwiperModule v-if="!loading" :images="slideData" class="swiperModule_" />
   <SkeletonComponent :loading="loading" />
   <div style="max-width: 1600px; margin: 0 auto;">
       <div v-if="!loading" class="card-wrap-container" style="display: flex; gap: 40px;">

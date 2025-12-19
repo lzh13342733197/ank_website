@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <div class="production_info">产品信息</div>
+    <div class="production_info">{{$t('productDetail.productInfo')}}</div>
     <div class="optionItem" v-for="item in categoryList" :key="item.id" @click="handleChange(item.id)"
       @mouseenter="handleMouseEnter(item.id)" @mouseleave="handleMouseLeave" :class="{ 'actived': item.id === activeId }">
       <div :class="{ 'hovered': item.id === hoverId || item.id === activeId }" style="white-space-collapse: collapse;" type="" link

@@ -13,42 +13,10 @@ const router = createRouter({
       redirect: (to?: any) => {
         if (to.query.s) {
           // 处理搜索参数
-          return { path: isMobileDevice() ? '/pc' : '/pc', query: { s: to.query.s } }
+          return { path:  '/pc' , query: { s: to.query.s } }
         }
-        return isMobileDevice() ? '/pc' : '/pc'
+        return  '/pc' 
       },
-    },
-    {
-      path: '/mobile',
-      component: () => import('../layout/h5/index.vue'),
-      children: [
-        {
-          path: '',
-          redirect: () => {
-            return '/mobile/home'
-          },
-        },
-        {
-          path: 'home',
-          component: () => import('../layout/h5/home.vue'),
-        },
-        {
-          path: 'product-view',
-          component: () => import('../layout/h5/product-view.vue'),
-        },
-        {
-          path: 'product-detailInfo',
-          component: () => import('../layout/h5/product-detailInfo.vue'),
-        },
-        {
-          path: 'about-us',
-          component: () => import('../layout/h5/about-us.vue'),
-        },
-        {
-          path: 'contact-us',
-          component: () => import('../layout/h5/contact-us.vue'),
-        },
-      ],
     },
     {
       path: '/pc',
@@ -67,10 +35,6 @@ const router = createRouter({
         {
           path: 'product-detailInfo',
           component: () => import('../layout/pc/product-detailInfo.vue'),
-        },
-        {
-          path: 'company-profile',
-          component: () => import('../layout/pc/components/company-profile.vue'),
         },
         {
           path: 'patent',

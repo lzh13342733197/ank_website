@@ -7,6 +7,9 @@ export default {
     News: "新闻动态",
     Contact: "联系我们",
     pleaseInputKeyword: "请输入关键词",
+    search: "搜索",
+    searchPlaceholder: "请输入搜索关键词",
+    showDetails: "显示详情",
   },
   home:{
     MORE: "更多",
@@ -25,6 +28,7 @@ export default {
     aboutUs: "关于我们",
   },
   productDetail: {
+    productInfo: "产品信息",
     AboutThisItem: "产品详情",
     ProductManual: "产品手册",
     shopNow: "立即询盘",

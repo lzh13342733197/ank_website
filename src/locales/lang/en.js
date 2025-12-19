@@ -7,11 +7,15 @@ export default {
     News: "News",
     Contact: "Contact",
     pleaseInputKeyword: "Please input keyword",
+    search: "Search",
+    searchPlaceholder: "Please input search keyword",
+    showDetails: "Show Details",
   },
-   home:{
+  home: {
     MORE: "MORE",
     aboutUs: "ABOUT US",
-    homeAboutUs:'Founded in February 2012, we are a modern high-tech enterprise integrating R&D, production, and sales. Since 2019, we have focused on the field of audio equipment and digital products, including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headsets, noise-cancelling headphones, gaming headsets, and more, aiming to provide users with a higher-quality audiovisual experience and a more comfortable lifestyle.',
+    homeAboutUs:
+      "Founded in February 2012, we are a modern high-tech enterprise integrating R&D, production, and sales. Since 2019, we have focused on the field of audio equipment and digital products, including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headsets, noise-cancelling headphones, gaming headsets, and more, aiming to provide users with a higher-quality audiovisual experience and a more comfortable lifestyle.",
     companyName: "Shenzhen Ankbit Electronics Limited",
     partner: "Partners",
   },
@@ -25,6 +29,7 @@ export default {
     aboutUs: "About Us",
   },
   productDetail: {
+    productInfo: "Product Information",
     AboutThisItem: "About This Item",
     ProductManual: "Product Manual",
     shopNow: "Inquire Now",
@@ -41,7 +46,6 @@ export default {
     verificationCode: "Verification Code",
     verificationCodeInfo: "Please enter the verification code.",
     submit: "Submit",
-
   },
   contact: {
     companyTitle: "Shenzhen Ankbit Electronics Limited",
