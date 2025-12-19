@@ -1,13 +1,11 @@
 <template>
-  <SkeletonComponent :loading="loading" />
+  <div>
+      <SkeletonComponent :loading="loading" />
 
   <div v-show="!loading" class="product-detail-container">
     <!-- 左侧 / 顶部 Swiper -->
     <div class="swiper-wrapper">
-      <detailSwiper
-        class="detail-swiper"
-        :swiperList="productDetail.imageUrls"
-      />
+      <detailSwiper class="detail-swiper" :swiperList="productDetail.imageUrls" />
     </div>
 
     <!-- 右侧 / 底部 信息 -->
@@ -21,72 +19,46 @@
       </div> -->
 
       <div class="product-buy-button-wrapper">
-        <div
+        <!-- <div
           :class="styles.operationButton"
           style="cursor: pointer"
           @click="jumpTo(router, productDetail.purchaseLink, {})"
-        >
+        > -->
+        <div :class="styles.operationButton" style="cursor: pointer"
+          @click="isInquire = true">
           {{ $t('productDetail.shopNow') }}
         </div>
       </div>
 
       <div class="product-detail-info-wrapper">
         <!-- About -->
-        <div
-          v-if="productDetail.productSpuAboutList.length > 0"
-          class="product-detail-info-item-title"
-        >
+        <div v-if="productDetail.productSpuAboutList.length > 0" class="product-detail-info-item-title">
           {{ $t('productDetail.AboutThisItem') }}
         </div>
-        <div
-          v-for="(item, index) in productDetail.productSpuAboutList"
-          :key="index"
-          class="product-detail-info-item-content"
-        >
+        <div v-for="(item, index) in productDetail.productSpuAboutList" :key="index"
+          class="product-detail-info-item-content">
           {{ item.content }}
         </div>
 
         <!-- Manuals -->
-        <div
-          v-if="productDetail.manuals.length > 0"
-          class="product-detail-info-item-title"
-        >
+        <div v-if="productDetail.manuals.length > 0" class="product-detail-info-item-title">
           {{ $t('productDetail.ProductManual') }}
         </div>
-        <div
-          v-if="productDetail.manuals.length > 0"
-          class="product-detail-info-item-content download-list"
-        >
-          <a
-            v-for="item in productDetail.manuals"
-            :key="item.fileId"
-            :href="item.url"
-            target="_blank"
-            class="download-item"
-          >
+        <div v-if="productDetail.manuals.length > 0" class="product-detail-info-item-content download-list">
+          <a v-for="item in productDetail.manuals" :key="item.fileId" :href="item.url" target="_blank"
+            class="download-item">
             <SvgIcon name="download" size="22" />
             <span>{{ item.name }}</span>
           </a>
         </div>
 
         <!-- Drivers -->
-        <div
-          v-if="productDetail.drivers.length > 0"
-          class="product-detail-info-item-title"
-        >
+        <div v-if="productDetail.drivers.length > 0" class="product-detail-info-item-title">
           Product Drivers
         </div>
-        <div
-          v-if="productDetail.drivers.length > 0"
-          class="product-detail-info-item-content download-list"
-        >
-          <a
-            v-for="item in productDetail.drivers"
-            :key="item.fileId"
-            :href="item.url"
-            target="_blank"
-            class="download-item"
-          >
+        <div v-if="productDetail.drivers.length > 0" class="product-detail-info-item-content download-list">
+          <a v-for="item in productDetail.drivers" :key="item.fileId" :href="item.url" target="_blank"
+            class="download-item">
             <SvgIcon name="download" size="22" />
             <span>{{ item.name }}</span>
           </a>
@@ -97,36 +69,45 @@
 
   <!-- 底部分类推荐 -->
   <div class="product-category-container">
-    <cardPeekList
-      :id="String(route.query.categoryId || '')"
-      :title="String(route.query.cardName || '')"
-      :card-list="productCategoryList.slice(0,6)"
-    />
+    <cardPeekList :id="String(route.query.categoryId || '')" :title="String(route.query.cardName || '')"
+      :card-list="productCategoryList.slice(0, 6)" />
+  </div>
+  <!-- 询盘 -->
+    <el-dialog
+      v-model="isInquire"
+      top="30px"
+      :width="windowWidth"
+      :close-on-click-modal="true"
+      :close-on-press-escape="false"
+      :show-close="true"
+    >
+      <inquire @formSubmit="handleInquireSubmit" />
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
+import { useI18n } from 'vue-i18n'
 import detailSwiper from '@/components/detail-swiper.vue'
 import SkeletonComponent from '@/components/skeleton-component.vue'
 import cardPeekList from './card-peek-list.vue'
 import SvgIcon from '@/components/SvgIcon.vue'
+import inquire from '@/layout/pc/components/inquire.vue'
 
 import { useFetchWithLanguage } from '@/utils/http'
 import { jumpTo } from '@/utils/utils'
 import { useLanguageStore } from '@/stores/language'
 import eightLanguage from '@/constants/language'
 import styles from '@/assets/yee-mall.module.css'
-
 const route = useRoute()
 const router = useRouter()
 const language = useLanguageStore()
-
+const isInquire = ref(false)
 const loading = ref(true)
 const productCategoryList = ref<any[]>([])
-
+const windowWidth = computed(() => window.innerWidth <= 700 ? '90%' : '30%')
 const productDetail = ref<any>({
   id: '',
   imageUrls: [],
@@ -138,7 +119,7 @@ const productDetail = ref<any>({
   manuals: [],
   drivers: [],
 })
-
+const { t, locale } = useI18n()
 const getProductCategoryList = async () => {
   const data = await useFetchWithLanguage.post(
     `${import.meta.env.VITE_API_URL}/product/getProductSpuList`,
@@ -149,7 +130,8 @@ const getProductCategoryList = async () => {
   productCategoryList.value = data || []
 }
 
-const productDetailInit = async (productId: string) => {
+const productDetailInit = async () => {
+  const productId = route.query.id as string
   if (!productId) return
   loading.value = true
   const data = await useFetchWithLanguage.get(
@@ -159,16 +141,22 @@ const productDetailInit = async (productId: string) => {
   loading.value = false
   getProductCategoryList()
 }
-
-watch(
-  () => route.query.id,
-  (val) => {
-    productDetailInit(val as string)
-  },
-  { immediate: true },
-)
-
+onMounted(() => {
+  productDetailInit()
+})
+watch(locale, () => {
+  productDetailInit()
+})
 language.addRequest(productDetailInit)
+
+// 处理询盘提交
+const handleInquireSubmit = (formData: any) => {
+  console.log('提交的询盘数据:', formData)
+  // 这里可以添加实际的提交逻辑，例如发送到服务器
+  // 提交完成后，关闭弹窗
+  isInquire.value = false
+}
+
 </script>
 
 <style scoped>
@@ -276,7 +264,7 @@ language.addRequest(productDetailInit)
     font-size: 16px;
   }
 
-  .product-buy-button-wrapper > div {
+  .product-buy-button-wrapper>div {
     width: 100%;
     text-align: center;
     font-size: 16px;

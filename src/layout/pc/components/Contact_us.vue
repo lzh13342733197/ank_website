@@ -8,7 +8,7 @@
           <div>{{ $t('contact.header.description2') }}</div>
         </div>
       </div> -->
-      <img class="market-img" :src="isPC" alt="contact us banner">
+      <img class="market-img" v-lazy="isPC" alt="contact us banner">
     </div>
   </div>
   <ContactForm></ContactForm>

@@ -69,7 +69,7 @@
                 </template>
 
                 <p v-if="currentContent.image" v-for="img in currentContent.image" :key="img">
-                  <img :src="img" :alt="currentContent.title + ' Image'" class="content-image" />
+                  <img v-lazy="img" :alt="currentContent.title + ' Image'" class="content-image" />
                 </p>
               </div>
             </div>

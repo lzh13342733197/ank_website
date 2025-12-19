@@ -31,7 +31,7 @@
                 <SvgIcon name="product" size="16" color="#666"></SvgIcon>
               </div> -->
               <div class="result-content" style="display: flex; align-items: center; gap: 20px">
-                <img :src="result.productImageUrl" alt="" style="height: 100px; content-fit: cover" />
+                <img v-lazy="result.productImageUrl" alt="" style="height: 100px; content-fit: cover" />
                 <div>
                   <div class="result-title" v-html="highlightText(result.productSpuName || '')"></div>
                   <!-- <div class="result-category" v-html="highlightText(result.productCategoryName || '')"></div> -->

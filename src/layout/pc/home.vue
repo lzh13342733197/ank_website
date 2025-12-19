@@ -38,7 +38,7 @@
   <SwiperModule v-if="!loading" :images="slideData" class="swiperModule_" />
   <SkeletonComponent :loading="loading" />
   <div v-if="!loading">
-    <ProductShowcase :products="productList" />
+    <ProductShowcase :products="templateData" />
     <AboutUsModule />
     <!-- <NewsSlider /> -->
     <partner />
@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTemplateRef, onMounted, ref, computed, nextTick } from 'vue'
+import { useTemplateRef, onMounted, ref, computed, nextTick,watch } from 'vue'
 import { useFetchWithLanguage } from '@/utils/http'
 import SkeletonComponent from '@/components/skeleton-component.vue'
 import { useLanguageStore } from '@/stores/language'
@@ -61,13 +61,14 @@ import banner2 from '@/assets/images/home/banner2.png'
 import banner3 from '@/assets/images/home/banner3.png'
 import banner4 from '@/assets/images/home/banner4.png'
 import banner5 from '@/assets/images/home/banner5.png'
-
+import { useI18n } from 'vue-i18n'
+const { t,locale } = useI18n()
 const route = useRoute()
 
 const language = useLanguageStore()
 
 const cardPeekListRef = useTemplateRef('cardPeekListRef')
-
+const templateData = ref([])
 const getImageUrl = (item: any) => {
   if (item.productDetail) {
     return item.productDetail.imageUrl
@@ -78,12 +79,12 @@ const getImageUrl = (item: any) => {
 const slideData = [
   {
     src: banner1,
-    url: '/cn/ProductDetail/123.html',
+    url: '',
     alt: 'Slide 1'
   },
   {
     src: banner2,
-    url: '/cn/ProductDetail/456.html',
+    url: '',
     alt: 'Slide 2'
   },
   {
@@ -204,7 +205,8 @@ const homInit = async () => {
         result.forEach((item, index) => {
           categoryList.value[index].productSpuList = item
         })
-
+        console.log(categoryList.value[4].productSpuList);
+        templateData.value = categoryList.value[4].productSpuList
         resolve()
       } catch (error) {
         resolve()
@@ -224,6 +226,9 @@ const homInit = async () => {
 
 onMounted(homInit)
 
+watch(() => locale.value, (newLocale) => {
+  homInit()
+})
 language.addRequest(homInit)
 
 const jumpToCategory = async (id: string) => {

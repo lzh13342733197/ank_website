@@ -27,7 +27,21 @@ export default {
   productDetail: {
     AboutThisItem: "About This Item",
     ProductManual: "Product Manual",
-    shopNow: "Shop Now",
+    shopNow: "Inquire Now",
+
+    inquireForm: "Inquire Form",
+    contact: "Contact",
+    contactInfo: "Please enter contact",
+    email: "Email",
+    emailInfo: "Please enter email",
+    company: "Company",
+    companyInfo: "Please enter company",
+    requirements: "Requirements",
+    requirementsInfo: "Please enter inquiry content (no more than 250 characters)",
+    verificationCode: "Verification Code",
+    verificationCodeInfo: "Please enter the verification code.",
+    submit: "Submit",
+
   },
   contact: {
     companyTitle: "Shenzhen Ankbit Electronics Limited",
@@ -50,6 +64,8 @@ export default {
       required: "The field is required.",
       generalError:
         "One or more fields have not been filled in as required. Please check and try again.",
+      captcha: "Please enter captcha",
+      captchaError: "Captcha error",
     },
   },
   marketLayout: {

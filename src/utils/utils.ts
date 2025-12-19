@@ -69,6 +69,17 @@ export const capitalizeWithAnd = (str: string): string => {
       })
   )
 }
+/**
+ * 生成 UUID
+ * @returns 生成的 UUID 字符串
+ */
+export const getUuid = (): string => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
 
 /**
  * 返回元素在页面中的位置信息

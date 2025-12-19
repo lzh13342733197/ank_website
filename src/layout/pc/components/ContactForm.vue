@@ -67,8 +67,18 @@
         <div class="form-item">
           <textarea v-model="formData.message" :placeholder="$t('contact.form.message')"
             class="textarea-field"></textarea>
+          <p class="error-msg" v-if="errors.message">{{ $t('contact.form.required') }}</p>
         </div>
-        <button type="submit" class="submit-btn">{{ $t('contact.form.submit') }}</button>
+        <div class="form-item" style="padding-bottom: 10px;">
+          <div style="display: flex; width: 100%; justify-self: center;  gap: 10px;">
+            <img :src="state.captchaUrl" alt="验证码" class="captcha-image" @click="getCaptchaUrl" />
+            <input type="text" v-model="formData.captcha" :placeholder="$t('contact.form.captcha')" class="input-field" style="margin-bottom: 0px;" />
+          </div>
+          <p class="error-msg" v-if="errors.captcha">{{ $t('contact.form.captchaError') }}</p>
+        </div>
+        <div style="text-align: right;">
+          <button type="submit" class="submit-btn">{{ $t('contact.form.submit') }}</button>
+        </div>
         <p class="general-error" v-if="generalError">{{ $t('contact.form.generalError') }}</p>
       </form>
     </div>
@@ -76,24 +86,34 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref ,reactive,onMounted } from 'vue';
 import svgIcon from '@/components/SvgIcon.vue'
+import { getUuid } from '@/utils/utils'
 // 表单数据
 const formData = ref({
   Contact: '',
   Email: '',
   Address: '',
-  message: ''
+  message: '',
+  captcha: ''
 });
 // 错误信息
 const errors = ref({
   Contact: false,
   Email: false,
   Address: false,
+  message: false,
+  captcha: false,
+});
+const state = reactive({
+  captchaUrl: ''
 });
 // 整体错误提示
 const generalError = ref(false);
-
+const getCaptchaUrl = () => {
+  formData.value.uuid = getUuid();
+  state.captchaUrl = `https://test-boss.yeemall.com:9080/ym/captcha?uuid=${formData.value.uuid}`;
+};
 // 表单提交处理
 const handleSubmit = () => {
   // 重置错误状态
@@ -102,6 +122,7 @@ const handleSubmit = () => {
     message: !formData.value.message.trim(),
     Email: !formData.value.Email.trim(),
     Address: !formData.value.Address.trim(),
+    captcha: !formData.value.captcha.trim(),
   };
   // 判断是否有错误
   const hasError = Object.values(errors.value).some((val) => val);
@@ -119,6 +140,9 @@ const handleSubmit = () => {
     generalError.value = false;
   }
 };
+onMounted(() => {
+  getCaptchaUrl();
+});
 </script>
 
 <style scoped>
@@ -221,7 +245,9 @@ const handleSubmit = () => {
   flex: 1 1 calc(33.333% - 20px);
   min-width: 200px;
 }
-
+.captcha-image{
+  cursor: pointer;
+}
 .input-field,
 .textarea-field {
   width: 100%;

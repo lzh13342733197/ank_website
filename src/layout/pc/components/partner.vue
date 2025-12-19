@@ -3,7 +3,7 @@
     <h2 class="partner-title">{{ $t('home.partner') }}</h2>
     <div class="partner-list">
       <div class="partner-item" v-for="item in visiblePartners" :key="item.id">
-        <img :src="item.logo" :alt="item.name" :title="item.name" class="partner-logo" />
+        <img v-lazy="item.logo" :alt="item.name" :title="item.name" class="partner-logo" />
       </div>
     </div>
 

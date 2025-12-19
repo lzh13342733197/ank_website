@@ -3,9 +3,9 @@
     <div class="production_info">产品信息</div>
     <div class="optionItem" v-for="item in categoryList" :key="item.id" @click="handleChange(item.id)"
       @mouseenter="handleMouseEnter(item.id)" @mouseleave="handleMouseLeave" :class="{ 'actived': item.id === activeId }">
-      <div :class="{ 'hovered': item.id === hoverId }" style="white-space-collapse: collapse;" type="" link
+      <div :class="{ 'hovered': item.id === hoverId || item.id === activeId }" style="white-space-collapse: collapse;" type="" link
         @click="handleChange(item.id)">{{ item.name }}</div>
-      <div class="arrow" v-if="item.id === activeId || item.id === hoverId" style="color: #ccc;">></div>
+      <div class="arrow" v-if="item.id === activeId || item.id === hoverId" style="color: #0095d7;">></div>
     </div>
   </div>
 </template>
@@ -90,7 +90,8 @@ const handleMouseLeave = () => {
 
 .hovered {
   transform: translateX(5px);
-  transition: transform 0.3s ease-out
+  transition: transform 0.3s ease-out;
+ 
 }
 
 
@@ -127,6 +128,7 @@ const handleMouseLeave = () => {
 .optionItem{
   border: none;
   border: 1px solid #000;
+  width: auto;
 }
 .optionItem:last-child {
   border-bottom: 1px solid #000;
@@ -143,6 +145,9 @@ const handleMouseLeave = () => {
 @media (min-width: 1355px) {
 .box{
   background-color: white;
+}
+.hovered {
+  color: #0095d7;
 }
 }
 </style>
