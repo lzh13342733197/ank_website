@@ -455,8 +455,14 @@ watch(() => locale.value, () => { getProductMsg() })
   border: none;
   cursor: pointer;
 }
+@media (max-width: 1200px){
+  .info-section{
+    width: 100% !important;
+  }
+}
 
 @media (max-width: 768px) {
+
   .form-section {
     width: 100%;
     min-height: auto;

@@ -135,7 +135,6 @@ const menus = computed(() => {
   ];
 
   return menuList.map(menu => {
-    console.log(menu.url, currentPath);
     menu.url = menu.url.split('?')[0]
     let isMatch = menu.url === currentPath;
     if (!isMatch && menu.children) {

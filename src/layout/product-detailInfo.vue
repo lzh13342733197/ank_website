@@ -69,7 +69,7 @@
 
     <el-dialog v-model="isInquire" top="30px" :width="windowWidth" :close-on-click-modal="true"
       :close-on-press-escape="false" :show-close="true">
-      <ContactForm :productSpuId="route.query.id" />
+      <ContactForm :productSpuId="productDetail.id" />
     </el-dialog>
   </div>
 </template>
