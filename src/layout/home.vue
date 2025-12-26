@@ -38,15 +38,16 @@
   <SwiperModule v-if="!loading" :images="slideData" class="swiperModule_" />
   <SkeletonComponent :loading="loading" />
   <div v-if="!loading">
-    <ProductShowcase :products="templateData" />
     <AboutUsModule />
+    <ProductShowcase :products="templateData" />
     <!-- <NewsSlider /> -->
+    <PatentsAwards />
     <partner />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useTemplateRef, onMounted, ref, computed, nextTick,watch } from 'vue'
+import { useTemplateRef, onMounted, ref, computed, nextTick, watch } from 'vue'
 import { useFetchWithLanguage } from '@/utils/http'
 import SkeletonComponent from '@/components/skeleton-component.vue'
 import { useLanguageStore } from '@/stores/language'
@@ -56,13 +57,14 @@ import ProductShowcase from '@/layout/ProductShowcase.vue'
 import AboutUsModule from '@/layout/components/AboutUsModule.vue'
 import NewsSlider from '@/layout/components/NewsSlider.vue'
 import partner from '@/layout/components/partner.vue'
-import banner1 from '@/assets/images/home/banner1.png'
+import PatentsAwards from '@/layout/components/PatentsAwards.vue'
+import banner1 from '@/assets/images/home/banner1.jpg'
 import banner2 from '@/assets/images/home/banner2.png'
-import banner3 from '@/assets/images/home/banner3.png'
+import banner3 from '@/assets/images/home/banner3.jpg'
 import banner4 from '@/assets/images/home/banner4.png'
-import banner5 from '@/assets/images/home/banner5.png'
+import banner5 from '@/assets/images/home/banner5.jpg'
 import { useI18n } from 'vue-i18n'
-const { t,locale } = useI18n()
+const { t, locale } = useI18n()
 const route = useRoute()
 
 const language = useLanguageStore()
@@ -103,44 +105,6 @@ const slideData = [
     alt: 'Slide 5'
   },
 ]
-const productList = ref([
-  {
-    id: 1,
-    name: "主动降噪蓝牙耳机 NB-1092",
-    imageUrl: "//img.wds168.cn/comdata/83627/product/20241023114758D3E5F06E231A69AB_s.jpg",
-    link: "/cn/ProductDetail/4875130.html"
-  },
-  {
-    id: 2,
-    name: "多媒体蓝牙耳机 BEM-1100",
-    imageUrl: "//img.wds168.cn/comdata/83627/product/20210219095054AF5724D15301E86C_s.jpg",
-    link: "/cn/ProductDetail/4801155.html"
-  },
-  {
-    id: 3,
-    name: "真无线蓝牙耳机 T20",
-    imageUrl: "//img.wds168.cn/comdata/83627/product/20210608171919E3E5AC7C20637A1A_s.jpg",
-    link: "/cn/ProductDetail/5214554.html"
-  },
-  {
-    id: 4,
-    name: "高性能麦克风 M-630",
-    imageUrl: "//img.wds168.cn/comdata/83627/product/2021082310255599B1BE4B43C62E1D_s.jpg",
-    link: "/cn/ProductDetail/5453615.html"
-  },
-  {
-    id: 5,
-    name: "便携式蓝牙音箱 BT-360",
-    imageUrl: "//img.wds168.cn/comdata/83627/product/202110191549120165FA7100140E46_s.jpg",
-    link: "/cn/ProductDetail/5292943.html"
-  },
-  {
-    id: 6,
-    name: "蓝牙运动耳机 W22",
-    imageUrl: "//img.wds168.cn/comdata/83627/product/202107061038324E83B064203CD75F_s.jpg",
-    link: "/cn/ProductDetail/5293033.html"
-  }
-]);
 const loading = ref(true)
 const activeId = ref('')
 
@@ -154,7 +118,7 @@ let pendingPromise: Promise<void> | null = null
 
 const homdic = ref<any>()
 const homInit = async () => {
-if (import.meta.env.SSR) return
+  if (import.meta.env.SSR) return
   const res = await useFetchWithLanguage.post(
     `${import.meta.env.VITE_API_URL}/siteConfig/getSiteConfig`,
     {},
@@ -174,40 +138,9 @@ if (import.meta.env.SSR) return
     const fetchData = async () => {
       if (import.meta.env.SSR) return
       try {
-        const data = await useFetchWithLanguage.post(
-          `${import.meta.env.VITE_API_URL}/product/getCategoryList`,
-          {},
-        )
-        console.log(data);
-
-        const getLeafNode = (item: any, catagoryList: any[]) => {
-          if (item.children.length > 0) {
-            item.children.forEach((child: any) => {
-              getLeafNode(child, catagoryList)
-            })
-          } else {
-            categoryList.value.push(item)
-          }
-        }
-
-        categoryList.value = []
-        data.forEach((item: any) => {
-          getLeafNode(item, categoryList.value)
-        })
-
-        const fetchList = categoryList.value.map((item: any) =>
-          useFetchWithLanguage.post(`${import.meta.env.VITE_API_URL}/product/getProductSpuList`, {
-            productCategoryId: item.id,
-          }),
-        )
-
-        const result = await Promise.all(fetchList)
-
-        result.forEach((item, index) => {
-          categoryList.value[index].productSpuList = item
-        })
-        console.log(categoryList.value[4].productSpuList);
-        templateData.value = categoryList.value[4].productSpuList
+        const res = await useFetchWithLanguage.post(`${import.meta.env.VITE_API_URL}/product/show`, {})
+        console.log(res);
+        templateData.value = res
         resolve()
       } catch (error) {
         resolve()
@@ -217,7 +150,6 @@ if (import.meta.env.SSR) return
         pendingPromise = null
       }
     }
-
     fetchData()
   })
 

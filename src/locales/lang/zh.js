@@ -4,19 +4,27 @@ export default {
     Home: "首页",
     AboutUs: "关于我们",
     Products: "产品中心",
-    News: "新闻动态",
+    patents: "专利与奖项",
+    Credentials: "资质认证",
+    News: "展会",
     Contact: "联系我们",
-    pleaseInputKeyword: "请输入关键词",
+    pleaseInputKeyword: "搜索",
     search: "搜索",
     searchPlaceholder: "请输入搜索关键词",
     showDetails: "显示详情",
   },
-  home:{
+  home: {
     MORE: "更多",
     aboutUs: "关于我们",
-    homeAboutUs:'我们是一家成立于2012年2月，集研发、生产、销售于一体的现代化高新技术企业。自2019年起，我们专注于音频设备及数码产品领域，涵盖音频收发器、专业解码器、耳机、功率放大器、高品质真无线立体声（TWS）蓝牙耳机、降噪耳机、游戏耳机等产品线，致力于为用户提供更优质的视听体验与更舒适的生活方式。',
+    homeAboutUs:
+      'Ankbit 是一家专注于音频设备制造的高新技术企业，在耳机、音箱及蓝牙收发器领域具备深厚的技术积累与生产经验。我们提供从产品定义、工业设计、软硬件研发到规模生产的 <strong style="color: #efeded;">ODM、OEM 与深度定制化服务</strong>，拥有完整的供应链体系与自动化生产线。凭借严格的质量管控与敏捷的交付能力，我们致力于为全球客户提供高品质、可定制的一站式音频解决方案。',
     companyName: "深圳市爱科贝电子有限公司",
     partner: "合作伙伴",
+    PRODUCTS_SHOW: "产品展示",
+    PatentsAwards: "专利与奖项",
+  },
+  productCenter: {
+    productCenter: "产品中心",
   },
   common: {
     contactUs: "联系我们",
@@ -48,21 +56,37 @@ export default {
   contact: {
     companyTitle: "深圳市爱科贝电子有限公司",
     description: "向我们发送您的具体描述，以便我们第一时间联系您！",
-    address: "地址",
+    address: "地址:",
     addressDetail: "广东省深圳市宝安区西乡街道润丰工业园B栋3楼",
     contactInfo: "联系方式",
-    email: "邮箱",
+    email: "邮箱:",
+    inquiry: "询盘",
     header: {
       description1: "对一魔声学产品、服务、合作等有任何问题",
       description2: "请与我们联系~",
     },
     form: {
-      Contact: "请输入联系人",
+      productLabel: "产品",
+      productOptions: "请选择产品",
+      ContactLabel: "姓名",
+      Contact: "请输入姓名",
+      AddressLabel: "地址",
       Address: "请输入地址",
+      EmailLabel: "邮箱",
       Email: "请输入邮箱",
+      messageLabel: "留言",
       message: "请输入留言",
+      quantityLabel: "数量",
+      quantity: "请输入数量",
+      verificationCodeLabel: "验证码",
+      verificationCode: "请输入验证码",
+      pieceLabel: "件",
       submit: "发送",
+      submitSuccess: "提交成功！",
       required: "该字段为必填项",
+      submitSuccessTitle: "提交成功！",
+      submitSuccessDesc: "我们将尽快联系您！",
+      continue: "继续",
       generalError: "一个或多个字段未按要求填写。请检查并重试。",
       captcha: "请输入验证码",
       captchaError: "验证码错误",
@@ -84,8 +108,10 @@ export default {
     teamDesc1:
       "深圳市爱科贝电子有限公司历时多年，打造了一个规模庞大、实力雄厚的研发中心，构建了一支由本科、硕士及博士学历研究人员组成的专业创新型科研团队。其中包含具有多年行业研发经验的专业声学博士、无线音频领域的领军人才，以及各类设计师、软硬件工程师等。",
     teamDesc2: "这个拥有近200人的综合创新中心，为爱科贝高品质产品提供了有力保障。",
-    teamDesc3: "多年来，依托公司雄厚实力、自主创新研发能力和深入骨髓的品质理念，爱科贝已成为行业内具备完整产业链、自主创新能力及集研发、生产、销售于一体的高新技术企业。",
-    teamDesc4: "在董事会及管理委员会宏伟战略布局的指引下，爱科贝正朝着属于全体员工的星辰大海扬帆起航。",
+    teamDesc3:
+      "多年来，依托公司雄厚实力、自主创新研发能力和深入骨髓的品质理念，爱科贝已成为行业内具备完整产业链、自主创新能力及集研发、生产、销售于一体的高新技术企业。",
+    teamDesc4:
+      "在董事会及管理委员会宏伟战略布局的指引下，爱科贝正朝着属于全体员工的星辰大海扬帆起航。",
     teamDesc5:
       "公司自主研发的产品已通过3C、CE、FCC、BQB、ROHS、Hi-Res等多项检测认证，并在美国、欧盟、英国、日本等多个国家和地区获得超过150项实用新型专利。",
     stats: {
@@ -141,7 +167,7 @@ export default {
     },
   },
   news: {
-    title: "新闻动态",
+    title: "展会动态",
   },
   aboutUs: {
     title: "关于我们",
@@ -151,6 +177,8 @@ export default {
         "我们是一家成立于2012年2月，集研发、生产、销售于一体的现代化高新技术企业。自2019年起，我们专注于音频设备及数码产品领域，涵盖音频收发器、专业解码器、耳机、功率放大器、高品质真无线立体声（TWS）蓝牙耳机、降噪耳机、游戏耳机等产品线，致力于为用户提供更优质的视听体验与更舒适的生活方式。",
       secondParagraph:
         '公司销售与研发团队中超过85%的成员拥有本科或硕士学位，产品已销往全球十余个国家和地区。爱科贝秉持工程驱动的文化，以"用设计创造价值"为理念导向，坚持务实专注的精神，持续深耕音频领域，致力于成为音频行业中领先的科技企业。',
+      thirdParagraph:
+        "本公司成立于 2012 年 2 月，是一家集研发、生产和销售于一体的现代化企业。自 2019 年以来，我们专注于音频设备和数字产品，产品涵盖音频收发器、专业解码器、耳机、功率放大器、高品质真无线立体声（TWS）蓝牙耳机、降噪耳机、游戏耳机等，旨在为用户提供卓越的视听体验和更舒适的生活方式。",
     },
     VisionAndMission: {
       title: "愿景与使命",
@@ -200,6 +228,7 @@ export default {
       RAD: "研发与研究",
       GlobalLayout: "全球布局",
     },
+    Credentials: "我们的认证",
   },
   footer: {
     ContactInformation: "联系信息",

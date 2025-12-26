@@ -1,5 +1,6 @@
 <template>
-  <div class="swiper-container-wrapper" @touchmove.prevent>
+  <!-- <div class="swiper-container-wrapper" @touchmove.prevent> -->
+  <div class="swiper-container-wrapper" >
     <div
       style="
         width: 100%;

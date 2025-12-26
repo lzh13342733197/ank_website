@@ -30,8 +30,8 @@
           <div class="success-inner">
             <div class="success-content">
               <div class="success-icon">✓</div>
-              <h2 class="success-title">{{ $t('contact.form.submitSuccessTitle') }}</h2>
-              <p class="success-desc">{{ $t('contact.form.submitSuccessDesc') }}</p>
+              <h2 class="success-title">{{ $t('contact.form.submitSuccessTitle') || 'Submitted Successfully!' }}</h2>
+              <p class="success-desc">{{ $t('contact.form.submitSuccessDesc') || 'Thank you for your inquiry. We will get back to you soon.' }}</p>
             </div>
           </div>
           <div class="success-footer">
@@ -42,15 +42,15 @@
         </div>
 
         <div v-else key="form" class="form-view">
-          <h1 class="form-title">{{ $t('contact.inquiry') }}</h1>
+          <div class="form-title">{{ $t('contact.inquiry') }}</div>
           <form @submit.prevent="handleSubmit">
             <div class="form-item">
-              <p class="form-item-label-top">{{ $t('contact.form.productLabel') || 'Select Product' }}</p>
+              <p class="form-item-label-top">{{ $t('contact.form.productLabel') || 'Select Products (Multiple)' }}</p>
               <div class="product-selection-grid">
                 <div v-for="item in productList" :key="item.id" class="product-card"
-                  :class="{ 'is-selected': formData.productId === item.id }" @click="selectProduct(item.id)">
-                  <div class="card-checkbox radio-mode">
-                    <div class="radio-inner" v-if="formData.productId === item.id"></div>
+                  :class="{ 'is-selected': formData.productIds.includes(item.id) }" @click="toggleProduct(item.id)">
+                  <div class="card-checkbox">
+                    <div class="check-inner" v-if="formData.productIds.includes(item.id)"></div>
                   </div>
                   <img :src="item.imageUrls[0]" class="card-img" alt="product" />
                   <div class="card-info">
@@ -58,55 +58,50 @@
                   </div>
                 </div>
               </div>
-              <p class="error-msg no-padding" v-if="errors.productId">{{ $t('contact.form.required') }}</p>
+              <p class="error-msg no-padding" v-if="errors.productIds">{{ $t('contact.form.required') }}</p>
+            </div>
+
+            <div class="form-item">
+              <div class="form-item-row">
+                <p class="form-item-label">{{ $t('contact.form.ContactLabel') }}</p>
+                <input type="text" v-model="formData.Name" :placeholder="$t('contact.form.Contact')" class="input-field" />
+              </div>
+              <p class="error-msg" v-if="errors.Name">{{ $t('contact.form.required') }}</p>
             </div>
 
             <div class="form-item">
               <div class="form-item-row">
                 <p class="form-item-label">{{ $t('contact.form.EmailLabel') }}</p>
-                <input type="text" v-model="formData.Email" :placeholder="$t('contact.form.Email')"
-                  class="input-field" />
+                <input type="text" v-model="formData.Email" :placeholder="$t('contact.form.Email')" class="input-field" />
               </div>
               <p class="error-msg" v-if="errors.Email">{{ $t('contact.form.required') }}</p>
             </div>
 
             <div class="form-item">
               <div class="form-item-row">
-                <p class="form-item-label">{{ $t('contact.form.ContactLabel') }}</p>
-                <input type="text" v-model="formData.Name" :placeholder="$t('contact.form.Contact')"
-                  class="input-field" />
-              </div>
-              <p class="error-msg" v-if="errors.Name">{{ $t('contact.form.required') }}</p>
-            </div>
-
-
-
-            <div class="form-item">
-              <div class="form-item-row">
                 <p class="form-item-label">{{ $t('contact.form.quantityLabel') }}</p>
                 <div class="input-with-unit">
-                  <input type="number" v-model="formData.quantity" placeholder="0" class="input-field no-margin"
-                    min="1" />
-                  <span class="unit-text" style="padding-left: 5px;">{{ $t('contact.form.pieceLabel') }}</span>
+                  <input type="number" v-model="formData.quantity" placeholder="0" class="input-field no-margin" min="1" />
+                  <span class="unit-text">{{ $t('contact.form.pieceLabel') }}</span>
                 </div>
               </div>
               <p class="error-msg" v-if="errors.quantity">{{ $t('contact.form.required') }}</p>
             </div>
 
-            <!-- <div class="form-item">
+            <div class="form-item">
               <div class="form-item-row">
                 <p class="form-item-label">{{ $t('contact.form.AddressLabel') }}</p>
                 <input type="text" v-model="formData.Address" :placeholder="$t('contact.form.Address')"
                   class="input-field" />
               </div>
               <p class="error-msg" v-if="errors.Address">{{ $t('contact.form.required') }}</p>
-            </div> -->
+            </div>
 
             <div class="form-item">
               <div class="form-item-row">
                 <p class="form-item-label">{{ $t('contact.form.messageLabel') }}</p>
-                <textarea v-model="formData.message" :placeholder="$t('contact.form.message')" class="textarea-field"
-                  style="height: 100px;"></textarea>
+                <textarea v-model="formData.message" :placeholder="$t('contact.form.message')"
+                  class="textarea-field" style="height: 100px;"></textarea>
               </div>
               <p class="error-msg" v-if="errors.message">{{ $t('contact.form.required') }}</p>
             </div>
@@ -147,11 +142,11 @@ const { t, locale } = useI18n()
 const submitSuccess = ref(false);
 
 const formData = ref({
-  productId: '', // 修改为单选字符串
+  productIds: [],
   Name: '',
   Email: '',
   quantity: '',
-  // Address: '',
+  Address: '',
   message: '',
   captcha: '',
   uuid: ''
@@ -159,13 +154,7 @@ const formData = ref({
 
 const productList = ref([]);
 const errors = ref({
-  // 改为单选校验
-  // Name: false,
-  Email: false,
-  // quantity: false,
-  // Address: false,
-  message: false,
-  captcha: false,
+  productIds: false, Name: false, Email: false, quantity: false, Address: false, message: false, captcha: false,
 });
 const state = reactive({ captchaUrl: '' });
 const generalError = ref(false);
@@ -176,16 +165,15 @@ const getCaptchaUrl = () => {
 };
 
 const resetForm = () => {
-  formData.value = {  Name: '', Email: '', quantity: '', message: '', captcha: '', uuid: '' };
-  errors.value = { productId: false,  Email: false, message: false, captcha: false };
+  formData.value = { productIds: [], Name: '', Email: '', quantity: '', Address: '', message: '', captcha: '', uuid: '' };
+  errors.value = { productIds: false, Name: false, Email: false, quantity: false, Address: false, message: false, captcha: false };
   submitSuccess.value = false;
   getCaptchaUrl();
 };
 
-// 修改：单选点击逻辑
-const selectProduct = (id) => {
-  // 如果点击已选中的，则取消选中；如果点击新的，则替换
-  formData.value.productId = formData.value.productId === id ? '' : id;
+const toggleProduct = (id) => {
+  const index = formData.value.productIds.indexOf(id);
+  index > -1 ? formData.value.productIds.splice(index, 1) : formData.value.productIds.push(id);
 };
 
 const getProductMsg = async () => {
@@ -196,26 +184,23 @@ const getProductMsg = async () => {
 }
 
 const handleSubmit = async () => {
-  // 修改：校验单选 ID
   errors.value = {
-    // productId: !formData.value.productId,
-    // Name: !formData.value.Name.trim(),
+    productIds: formData.value.productIds.length === 0,
+    Name: !formData.value.Name.trim(),
     Email: !formData.value.Email.trim(),
-    // quantity: !String(formData.value.quantity).trim(),
-    // Address: !formData.value.Address.trim(),
+    quantity: !String(formData.value.quantity).trim(),
+    Address: !formData.value.Address.trim(),
     message: !formData.value.message.trim(),
     captcha: !formData.value.captcha.trim(),
   };
-
   const hasError = Object.values(errors.value).some((val) => val);
   generalError.value = hasError;
-
   if (!hasError) {
     const submitData = {
-      productSpuld: formData.value.productId, // 直接传 ID
+      productSpuld: formData.value.productIds.join(','),
       name: formData.value.Name,
       email: formData.value.Email,
-      // address: formData.value.Address,
+      address: formData.value.Address,
       comment: formData.value.message,
       captcha: formData.value.captcha,
       uuid: formData.value.uuid,
@@ -240,43 +225,47 @@ watch(() => locale.value, () => { getProductMsg() })
 </script>
 
 <style scoped>
-/* 原有布局样式保持不变 */
 .contact-container {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  align-items: stretch;
+  align-items: stretch; /* 让左右两边高度对齐 */
 }
 
 .info-section {
-  width: 650px;
+  flex: 1 1 400px;
   background-color: #fff;
   padding: 40px;
   box-sizing: border-box;
 }
 
 .form-section {
-  flex: 1 ;
+  flex: 1 1 400px;
   background-color: #f8f8f8;
   padding: 40px;
   box-sizing: border-box;
-  min-height: 850px;
+  /* 关键点：设置一个合理的最小高度，防止切换时坍塌 */
+  min-height: 850px; 
   display: flex;
   flex-direction: column;
 }
 
-/* 成功页与过渡动画样式保持不变 */
+.form-view {
+  width: 100%;
+}
+
+/* 成功视图样式修正 */
 .success-view {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 1; /* 撑满父容器高度 */
 }
 
 .success-inner {
   flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
 }
 
 .success-content {
@@ -329,24 +318,19 @@ watch(() => locale.value, () => { getProductMsg() })
   background-color: #0095d7;
 }
 
+/* 过渡动画 */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
 }
-
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
 }
 
-.form-title {
-  font-size: 26px;
-  color: #333;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-/* 单选产品卡片样式修改 */
+/* 基础表单样式保持 */
+.form-item { margin-bottom: 15px; }
+.form-item-label-top { font-size: 14px; font-weight: bold; margin-bottom: 10px; }
 .product-selection-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -364,145 +348,27 @@ watch(() => locale.value, () => { getProductMsg() })
   text-align: center;
   cursor: pointer;
   border-radius: 4px;
-  position: relative;
-  transition: all 0.2s ease;
 }
+.product-card.is-selected { border-color: #0095d7; background: #f0faff; }
+.card-img { width: 80px; height: 80px; object-fit: contain; }
+.card-name { font-size: 12px; margin-top: 5px; color: #333; }
 
-.product-card.is-selected {
-  border-color: #0095d7;
-  background: #f0faff;
-}
-
-/* Radio 风格的小圆圈 */
-.card-checkbox.radio-mode {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #ddd;
-  border-radius: 50%;
-  /* 圆形 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.is-selected .card-checkbox.radio-mode {
-  border-color: #0095d7;
-}
-
-.radio-inner {
-  width: 10px;
-  height: 10px;
-  background-color: #0095d7;
-  border-radius: 50%;
-}
-
-.card-img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-}
-
-.card-name {
-  font-size: 12px;
-  margin-top: 5px;
-  color: #333;
-}
-
-/* 基础表单样式保持不变 */
-.form-item-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.form-item-label {
-  min-width: 100px;
-  font-size: 14px;
-}
-
-.input-field,
-.textarea-field {
+.form-item-row { display: flex; align-items: center; gap: 10px; }
+.form-item-label { min-width: 100px; font-size: 14px; }
+.input-field, .textarea-field {
   flex: 1;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
-
-.error-msg {
-  color: #0095d7;
-  font-size: 12px;
-  margin-top: 5px;
-  padding-left: 110px;
-}
-
-.error-msg.no-padding {
-  padding-left: 0;
-}
-
-.captcha-image {
-  height: 40px;
-  width: 100px;
-  cursor: pointer;
-}
-
-.submit-btn {
-  background: #333;
-  color: #fff;
-  padding: 10px 30px;
-  border: none;
-  cursor: pointer;
-}
+.error-msg { color: #0095d7; font-size: 12px; margin-top: 5px; padding-left: 110px; }
+.error-msg.no-padding { padding-left: 0; }
+.captcha-image { height: 40px; width: 100px; cursor: pointer; }
+.submit-btn { background: #333; color: #fff; padding: 10px 30px; border: none; cursor: pointer; }
 
 @media (max-width: 768px) {
-  .form-section {
-    width: 100%;
-    min-height: auto;
-    padding: 20px 10px;
-    /* 适当减少容器内边距，给输入框腾位置 */
-  }
-
-  .form-item-row {
-    flex-direction: column;
-    align-items: stretch;
-    /* 关键：让子元素自动撑开到父容器宽度 */
-  }
-
-  .input-field,
-  .textarea-field {
-    /* 1. 移除 iOS 默认内阴影和样式 */
-    -webkit-appearance: none;
-
-    /* 2. 强制宽度，改用 100% 配合 box-sizing */
-    width: 100% !important;
-    box-sizing: border-box;
-    /* 确保 padding 不会撑大宽度导致溢出 */
-
-    /* 3. 防止字体自动放大 */
-    font-size: 16px;
-
-    margin-bottom: 0px;
-    display: block;
-  }
-
-  /* 针对验证码和数量这种特殊组合，确保它们依然在一行排列但占满宽度 */
-  .input-with-unit,
-  .form-item-row>div[style*="display: flex"] {
-    width: 100%;
-    display: flex !important;
-    align-items: center;
-  }
-
-  .error-msg {
-    padding-left: 0;
-  }
-
-  .product-selection-grid {
-    max-height: 250px;
-    grid-template-columns: repeat(2, 1fr);
-    /* 手机端每行两个 */
-  }
+  .form-section { min-height: auto; }
+  .form-item-row { flex-direction: column; align-items: flex-start; }
+  .error-msg { padding-left: 0; }
 }
 </style>

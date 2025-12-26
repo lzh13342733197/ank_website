@@ -17,7 +17,18 @@
           <ul v-if="menu.children && menu.children.length" class="sub-nav-group"
             :class="{ 'is-open': activeSubMenuId === menu.id }">
             <li v-for="sub in menu.children" :key="sub.url">
-              <a :href="sub.url" class="sub-nav-link">{{ sub.name }}</a>
+              <a v-if="sub.imageUrl" :href="sub.url" class="sub-nav-link"
+                :class="{ 'is-active': isPathMatch(sub.url) }">
+                <div style="display: flex; align-items: center;">
+                  <img :src="sub.imageUrl" alt="Category Image" class="category-image">
+                  <div style="min-width: 150px;">
+                    {{ sub.name }}
+                  </div>
+                </div>
+              </a>
+              <a v-else :href="sub.url" class="sub-nav-link" :class="{ 'is-active': isPathMatch(sub.url) }">
+                {{ sub.name }}
+              </a>
             </li>
           </ul>
         </div>
@@ -26,19 +37,20 @@
       <div class="nav-item nav-toolbar">
 
         <div class="tools-pc">
-          <div class="lang-switch">
-            <div class="lang-switch-border" @click="toggleMobileLang">
-            {{ currentLang === 'zh' ? 'Chinese' : 'English' }}
-            <span class="arrow-icon">{{ isMobileLangOpen ? '▲' : '▼' }}</span>
-            <ul v-if="isMobileLangOpen" class="mobile-lang-list">
-              <li @click.stop="setLang('zh')">Chinese</li>
-              <li @click.stop="setLang('en')">English</li>
-            </ul>
-          </div>
+          <div class="lang-switch" @mouseenter="isMobileLangOpen = true" @mouseleave="isMobileLangOpen = false">
+            <div class="lang-switch-border">
+              {{ currentLang === 'zh' ? 'Chinese' : 'English' }}
+              <span class="arrow-icon">{{ isMobileLangOpen ? '▲' : '▼' }}</span>
+              <ul v-if="isMobileLangOpen" class="mobile-lang-list">
+                <li @click.stop="setLang('zh')" :class="{ 'active': currentLang === 'zh' }">Chinese</li>
+                <li @click.stop="setLang('en')" :class="{ 'active': currentLang === 'en' }">English</li>
+              </ul>
+            </div>
           </div>
           <div class="search-box" @click="isSearchExpanded = true; isMobileMenuOpen = false">
-            <input type="text" :placeholder="t('navigationBar.pleaseInputKeyword')" class="search-input" @keydown.enter.prevent>
-            <div :class="[styles.navigationBarItem, 'search-container']" 
+            <input type="text" :placeholder="t('navigationBar.pleaseInputKeyword')" class="search-input"
+              @keydown.enter.prevent>
+            <div :class="[styles.navigationBarItem, 'search-container']"
               style="color: white; text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;">
               <SvgIcon :name="`search`" size="25" color="white" style="filter: drop-shadow(0 0 1px black); ">
               </SvgIcon>
@@ -47,12 +59,12 @@
         </div>
 
         <div class="tools-mobile">
-          <div class="mobile-lang-switch" @click="toggleMobileLang">
+          <div class="mobile-lang-switch" @click="toggleMobileLang" @mouseleave="isMobileLangOpen = false">
             {{ currentLang === 'zh' ? 'Chinese' : 'English' }}
             <span class="arrow-icon">{{ isMobileLangOpen ? '▲' : '▼' }}</span>
             <ul v-if="isMobileLangOpen" class="mobile-lang-list">
-              <li @click.stop="setLang('zh')">Chinese</li>
-              <li @click.stop="setLang('en')">English</li>
+              <li @click.stop="setLang('zh')" :class="{ 'active': currentLang === 'zh' }">Chinese</li>
+              <li @click.stop="setLang('en')" :class="{ 'active': currentLang === 'en' }">English</li>
             </ul>
           </div>
           <button class="hamburger-btn" @click="toggleMobileMenu">
@@ -79,12 +91,13 @@
         </nav>
 
         <div class="mobile-search-box" @click="isSearchExpanded = true; isMobileMenuOpen = false">
-          <input type="text" :placeholder="t('navigationBar.pleaseInputKeyword')" class="search-input" @keydown.enter.prevent>
-          <div :class="[styles.navigationBarItem, 'search-container']"  class=""
-              style="color: white; text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;">
-              <SvgIcon :name="`search`" size="25" color="white" style="filter: drop-shadow(0 0 1px black); ">
-              </SvgIcon>
-            </div>
+          <input type="text" :placeholder="t('navigationBar.pleaseInputKeyword')" class="search-input"
+            @keydown.enter.prevent>
+          <div :class="[styles.navigationBarItem, 'search-container']" class=""
+            style="color: white; text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;">
+            <SvgIcon :name="`search`" size="25" color="white" style="filter: drop-shadow(0 0 1px black); ">
+            </SvgIcon>
+          </div>
         </div>
       </div>
     </el-drawer>
@@ -93,57 +106,50 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import SearchModal from './search-modal.vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import styles from './pc.module.less'
 import { setLanguage } from '@/locales'
 import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
+import { useFetchWithLanguage } from '@/utils/http'
+const { t, locale } = useI18n()
 
 const menus = computed(() => {
-  // 获取当前路由路径
   const currentPath = route.path;
-
-  // 这里的数组会随着语言切换而重新计算
   const menuList = [
     { id: 1, name: t('navigationBar.Home'), url: '/home' },
-    { id: 2, name: t('navigationBar.AboutUs'), url: '/AboutUs' },
-    { id: 3, name: t('navigationBar.Products'), url: '/ProductCenter' },
+    {
+      id: 2, name: t('navigationBar.AboutUs'), url: '/AboutUs/patent?id=5', children: [
+        { id: 1, name: t('aboutUs.menu.CompanyProfile'), url: '/AboutUs?id=1' },
+        { id: 5, name: t('aboutUs.menu.RAD'), url: '/AboutUs/patent?id=5' },
+        { id: 6, name: t('aboutUs.Credentials'), url: '/AboutUs/Credentials?id=6' },
+        { id: 4, name: t('aboutUs.menu.DevelopmentCourse'), url: '/AboutUs?id=4' },
+        { id: 3, name: t('aboutUs.menu.CoreValue'), url: '/AboutUs?id=3' },
+      ]
+    },
+    { id: 3, name: t('navigationBar.Products'), url: `/ProductCenter?categoryId=${categoryList.value[0]?.id}` },
     { id: 4, name: t('navigationBar.News'), url: '/NewsList' },
     { id: 6, name: t('navigationBar.Contact'), url: '/Contact_us' },
   ];
 
-  // 直接在生成数组时计算 isActive
   return menuList.map(menu => {
     let isMatch = menu.url === currentPath;
-    
-    // 如果有子菜单，也进行匹配逻辑
     if (!isMatch && menu.children) {
-      isMatch = menu.children.some(child => child.url === currentPath);
+      isMatch = menu.children.some(child => child.url === currentPath || child.url.split('?')[0] === currentPath);
     }
-
-    return {
-      ...menu,
-      isActive: isMatch
-    };
+    return { ...menu, isActive: isMatch };
   });
 });
+
 const isSearchExpanded = ref(false)
-const closeSearch = () => {
-  isSearchExpanded.value = false
-}
-const handleSearchSelect = (result: any) => {
-  console.log('Selected search result:', result)
-  // 这里可以处理搜索结果的选择
-  // 比如跳转到产品详情页
-}
+const closeSearch = () => { isSearchExpanded.value = false }
+const handleSearchSelect = (result: any) => { console.log('Selected search result:', result) }
 const activeSubMenuId = ref<number | null>(null)
 const isMobileMenuOpen = ref(false)
 const isMobileLangOpen = ref(false)
-const currentLang = ref( import.meta.env.SSR ? null : localStorage.getItem('appLanguage') || 'Chinese')
-
+const currentLang = ref(import.meta.env.SSR ? null : localStorage.getItem('appLanguage') || 'Chinese')
 
 const route = useRoute()
 
@@ -151,11 +157,38 @@ const openSubMenu = (id: number) => { activeSubMenuId.value = id }
 const closeSubMenu = (id: number) => { activeSubMenuId.value = null }
 const toggleMobileMenu = () => { isMobileMenuOpen.value = !isMobileMenuOpen.value }
 const toggleMobileLang = () => { isMobileLangOpen.value = !isMobileLangOpen.value }
+
 const setLang = (lang: string) => {
   currentLang.value = lang
   setLanguage(lang)
   isMobileLangOpen.value = false
 }
+const isPathMatch = (menuUrl: string) => { return route.fullPath === menuUrl }
+const categoryList = ref<any[]>([])
+
+onMounted(async () => {
+  await getCategory()
+})
+
+const getCategory = async () => {
+  const data = await useFetchWithLanguage.post(
+    `${import.meta.env.VITE_API_URL}/product/getCategoryList`,
+    {},
+  )
+  categoryList.value = [...data]
+  if (menus.value[2]) {
+    menus.value[2].children = categoryList.value.map(item => ({
+      url: `/ProductCenter?categoryId=${item.id}`,
+      id: item.id,
+      name: item.name,
+      imageUrl: item.imageUrl
+    }))
+  }
+}
+
+watch(locale, () => {
+  getCategory()
+})
 </script>
 
 <style scoped>
@@ -176,13 +209,11 @@ const setLang = (lang: string) => {
   padding: 10px 20px;
 }
 
-/* --- Logo --- */
 .logo-image {
   height: 60px;
   width: auto;
 }
 
-/* --- PC 端菜单 --- */
 .menu-pc {
   flex-grow: 1;
   display: flex;
@@ -209,6 +240,10 @@ const setLang = (lang: string) => {
 .main-nav-link:hover,
 .main-nav-link.is-active {
   color: #0095d7;
+}
+
+.is-active {
+  color: #0095d7 !important;
 }
 
 .sub-nav-group {
@@ -242,7 +277,12 @@ const setLang = (lang: string) => {
   color: #0095d7;
 }
 
-/* --- 工具栏 --- */
+.category-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+}
+
 .nav-toolbar {
   display: flex;
   align-items: center;
@@ -258,7 +298,8 @@ const setLang = (lang: string) => {
 .lang-switch {
   position: relative;
 }
-.lang-switch-border{
+
+.lang-switch-border {
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 9px;
@@ -266,12 +307,7 @@ const setLang = (lang: string) => {
   display: flex;
   width: 100px;
   justify-content: space-around;
-}
-
-.lang-switch img {
-  height: 30px;
-  width: 40px;
-  cursor: pointer;
+  position: relative;
 }
 
 .search-box {
@@ -289,7 +325,6 @@ const setLang = (lang: string) => {
   width: 120px;
 }
 
-/* --- 移动端 Drawer 内容样式 --- */
 .mobile-drawer-inner {
   display: flex;
   flex-direction: column;
@@ -320,13 +355,13 @@ const setLang = (lang: string) => {
 }
 
 .mobile-search-box {
-margin-top: 20px;
-    display: flex;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 4px;
-    justify-content: center;
-    align-items: center;
+  margin-top: 20px;
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px;
+  justify-content: center;
+  align-items: center;
 }
 
 .mobile-search-box .search-input {
@@ -335,12 +370,6 @@ margin-top: 20px;
   border: none;
 }
 
-.mobile-search-box .search-icon {
-  padding: 8px 12px;
-  background-color: #eee;
-}
-
-/* --- 移动端工具栏控制 --- */
 .tools-mobile {
   display: none;
   align-items: center;
@@ -372,59 +401,33 @@ margin-top: 20px;
   border: 1px solid #ccc;
   list-style: none;
   padding: 5px 0;
-  margin-top: 5px;
+  margin-top: 0; /* 贴合边框 */
   z-index: 1020;
-
-  &>li {
-    padding: 5px 10px;
-  }
-
-  &>li {
-    padding: 5px 10px;
-  }
-
-  &>li:first-child {
-    border-bottom: 1px solid #eee;
-  }
-
-  &>li:hover {
-    background-color: #f5f5f5;
-    color: #0095d7;
-  }
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+.mobile-lang-list li {
+  padding: 8px 10px;
+  color: #333;
+}
+.active {
+  background-color: #f5f5f5;
+  color: #0095d7 !important;
+}
 
-/* --- 响应式媒体查询 --- */
+.mobile-lang-list li:hover {
+  background-color: #f5f5f5;
+  color: #0095d7;
+}
+
 @media (max-width: 992px) {
-
-  .menu-pc,
-  .tools-pc {
-    display: none !important;
-  }
-
-  .tools-mobile {
-    display: flex;
-  }
+  .menu-pc, .tools-pc { display: none !important; }
+  .tools-mobile { display: flex; }
 }
 
 @media (min-width: 993px) {
-
-  .menu-pc,
-  .tools-pc {
-    display: flex;
-  }
-
-  .tools-mobile {
-    display: none !important;
-  }
-  .search-input{
-    width: 150px;
-  }
-}
-</style>
-<style>
-.el-popup-parent--hidden {
-  padding-right: 0px !important;
-  overflow: hidden !important;
+  .menu-pc, .tools-pc { display: flex; }
+  .tools-mobile { display: none !important; }
+  .search-input { width: 80px; }
 }
 </style>

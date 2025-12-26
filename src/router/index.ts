@@ -13,9 +13,9 @@ const router = createRouter({
       redirect: (to?: any) => {
         if (to.query.s) {
           // 处理搜索参数
-          return { path:  '/home' , query: { s: to.query.s } }
+          return { path: '/home', query: { s: to.query.s } }
         }
-        return  '/home' 
+        return '/home'
       },
     },
     {
@@ -36,10 +36,7 @@ const router = createRouter({
           path: 'product-detailInfo',
           component: () => import('../layout/product-detailInfo.vue'),
         },
-        {
-          path: 'patent',
-          component: () => import('../layout/components/ResearchDevelopment.vue'),
-        },
+
 
         {
           path: 'Market-layout',
@@ -53,6 +50,16 @@ const router = createRouter({
         {
           path: 'AboutUs',
           component: () => import('../layout/AboutUsPage.vue'),
+          children: [
+            {
+              path: 'patent',
+              component: () => import('../layout/components/ResearchDevelopment.vue'),
+            },
+            {
+              path: 'Credentials',
+              component: () => import('../layout/components/Credentials.vue'),
+            }
+          ]
         },
         {
           path: 'NewsList',

@@ -128,20 +128,18 @@ const showToggleButton = computed(() => {
 }
 
 .partner-toggle-btn {
-  padding: 8px 15px;
-  background-color: transparent;
-  border: 1px solid #ccc;
-  color: #666;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.3s;
+  display: inline-block;
+    padding: 10px 29px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-.partner-toggle-btn:hover {
-  border-color: #0095d7;
-  color: #0095d7;
-}
+
 
 
 /* ==================================================

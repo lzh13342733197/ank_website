@@ -12,6 +12,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted, nextTick } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+const route = useRoute()
+const router = useRouter()
 const activeId = ref('')
 const hoverId = ref('')
 type CategoryItem = {
@@ -29,15 +32,23 @@ const emit = defineEmits(['changeOption'])
 const handleChange = (id: string) => {
   activeId.value = id
   emit('changeOption', id)
+  // 改变路由参数
+  router.push({
+    query: {
+      ...route.query,
+      categoryId: id,
+    }
+  })
 }
 onMounted(async () => {
   await nextTick()
-  activeId.value = props.categoryList[0].id
-  emit('changeOption', props.categoryList[0].id)
+  const curId = route.query.categoryId || props.categoryList[0].id
+  activeId.value = curId
+  emit('changeOption', curId)
 })
 
 // 鼠标进入事件处理函数
-const handleMouseEnter = (itemId) => {
+const handleMouseEnter = (itemId: string) => {
   hoverId.value = itemId
 }
 

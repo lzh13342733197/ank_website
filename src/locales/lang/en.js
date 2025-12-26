@@ -3,21 +3,24 @@ export default {
   navigationBar: {
     Home: "Home",
     AboutUs: "About Us",
+    patents: "Patents",
+    Credentials: "Credentials",
     Products: "Products",
-    News: "News",
-    Contact: "Contact",
-    pleaseInputKeyword: "Please input keyword",
+    News: "Fair",
+    Contact: "Contact Us",
+    pleaseInputKeyword: "Search",
     search: "Search",
-    searchPlaceholder: "Please input search keyword",
+    searchPlaceholder: "Enter the keyword",
     showDetails: "Show Details",
   },
   home: {
     MORE: "MORE",
     aboutUs: "ABOUT US",
-    homeAboutUs:
-      "Founded in February 2012, we are a modern high-tech enterprise integrating R&D, production, and sales. Since 2019, we have focused on the field of audio equipment and digital products, including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headsets, noise-cancelling headphones, gaming headsets, and more, aiming to provide users with a higher-quality audiovisual experience and a more comfortable lifestyle.",
+    homeAboutUs: `Ankbit is a high-tech enterprise specializing in audio equipment manufacturing, with profound technical expertise and production experience in earphones, speakers, and Bluetooth transceivers. We provide comprehensive <strong style="color: #efeded;"> ODM, OEM, and CUSTOMIZATION SERVICES </strong> covering product definition, industrial design, hardware/software R&D, and mass production. Supported by a complete supply chain and automated production lines, we are committed to delivering high-quality, customizable, one-stop audio solutions to global clients with strict quality control and agile delivery capabilities.`,
     companyName: "Shenzhen Ankbit Electronics Limited",
-    partner: "Partners",
+    partner: "PARTNERS",
+    PRODUCTS_SHOW: "PRODUCTS SHOW",
+    PatentsAwards: "PATENTS & AWARDS",
   },
   common: {
     contactUs: "Contact Us",
@@ -27,6 +30,9 @@ export default {
     home: "Home",
     products: "Products",
     aboutUs: "About Us",
+  },
+  productCenter: {
+    productCenter: "Product Center",
   },
   productDetail: {
     productInfo: "Product Information",
@@ -51,21 +57,37 @@ export default {
     companyTitle: "Shenzhen Ankbit Electronics Limited",
     description:
       "Send us your specific description so that we can contact you as soon as possible!",
-    address: "Address",
-    addressDetail: "Room 1, 16/F, Empress Plaza, 17-19 Chatham Road South Tsim Sha Tsui Kowloon HK",
+    address: "Address:",
+    addressDetail: "4th Floor, Bldg B, Runfeng Industrial Park, Baoan, Shenzhen, Guangdong, China",
     contactInfo: "Contact Information",
-    email: "Email",
+    email: "Email:",
+    inquiry: "Inquiry",
     header: {
       description1: "If you have any questions about our products, services or cooperation",
       description2: "please contact us~",
     },
     form: {
-      Contact: "Please enter contact",
+      productLabel: "Product",
+      productOptions: "Please select product",
+      ContactLabel: "Name",
+      Contact: "Please enter Name",
+      AddressLabel: "Address",
       Address: "Please enter address",
+      EmailLabel: "Email",
       Email: "Please enter email",
+      messageLabel: "Message",
       message: "Please enter message",
+      quantityLabel: "Quantity",
+      quantity: "Please enter quantity",
+      verificationCodeLabel: "Verification Code",
+      verificationCode: "Please enter verification code",
+      pieceLabel: "Piece",
       submit: "Send",
+      submitSuccess: "Submit successful!",
       required: "The field is required.",
+      submitSuccessTitle: "Submit Successful!",
+      submitSuccessDesc: "We will contact you as soon as possible!",
+      continue: "Continue",
       generalError:
         "One or more fields have not been filled in as required. Please check and try again.",
       captcha: "Please enter captcha",
@@ -152,17 +174,18 @@ export default {
     },
   },
   news: {
-    title: "News & Events",
+    title: "Fair",
   },
   aboutUs: {
     title: "About Us",
     companyProfile: {
-      title: "Company Profile",
+      title: "R & D",
       firstParagraph:
-        "Founded in February 2012, we are a modern high-tech enterprise integrating R&D, production, and sales. Since 2019, we have focused on the field of audio equipment and digital products, including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headsets, noise-cancelling headphones, gaming headsets, and more, aiming to provide users with a higher-quality audiovisual experience and a more comfortable lifestyle.",
+        "Ankbit is a high-tech enterprise specializing in audio equipment manufacturing, with profound technical expertise and production experience in earphones, speakers, and Bluetooth transceivers. We provide comprehensive ODM, OEM, and deep customization services covering product definition, industrial design, hardware/software R&D, and mass production. Supported by a complete supply chain and automated production lines, we are committed to delivering high-quality, customizable, one-stop audio solutions to global clients with strict quality control and agile delivery capabilities.",
       secondParagraph:
         "Over 85% of our sales and R&D staff hold bachelor’s or master’s degrees, and our products have been sold in more than a dozen countries and regions. Ankbit adheres to an engineering-driven culture, guided by the philosophy of creating value through design. With a pragmatic and dedicated approach, we are committed to deepening our expertise in the audio field and striving to become a leading technology enterprise in the audio industry.",
-    },
+      thirdParagraph:'Founded in February 2012, we are a modern enterprise integrating R&D, production, and sales. Since 2019, we have focused on audio equipment and digital products, offering a range including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headphones, noise-canceling headphones, gaming headsets, and more—all aimed at providing users with a superior audiovisual experience and a more comfortable lifestyle.'
+      },
     VisionAndMission: {
       title: "Vision and Mission",
       firstParagraph: "Vision: To be an Outstanding Service Provider in the Audio Field.",
@@ -189,7 +212,7 @@ export default {
         "The cumulative number of patents and trademarks registered and applied for has exceeded 600, covering China, Europe, America, Japan, South Korea and Taiwan.",
       thirdDate: "August 2020",
       thirdParagraph:
-        "Hi-Hi-Fi decoder DS600 has been successfully developed, with decoding capacity of DSD512.",
+        "Hi-Fi decoder DS600 has been successfully developed, with decoding capacity of DSD512.",
       fourthDate: "October 2020",
       fourthParagraph:
         "DS601 began to declare the German red dot award and officially signed the contract.",
@@ -215,6 +238,7 @@ export default {
       RAD: "R&D",
       GlobalLayout: "Global Layout",
     },
+    Credentials: "Our Credentials",
   },
   footer: {
     ContactInformation: "Contact Information",

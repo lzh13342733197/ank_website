@@ -1,87 +1,75 @@
 <template>
   <div>
-      <SkeletonComponent :loading="loading" />
+    <SkeletonComponent :loading="loading" />
 
-  <div v-show="!loading" class="product-detail-container">
-    <!-- 左侧 / 顶部 Swiper -->
-    <div class="swiper-wrapper">
-      <detailSwiper class="detail-swiper" :swiperList="productDetail.imageUrls" />
-    </div>
-
-    <!-- 右侧 / 底部 信息 -->
-    <div class="product-detail-info-container">
-      <div class="product-title">
-        {{ productDetail.name }}
+    <div v-show="!loading" class="product-detail-container">
+      <div class="swiper-wrapper">
+        <detailSwiper class="detail-swiper" :swiperList="productDetail.imageUrls" />
       </div>
 
-      <!-- <div class="product-price" v-if="productDetail.price">
-        {{ productDetail.price }}
-      </div> -->
-
-      <div class="product-buy-button-wrapper">
-        <!-- <div
-          :class="styles.operationButton"
-          style="cursor: pointer"
-          @click="jumpTo(router, productDetail.purchaseLink, {})"
-        > -->
-        <div :class="styles.operationButton" style="cursor: pointer"
-          @click="isInquire = true">
-          {{ $t('productDetail.shopNow') }}
-        </div>
-      </div>
-
-      <div class="product-detail-info-wrapper">
-        <!-- About -->
-        <div v-if="productDetail.productSpuAboutList.length > 0" class="product-detail-info-item-title">
-          {{ $t('productDetail.AboutThisItem') }}
-        </div>
-        <div v-for="(item, index) in productDetail.productSpuAboutList" :key="index"
-          class="product-detail-info-item-content">
-          {{ item.content }}
+      <div class="product-detail-info-container">
+        <div class="product-title">
+          {{ productDetail.name }}
         </div>
 
-        <!-- Manuals -->
-        <div v-if="productDetail.manuals.length > 0" class="product-detail-info-item-title">
-          {{ $t('productDetail.ProductManual') }}
-        </div>
-        <div v-if="productDetail.manuals.length > 0" class="product-detail-info-item-content download-list">
-          <a v-for="item in productDetail.manuals" :key="item.fileId" :href="item.url" target="_blank"
-            class="download-item">
-            <SvgIcon name="download" size="22" />
-            <span>{{ item.name }}</span>
-          </a>
+        <div class="product-buy-button-wrapper">
+          <div :class="styles.operationButton" style="cursor: pointer; border-radius: 50px" @click="isInquire = true">
+            {{ $t('productDetail.shopNow') }}
+          </div>
         </div>
 
-        <!-- Drivers -->
-        <div v-if="productDetail.drivers.length > 0" class="product-detail-info-item-title">
-          Product Drivers
-        </div>
-        <div v-if="productDetail.drivers.length > 0" class="product-detail-info-item-content download-list">
-          <a v-for="item in productDetail.drivers" :key="item.fileId" :href="item.url" target="_blank"
-            class="download-item">
-            <SvgIcon name="download" size="22" />
-            <span>{{ item.name }}</span>
-          </a>
+        <div class="product-detail-info-wrapper">
+          <div v-if="productDetail.productSpuAboutList.length > 0">
+            <div class="product-detail-info-item-title">
+              {{ $t('productDetail.AboutThisItem') }}
+            </div>
+            
+            <div class="specs-grid">
+              <div v-for="(item, index) in productDetail.productSpuAboutList" :key="index" class="specs-item">
+                <template v-if="item.content.includes(':') || item.content.includes('：')">
+                  <div class="specs-label">{{ splitContent(item.content).label }}</div>
+                  <div class="specs-value">{{ splitContent(item.content).value }}</div>
+                </template>
+                <template v-else>
+                  <div class="specs-value full-width">{{ item.content }}</div>
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div v-if="productDetail.manuals.length > 0" class="product-detail-info-item-title section-mt">
+            {{ $t('productDetail.ProductManual') }}
+          </div>
+          <div v-if="productDetail.manuals.length > 0" class="product-detail-info-item-content download-list">
+            <a v-for="item in productDetail.manuals" :key="item.fileId" :href="item.url" target="_blank"
+              class="download-item">
+              <SvgIcon name="download" size="22" />
+              <span>{{ item.name }}</span>
+            </a>
+          </div> -->
+
+          <div v-if="productDetail.drivers.length > 0" class="product-detail-info-item-title section-mt">
+            Product Drivers
+          </div>
+          <div v-if="productDetail.drivers.length > 0" class="product-detail-info-item-content download-list">
+            <a v-for="item in productDetail.drivers" :key="item.fileId" :href="item.url" target="_blank"
+              class="download-item">
+              <SvgIcon name="download" size="22" />
+              <span>{{ item.name }}</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- 底部分类推荐 -->
-  <div class="product-category-container">
-    <cardPeekList :id="String(route.query.categoryId || '')" :title="String(route.query.cardName || '')"
-      :card-list="productCategoryList.slice(0, 6)" />
-  </div>
-  <!-- 询盘 -->
-    <el-dialog
-      v-model="isInquire"
-      top="30px"
-      :width="windowWidth"
-      :close-on-click-modal="true"
-      :close-on-press-escape="false"
-      :show-close="true"
-    >
-      <inquire @formSubmit="handleInquireSubmit" />
+    <div class="product-category-container">
+      <cardPeekList :id="String(route.query.categoryId || '')" :title="String(route.query.cardName || '')"
+        :card-list="productCategoryList.slice(0, 6)" />
+    </div>
+
+    <el-dialog v-model="isInquire" top="30px" :width="windowWidth" :close-on-click-modal="true"
+      :close-on-press-escape="false" :show-close="true">
+      <ContactForm :productSpuId="route.query.id" />
     </el-dialog>
   </div>
 </template>
@@ -95,12 +83,12 @@ import SkeletonComponent from '@/components/skeleton-component.vue'
 import cardPeekList from './card-peek-list.vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import inquire from '@/layout/components/inquire.vue'
+import ContactForm from '@/layout/components/ContactForm_singleOption.vue'
 
 import { useFetchWithLanguage } from '@/utils/http'
-import { jumpTo } from '@/utils/utils'
 import { useLanguageStore } from '@/stores/language'
-import eightLanguage from '@/constants/language'
 import styles from '@/assets/yee-mall.module.css'
+
 const route = useRoute()
 const router = useRouter()
 const language = useLanguageStore()
@@ -119,13 +107,26 @@ const productDetail = ref<any>({
   manuals: [],
   drivers: [],
 })
+const currentId = computed(() => route.query.id as string)
 const { t, locale } = useI18n()
+
+// 工具函数：拆分内容
+const splitContent = (content: string) => {
+  const separator = content.includes(':') ? ':' : '：'
+  const parts = content.split(separator)
+  if (parts.length > 1) {
+    return {
+      label: parts[0].trim(),
+      value: parts.slice(1).join(separator).trim()
+    }
+  }
+  return { label: '', value: content }
+}
+
 const getProductCategoryList = async () => {
   const data = await useFetchWithLanguage.post(
     `${import.meta.env.VITE_API_URL}/product/getProductSpuList`,
-    {
-      productCategoryId: route.query.categoryId,
-    },
+    { productCategoryId: route.query.categoryId },
   )
   productCategoryList.value = data || []
 }
@@ -141,22 +142,20 @@ const productDetailInit = async () => {
   loading.value = false
   getProductCategoryList()
 }
+
 onMounted(() => {
   productDetailInit()
 })
-watch(locale, () => {
+
+watch([locale, currentId], () => {
   productDetailInit()
 })
+
 language.addRequest(productDetailInit)
 
-// 处理询盘提交
 const handleInquireSubmit = (formData: any) => {
-  console.log('提交的询盘数据:', formData)
-  // 这里可以添加实际的提交逻辑，例如发送到服务器
-  // 提交完成后，关闭弹窗
   isInquire.value = false
 }
-
 </script>
 
 <style scoped>
@@ -191,11 +190,6 @@ const handleInquireSubmit = (formData: any) => {
   margin-bottom: 25px;
 }
 
-.product-price {
-  text-align: center;
-  font-size: 18px;
-}
-
 .product-buy-button-wrapper {
   display: flex;
   justify-content: center;
@@ -212,17 +206,59 @@ const handleInquireSubmit = (formData: any) => {
   margin-bottom: 20px;
 }
 
-.product-detail-info-item-content {
-  font-size: 16px;
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 20px;
+.section-mt {
+  margin-top: 40px;
 }
 
+/* ================= 一行两个参数的 Grid 布局 ================= */
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 核心：一行两列 */
+  border-top: 1px solid #ebeef5;
+  border-left: 1px solid #ebeef5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.specs-item {
+  display: flex;
+  border-right: 1px solid #ebeef5;
+  border-bottom: 1px solid #ebeef5;
+}
+
+.specs-label {
+  width: 120px; /* PC端标签宽度稍微收窄，留给Value更多空间 */
+  background-color: #f5f7fa;
+  padding: 12px 15px;
+  font-weight: 600;
+  color: #333;
+  font-size: 13px;
+  border-right: 1px solid #ebeef5;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.specs-value {
+  flex: 1;
+  padding: 12px 15px;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.4;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* ================= 下载 & 适配 ================= */
 .download-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .download-item {
@@ -234,69 +270,35 @@ const handleInquireSubmit = (formData: any) => {
   text-decoration: none;
 }
 
-.product-category-container {
-  margin: 40px 0;
-}
-
-/* ================= 移动端适配（≤1200px） ================= */
 @media screen and (max-width: 1200px) {
   .product-detail-container {
     flex-direction: column;
     padding: 15px;
     gap: 30px;
   }
+  .swiper-wrapper { position: relative; top: auto; }
+  .detail-swiper { width: 100%; }
+}
 
-  .swiper-wrapper {
-    position: relative;
-    top: auto;
-  }
-
-  .detail-swiper {
-    width: 100%;
-  }
-
-  .product-title {
-    font-size: 22px;
-    margin-bottom: 15px;
-  }
-
-  .product-price {
-    font-size: 16px;
-  }
-
-  .product-buy-button-wrapper>div {
-    width: 100%;
-    text-align: center;
-    font-size: 16px;
-  }
-
-  .product-detail-info-item-title {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .product-detail-info-item-content {
-    font-size: 14px;
-    margin-bottom: 15px;
-  }
-
-  .product-category-container {
-    margin: 20px 0;
+/* 移动端适配：变回一行一个参数 */
+@media screen and (max-width: 900px) {
+  .specs-grid {
+    grid-template-columns: 1fr; /* 屏幕较小时变回一列 */
   }
 }
 
-/* ================= 小屏手机（≤768px） ================= */
 @media screen and (max-width: 768px) {
-  .product-title {
-    font-size: 20px;
+  .specs-item {
+    flex-direction: column; /* 手机端标签和值上下排 */
   }
-
-  .product-detail-info-item-title {
-    font-size: 16px;
+  .specs-label {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ebeef5;
+    padding: 8px 12px;
   }
-
-  .product-detail-info-item-content {
-    font-size: 13px;
+  .specs-value {
+    padding: 10px 12px;
   }
 }
 </style>

@@ -1,10 +1,5 @@
 <template>
   <div>
-    <div class="section-header-company-profile">
-      <h2 class="section-title-company-profile">{{ $t('aboutUs.title') }}</h2>
-      <div class="section-divider"></div>
-    </div>
-
     <div class="page-container BodyCenter clearfix">
       <div class="module-grid-container">
         <div class="row module-sub-container">
@@ -12,7 +7,7 @@
           <div class="sidebar-container">
             <div class="sidebar-pc">
               <header class="class-title">
-                <span class="class-title-text">{{ menuTitle }}</span>
+                <span class="class-title-text">{{ t('navigationBar.AboutUs') }}</span>
                 <span class="class-title-icon iconfont icon-jiantou1">></span>
               </header>
               <ul class="one-classify">
@@ -35,8 +30,7 @@
                 </span>
               </header>
               <ul class="one-classify mobile-menu" :class="{ 'open': isMobileMenuOpen }">
-                <li v-for="item in menuItems" :key="item.id" class="main-class-item"
-                  @click="selectMenuItem(item.id);">
+                <li v-for="item in menuItems" :key="item.id" class="main-class-item" @click="selectMenuItem(item.id);">
                   <div class="main-class-link" :class="{ 'main-class-link-active': item.id === currentId }">
                     <span class="main-class-text">{{ item.text }}</span>
                   </div>
@@ -46,33 +40,39 @@
           </div>
 
           <div class="content-container">
-            <div class="module-item content-header">
-              <div class="content-main-title">{{ currentContent.title }}</div>
-            </div>
+            <router-view v-slot="{ Component }">
+              <div class="module-item content-header">
+                <div class="content-main-title">{{ currentTitle }}</div>
+              </div>
 
-            <div class="module-item content-body">
-              <div class="content-text-body">
-                <div v-if="currentId === 4" class="timeline-wrapper">
-                  <div v-for="(item, index) in currentContent.timelineData" :key="index" class="timeline-item">
-                    <div class="timeline-line"></div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-box">
-                      <div class="timeline-year">{{ item.year }}</div>
-                      <div class="timeline-desc">{{ item.desc }}</div>
-                    </div>
-                  </div>
-                </div>
+              <div class="module-item content-body">
+                <component :is="Component" v-if="Component" />
 
                 <template v-else>
-                  <p v-for="(paragraph, index) in contentParagraphs" :key="index" class="content-paragraph"
-                    v-html="paragraph"></p>
-                </template>
+                  <div class="content-text-body">
+                    <div v-if="currentId === 4" class="timeline-wrapper">
+                      <div v-for="(item, index) in currentContent.timelineData" :key="index" class="timeline-item">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-box">
+                          <div class="timeline-year">{{ item.year }}</div>
+                          <div class="timeline-desc">{{ item.desc }}</div>
+                        </div>
+                      </div>
+                    </div>
 
-                <p v-if="currentContent.image" v-for="img in currentContent.image" :key="img">
-                  <img v-lazy="img" :alt="currentContent.title + ' Image'" class="content-image" />
-                </p>
+                    <template v-else>
+                      <p v-for="(paragraph, index) in contentParagraphs" :key="index" class="content-paragraph"
+                        v-html="paragraph"></p>
+                    </template>
+
+                    <p v-if="currentContent.image" v-for="img in currentContent.image" :key="img">
+                      <img v-lazy="img" :alt="currentContent.title + ' Image'" class="content-image" />
+                    </p>
+                  </div>
+                </template>
               </div>
-            </div>
+            </router-view>
           </div>
 
         </div>
@@ -82,22 +82,30 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import companyImg from '@/assets/images/aboutUs/company.jpg'
 import companyFactoryImg from '@/assets/images/aboutUs/companyFactory.jpg'
 import { useI18n } from 'vue-i18n'
+import qualityIcon from '@/assets/svgs/08质量-线性.svg'
+import serviceIcon from '@/assets/svgs/服务.svg'
+import enterpriseVisionIcon from '@/assets/svgs/企业愿景.svg'
+import missionIcon from '@/assets/svgs/使命.svg'
+import teamIcon from '@/assets/svgs/团队 (2).svg'
+import responsibilityIcon from '@/assets/svgs/责任.svg'
+import { useRouter, useRoute } from 'vue-router'
 
+const router = useRouter()
+const route = useRoute()
 const { t } = useI18n()
 
 const menuTitle = ref('ABOUT US');
 
 const menuItems = computed(() => [
-  { id: 1, text: t('aboutUs.menu.CompanyProfile'), link: '#', target: '_self' },
-  { id: 2, text: t('aboutUs.menu.VisionAndMission'), link: '#', target: '_self' },
-  { id: 3, text: t('aboutUs.menu.CoreValue'), link: '#', target: '_self' },
-  { id: 4, text: t('aboutUs.menu.DevelopmentCourse'), link: '#', target: '_self' },
-  { id: 5, text: t('aboutUs.menu.RAD'), link: '/patent', target: '_self' },
-  { id: 6, text: t('aboutUs.menu.GlobalLayout'), link: '/Market-layout', target: '_self' },
+  { id: 1, text: t('aboutUs.menu.CompanyProfile'), link: '/AboutUs?id=1', target: '_self' },
+  { id: 5, text: t('aboutUs.menu.RAD'), link: '/AboutUs/patent?id=5', target: '_self' },
+  { id: 6, text: t('aboutUs.Credentials'), link: '/AboutUs/Credentials?id=6', target: '_self' },
+  { id: 4, text: t('aboutUs.menu.DevelopmentCourse'), link: '/AboutUs?id=4', target: '_self' },
+  { id: 3, text: t('aboutUs.menu.CoreValue'), link: '/AboutUs?id=3', target: '_self' },
 ]);
 
 const currentId = ref(1);
@@ -105,27 +113,23 @@ const currentId = ref(1);
 const CONTENT_DATA = computed(() => ({
   1: {
     title: t('aboutUs.companyProfile.title'),
-    html: `<p>${t('aboutUs.companyProfile.firstParagraph')}</p><p>${t('aboutUs.companyProfile.secondParagraph')}</p>`,
+    html: `<p>${t('aboutUs.companyProfile.thirdParagraph')}</p><p>${t('aboutUs.companyProfile.secondParagraph')}</p>`,
     image: [companyImg, companyFactoryImg]
-  },
-  2: {
-    title: t('aboutUs.VisionAndMission.title'),
-    html: `<p>${t('aboutUs.VisionAndMission.firstParagraph')}</p><p>${t('aboutUs.VisionAndMission.secondParagraph')}</p>`,
-    image: null,
   },
   3: {
     title: t('aboutUs.CoreValue.title'),
     html: `
-      <p>${t('aboutUs.CoreValue.firstParagraph')}</p>
-      <p>${t('aboutUs.CoreValue.secondParagraph')}</p>
-      <p>${t('aboutUs.CoreValue.thirdParagraph')}</p>
-      <p>${t('aboutUs.CoreValue.fourthParagraph')}</p>
+      <p><img src="${enterpriseVisionIcon}" style="width: 25px; height: 25px; margin-right: 5px;">${t('aboutUs.VisionAndMission.firstParagraph')}</p>
+      <p><img src="${missionIcon}" style="width: 25px; height: 25px; margin-right: 5px;">${t('aboutUs.VisionAndMission.secondParagraph')}</p>
+      <p><img src="${responsibilityIcon}" style="width: 25px; height: 25px; margin-right: 5px;">${t('aboutUs.CoreValue.firstParagraph')}</p>
+      <p><img src="${qualityIcon}" style="width: 25px; height: 25px; margin-right: 5px;">${t('aboutUs.CoreValue.secondParagraph')}</p>
+      <p><img src="${teamIcon}" style="width: 25px; height: 25px; margin-right: 5px;">${t('aboutUs.CoreValue.thirdParagraph')}</p>
+      <p><img src="${serviceIcon}" style="width: 25px; height: 25px; margin-right: 5px;">${t('aboutUs.CoreValue.fourthParagraph')}</p>
     `,
     image: null,
   },
   4: {
     title: t('aboutUs.menu.DevelopmentCourse'),
-    // 这里将原来的 HTML 改为结构化数据，方便渲染时间轴
     timelineData: [
       { year: t('aboutUs.DevelopmentCourse.firstDate'), desc: t('aboutUs.DevelopmentCourse.firstParagraph') },
       { year: t('aboutUs.DevelopmentCourse.secondDate'), desc: t('aboutUs.DevelopmentCourse.secondParagraph') },
@@ -153,24 +157,41 @@ const contentParagraphs = computed(() => {
     .filter(p => p.length > 0);
 });
 
+const currentTitle = computed(() => {
+  const activeItem = menuItems.value.find(item => item.id === currentId.value);
+  return activeItem ? activeItem.text : '';
+});
+
 const selectMenuItem = (id) => {
-  if (id === 5) { globalThis.location.href = '/patent'; return; }
-  if (id === 6) { globalThis.location.href = '/Market-layout'; return; }
   currentId.value = id;
   isMobileMenuOpen.value = false;
+  if (id <= 4) {
+    router.push(`/AboutUs?id=${id}`)
+  } else if (id === 5) {
+    router.push('/AboutUs/patent?id=5');
+  } else if (id === 6) {
+    router.push('/AboutUs/Credentials?id=6');
+  }
 };
 
 const isMobileMenuOpen = ref(false);
 const toggleMobileMenu = () => { isMobileMenuOpen.value = !isMobileMenuOpen.value; };
 
-const currentTitle = computed(() => {
-  const activeItem = menuItems.value.find(item => item.id === currentId.value);
-  return activeItem ? activeItem.text : menuTitle.value;
-});
+// 监听路由变化，确保 ID 同步（解决浏览器后退或直接输入 URL 时的标题不匹配）
+watch(() => route.query.id, (newId) => {
+  if (newId) {
+    currentId.value = Number(newId);
+  }
+}, { immediate: true });
+
+onMounted(() => {
+  if (route.query.id) {
+    currentId.value = Number(route.query.id);
+  }
+})
 </script>
 
 <style scoped>
-/* --- 新增：发展历程时间轴样式 --- */
 .timeline-wrapper {
   padding: 20px 0 20px 10px;
 }
@@ -179,6 +200,10 @@ const currentTitle = computed(() => {
   position: relative;
   display: flex;
   padding-bottom: 40px;
+}
+
+.section-title-company-profile {
+  font-size: 3rem;
 }
 
 .timeline-line {
@@ -219,12 +244,11 @@ const currentTitle = computed(() => {
 }
 
 .timeline-desc {
-  font-size: 14px;
+  font-size: 16px;
   color: #666;
   line-height: 1.6;
 }
 
-/* --- 原有样式保持不变 --- */
 .section-header-company-profile {
   text-align: left;
   margin-bottom: 30px;
@@ -236,51 +260,83 @@ const currentTitle = computed(() => {
   max-width: 100% !important;
   color: white;
 }
+
 .section-divider {
   width: 80px;
   background-color: var(--primary-color);
   margin: 0 auto;
 }
+
 @media (max-width: 768px) {
   .section-header-company-profile {
     height: 200px;
     padding: 60px 20px;
     background-position: center 30%;
   }
+
   .section-title-company-profile {
     font-size: 2rem;
   }
 }
+
 .page-container {
   margin-top: 10px;
 }
+
 .BodyCenter {
   max-width: 1200px;
   margin: 0 auto;
   width: 95%;
   margin-top: 30px;
 }
+
 .clearfix::after {
   content: "";
   display: table;
   clear: both;
 }
+
 .module-sub-container {
   display: flex;
   flex-wrap: wrap;
 }
+
 @media (min-width: 768px) {
-  .sidebar-container { flex-basis: 25%; max-width: 25%; padding-right: 20px; }
-  .content-container { flex-basis: 75%; max-width: 75%; padding-left: 20px; }
-  .sidebar-mobile { display: none; }
-}
-@media (max-width: 767px) {
-  .sidebar-container, .content-container { flex-basis: 100%; max-width: 100%; padding-right: 0; padding-left: 0; }
-  .sidebar-pc { display: none; }
-  .content-header{
+  .sidebar-container {
+    flex-basis: 25%;
+    max-width: 25%;
+    padding-right: 20px;
+  }
+
+  .content-container {
+    flex-basis: 75%;
+    max-width: 75%;
+    padding-left: 20px;
+  }
+
+  .sidebar-mobile {
     display: none;
   }
 }
+
+@media (max-width: 767px) {
+  .sidebar-container,
+  .content-container {
+    flex-basis: 100%;
+    max-width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .sidebar-pc {
+    display: none;
+  }
+
+  .content-header {
+    display: none;
+  }
+}
+
 .class-title {
   font-size: 18px;
   font-weight: bold;
@@ -291,8 +347,18 @@ const currentTitle = computed(() => {
   justify-content: space-between;
   align-items: center;
 }
-.one-classify { list-style: none; padding: 0; margin: 0; }
-.main-class-item { border-bottom: 1px dashed #eee; cursor: pointer; }
+
+.one-classify {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.main-class-item {
+  border-bottom: 1px dashed #eee;
+  cursor: pointer;
+}
+
 .main-class-link {
   display: flex;
   justify-content: space-between;
@@ -302,12 +368,32 @@ const currentTitle = computed(() => {
   color: #666;
   transition: color 0.3s, padding-left 0.3s;
 }
-.main-class-link-active { color: #0095d7; padding-left: 10px; }
+
+.main-class-link-active {
+  color: #0095d7;
+  padding-left: 10px;
+}
+
 .main-class-item:hover .main-class-link,
-.main-class-item.active .main-class-link { color: #0095d7; padding-left: 10px; }
-.main-class-icon { font-weight: bold; color: #ccc; font-size: 12px; }
-.main-class-item.active .main-class-icon { color: #0095d7; }
-.sidebar-mobile { margin-bottom: 20px; }
+.main-class-item.active .main-class-link {
+  color: #0095d7;
+  padding-left: 10px;
+}
+
+.main-class-icon {
+  font-weight: bold;
+  color: #ccc;
+  font-size: 12px;
+}
+
+.main-class-item.active .main-class-icon {
+  color: #0095d7;
+}
+
+.sidebar-mobile {
+  margin-bottom: 20px;
+}
+
 .mobile-header {
   cursor: pointer;
   background-color: #f7f7f7;
@@ -316,6 +402,7 @@ const currentTitle = computed(() => {
   margin-bottom: 0;
   border-bottom: none;
 }
+
 .mobile-menu {
   max-height: 0;
   overflow: hidden;
@@ -323,12 +410,53 @@ const currentTitle = computed(() => {
   border: 1px solid #eee;
   border-top: none;
 }
-.mobile-menu.open { max-height: 500px; }
-.mobile-menu .main-class-item .main-class-link { padding: 10px 15px; background-color: #fff; }
-.mobile-header .class-title-icon { font-size: 20px; font-weight: 900; }
-.content-header { padding-bottom: 15px; border-bottom: 1px solid #eee; }
-.content-main-title { font-size: 24px; color: #333; font-weight: 600; }
-.content-text-body { padding-top: 10px; min-height: 500px; }
-.content-paragraph { line-height: 1.8; font-size: 14px; color: rgb(63, 63, 63); margin-bottom: 1.5em; }
-.content-image { max-width: 100%; height: auto; display: block; margin: 20px 0; }
+
+.mobile-menu.open {
+  max-height: 500px;
+}
+
+.mobile-menu .main-class-item .main-class-link {
+  padding: 10px 15px;
+  background-color: #fff;
+}
+
+.mobile-header .class-title-icon {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.content-header {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.content-main-title {
+  font-size: 24px;
+  color: #333;
+  font-weight: 600;
+}
+
+.content-text-body {
+  padding-top: 10px;
+  min-height: 500px;
+}
+
+.content-paragraph {
+  line-height: 1.8;
+  font-size: 16px;
+  color: rgb(63, 63, 63);
+  margin-bottom: 1.5em;
+}
+
+.content-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px 0;
+}
+
+:deep(.content-text-body img) {
+  flex-shrink: 0;
+  vertical-align: middle;
+}
 </style>

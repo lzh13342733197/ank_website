@@ -11,11 +11,11 @@
               <div class="BodyCenter BodyCenter24442176 clearfix">
                 <div class="imageTextGiant-Container imageTextContainer clearfix">
                   <div class="ModuleImageTextGiantContent ModuleImageTextContent">
-                    <p style="text-align: center; line-height: 2em;"><span
-                        style="font-size: 26px; color: #3f3f3f;">产品展示</span></p>
-                    <p style="text-align: center; line-height: 2em;"><span
+                    <p style="text-align: center; line-height: 2em; margin: 40px 0px  ;"><span
+                        style="font-size:1.5rem; color: #333;font-weight: 600; ">{{ t('home.PRODUCTS_SHOW') }}</span></p>
+                    <!-- <p style="text-align: center; line-height: 2em;"><span
                         style="font-family: arial, helvetica, sans-serif; font-size: 14px; color: #3f3f3f;">PRODUCTS
-                        SHOW</span></p>
+                        SHOW</span></p> -->
                   </div>
                 </div>
               </div>
@@ -30,8 +30,9 @@
                     <a :href="`/product-detailInfo?id=${product.id}`" target="_self" class="pro-link">
                       <div class="pro-img">
                         <div class="dummy"></div>
-                        <div class="pro-img-wrap" >
-                          <img :src="product.imageUrls[0]" :alt="product.name" :title="product.name" loading="lazy" class="pc-img">
+                        <div class="pro-img-wrap">
+                          <img :src="product.imageUrls[0]" :alt="product.name" :title="product.name" loading="lazy"
+                            class="pc-img">
                         </div>
                       </div>
 
@@ -69,6 +70,8 @@
 
 <script setup>
 import { defineProps } from 'vue';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const props = defineProps({
   products: {
@@ -146,37 +149,40 @@ const props = defineProps({
 
 .pro-img {
   position: relative;
-  background-color: #fff; /* 白色背景板 */
+  background-color: #fff;
+  /* 白色背景板 */
   display: flex;
   align-items: center;
   justify-content: center;
 }
-  .pro-img-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-  }
+
+.pro-img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
 
 .pro-img .dummy {
   padding-top: 100%;
 }
-.pc-img{
-}
+
+.pc-img {}
 
 .pro-img img {
-      max-width: 83%;
-    max-height: 83%;
-    height: auto;
-    object-fit: contain;
-    position: static;
+  max-width: 83%;
+  max-height: 83%;
+  height: auto;
+  object-fit: contain;
+  position: static;
 }
 
 .pro-tit {
   padding: 10px 15px;
   height: 90px;
 }
-.pro-n-p{
+
+.pro-n-p {
   display: flex;
   height: 100%;
   flex-direction: column;
@@ -230,6 +236,7 @@ const props = defineProps({
 .BodyCenter24442178 {
   text-align: center;
 }
+
 @media (min-width: 1201px) {
   .pro-img img {
     max-width: 73%;
@@ -239,6 +246,7 @@ const props = defineProps({
     object-fit: contain;
     position: static;
   }
+
   .pro-img-wrap {
     display: flex;
     align-items: center;
@@ -246,7 +254,8 @@ const props = defineProps({
     width: 370px;
     height: 370px;
   }
-  .pro-name{
+
+  .pro-name {
     font-size: 16px;
   }
 }

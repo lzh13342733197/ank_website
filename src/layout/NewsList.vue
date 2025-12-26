@@ -1,5 +1,5 @@
 <template>
-  <SwiperModule :images="currentSlide" class="swiperModule_" />
+  <!-- <SwiperModule :images="currentSlide" class="swiperModule_" /> -->
 
   <div class="news-list-container">
     <div class="main-content-grid">

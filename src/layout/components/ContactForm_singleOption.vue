@@ -1,29 +1,5 @@
 <template>
   <div class="contact-container">
-    <div class="info-section">
-      <h1 class="company-title">{{ $t('contact.companyTitle') }}</h1>
-      <p class="desc">{{ $t('contact.description') }}</p>
-      <div class="info-item">
-        <span class="icon location-icon">
-          <svgIcon color="#fff" size="20" name="地址" />
-          <div class="cricleLine"></div>
-        </span>
-        <div class="info-text">
-          <span class="label">{{ $t('contact.address') }}</span>
-          <span>{{ $t('contact.addressDetail') }}</span>
-        </div>
-      </div>
-      <div class="info-item">
-        <span class="icon email-icon">
-          <svgIcon color="#fff" size="20" name="邮箱" />
-        </span>
-        <div class="info-text">
-          <span class="label">{{ $t('contact.email') }}</span>
-          <span>sales@ankbit.com</span>
-        </div>
-      </div>
-    </div>
-
     <div class="form-section">
       <transition name="fade" mode="out-in">
         <div v-if="submitSuccess" key="success" class="success-view">
@@ -31,7 +7,7 @@
             <div class="success-content">
               <div class="success-icon">✓</div>
               <h2 class="success-title">{{ $t('contact.form.submitSuccessTitle') }}</h2>
-              <p class="success-desc">{{ $t('contact.form.submitSuccessDesc') }}</p>
+              <p class="success-desc">{{ $t('contact.form.submitSuccessDesc')  }}</p>
             </div>
           </div>
           <div class="success-footer">
@@ -60,7 +36,6 @@
               </div>
               <p class="error-msg no-padding" v-if="errors.productId">{{ $t('contact.form.required') }}</p>
             </div>
-
             <div class="form-item">
               <div class="form-item-row">
                 <p class="form-item-label">{{ $t('contact.form.EmailLabel') }}</p>
@@ -80,14 +55,13 @@
             </div>
 
 
-
             <div class="form-item">
               <div class="form-item-row">
                 <p class="form-item-label">{{ $t('contact.form.quantityLabel') }}</p>
                 <div class="input-with-unit">
                   <input type="number" v-model="formData.quantity" placeholder="0" class="input-field no-margin"
                     min="1" />
-                  <span class="unit-text" style="padding-left: 5px;">{{ $t('contact.form.pieceLabel') }}</span>
+                  <span class="unit-text">{{ $t('contact.form.pieceLabel') }}</span>
                 </div>
               </div>
               <p class="error-msg" v-if="errors.quantity">{{ $t('contact.form.required') }}</p>
@@ -135,13 +109,21 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, watch } from 'vue';
+import { ref, reactive, onMounted, watch, defineProps } from 'vue';
 import svgIcon from '@/components/SvgIcon.vue'
 import { getUuid } from '@/utils/utils'
 import { useFetchWithLanguage } from '@/utils/http'
 import { useI18n } from 'vue-i18n'
 import axios from 'axios'
 import { getCurrentLang } from '@/locales'
+
+// 定义 props
+const props = defineProps({
+  productSpuId: {
+    type: String,
+    default: ''
+  }
+})
 
 const { t, locale } = useI18n()
 const submitSuccess = ref(false);
@@ -159,10 +141,7 @@ const formData = ref({
 
 const productList = ref([]);
 const errors = ref({
-  // 改为单选校验
-  // Name: false,
   Email: false,
-  // quantity: false,
   // Address: false,
   message: false,
   captcha: false,
@@ -176,8 +155,8 @@ const getCaptchaUrl = () => {
 };
 
 const resetForm = () => {
-  formData.value = {  Name: '', Email: '', quantity: '', message: '', captcha: '', uuid: '' };
-  errors.value = { productId: false,  Email: false, message: false, captcha: false };
+  formData.value = { productId: '', Name: '', Email: '', quantity: '',  message: '', captcha: '', uuid: '' };
+  errors.value = { Email: false, message: false, captcha: false };
   submitSuccess.value = false;
   getCaptchaUrl();
 };
@@ -198,10 +177,7 @@ const getProductMsg = async () => {
 const handleSubmit = async () => {
   // 修改：校验单选 ID
   errors.value = {
-    // productId: !formData.value.productId,
-    // Name: !formData.value.Name.trim(),
     Email: !formData.value.Email.trim(),
-    // quantity: !String(formData.value.quantity).trim(),
     // Address: !formData.value.Address.trim(),
     message: !formData.value.message.trim(),
     captcha: !formData.value.captcha.trim(),
@@ -235,7 +211,7 @@ const handleSubmit = async () => {
   }
 };
 
-onMounted(() => { getCaptchaUrl(); getProductMsg(); });
+onMounted(() => { getCaptchaUrl(); getProductMsg(); formData.value.productId = props.productSpuId; });
 watch(() => locale.value, () => { getProductMsg() })
 </script>
 
@@ -249,16 +225,16 @@ watch(() => locale.value, () => { getProductMsg() })
 }
 
 .info-section {
-  width: 650px;
+  flex: 1 1 400px;
   background-color: #fff;
   padding: 40px;
   box-sizing: border-box;
 }
 
 .form-section {
-  flex: 1 ;
-  background-color: #f8f8f8;
-  padding: 40px;
+  flex: 1 1 400px;
+  /* background-color: #f8f8f8; */
+  /* padding: 40px; */
   box-sizing: border-box;
   min-height: 850px;
   display: flex;
@@ -340,10 +316,8 @@ watch(() => locale.value, () => { getProductMsg() })
 }
 
 .form-title {
-  font-size: 26px;
-  color: #333;
-  margin-bottom: 30px;
   text-align: center;
+  margin-top: 0px;
 }
 
 /* 单选产品卡片样式修改 */
@@ -456,53 +430,113 @@ watch(() => locale.value, () => { getProductMsg() })
   cursor: pointer;
 }
 
+.unit-text {
+  padding-left: 5px;
+}
+
 @media (max-width: 768px) {
+
+  /* 1. 容器边距微调 */
   .form-section {
-    width: 100%;
     min-height: auto;
-    padding: 20px 10px;
-    /* 适当减少容器内边距，给输入框腾位置 */
   }
 
-  .form-item-row {
+  /* 2. 统一行间距：确保每一组表单项之间的距离固定 */
+  .form-item {
+    margin-bottom: 16px !important;
+    display: flex;
     flex-direction: column;
-    align-items: stretch;
-    /* 关键：让子元素自动撑开到父容器宽度 */
   }
 
+  /* 3. 强制横向排列并对齐 */
+  .form-item-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    /* 垂直居中对齐 */
+    gap: 10px;
+    width: 100%;
+    min-height: 40px;
+    /* 设定最小统一行高 */
+  }
+
+  /* 4. 统一 Label 宽度：解决行距不一的关键是左侧对齐 */
+  .form-item-label {
+    min-width: 45px;
+    /* 根据最长单词如 Address/Message 调整 */
+    max-width: 45px;
+    font-size: 13px;
+    margin-bottom: 0 !important;
+    /* 消除纵向排列残留的边距 */
+    line-height: 1.2;
+    flex-shrink: 0;
+    /* 防止 Label 被压缩变窄 */
+  }
+
+  /* 5. 统一输入框高度与外观：解决 iOS 变短和高度差 */
   .input-field,
   .textarea-field {
-    /* 1. 移除 iOS 默认内阴影和样式 */
+    flex: 1;
+    width: auto !important;
+    min-width: 0;
+    height: 40px;
+    /* 强制所有输入框高度一致 */
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     -webkit-appearance: none;
-
-    /* 2. 强制宽度，改用 100% 配合 box-sizing */
-    width: 100% !important;
+    /* 必加：消除 iOS 默认阴影 */
     box-sizing: border-box;
-    /* 确保 padding 不会撑大宽度导致溢出 */
-
-    /* 3. 防止字体自动放大 */
-    font-size: 16px;
-
-    margin-bottom: 0px;
+    /* 必加：防止 padding 撑开宽度 */
     display: block;
   }
 
-  /* 针对验证码和数量这种特殊组合，确保它们依然在一行排列但占满宽度 */
+  /* 文本域特殊处理，但保持宽度逻辑一致 */
+  .textarea-field {
+    height: 80px !important;
+  }
+
+  /* 6. 特殊组合项（数量单位、验证码）高度对齐 */
   .input-with-unit,
   .form-item-row>div[style*="display: flex"] {
-    width: 100%;
+    flex: 1;
     display: flex !important;
     align-items: center;
+    gap: 8px;
+    height: 40px;
+    /* 确保验证码这行与其他行等高 */
   }
 
+  .captcha-image {
+    width: 90px;
+    height: 36px;
+    /* 略小于行高，居中显示更好看 */
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  /* 7. 错误信息位移：与 Label 宽度保持一致的缩进 */
   .error-msg {
-    padding-left: 0;
+    padding-left: 80px;
+    /* Label 70px + Gap 10px */
+    margin-top: 4px;
+    margin-bottom: 0;
+    font-size: 11px;
+    line-height: 1;
   }
 
+  /* 8. 产品网格在手机端改为 2 列对齐 */
   .product-selection-grid {
-    max-height: 250px;
     grid-template-columns: repeat(2, 1fr);
-    /* 手机端每行两个 */
+    max-height: 240px;
+    gap: 8px;
+  }
+
+  /* 特殊：Select Product 这种顶部 Label 的间距也统一 */
+  .form-item-label-top {
+    margin-bottom: 8px;
+    font-size: 14px;
   }
 }
 </style>

@@ -1,30 +1,18 @@
 <template>
-  <div class="banner">
+  <!-- <div class="banner">
     <img src="@/assets/images/12.jpg" alt="研发与开发" class="banner-bg">
     <div class="bannerTitle">{{ $t('common.researchDevelopment') }}</div>
-  </div>
+  </div> -->
 
   <div class="container">
-    <div class="introdution">
-      <div class="introdutionTitle">{{ $t('research.teamIntro') }}</div>
-      <p>{{ $t('research.teamDesc1') }}</p>
-      <p>{{ $t('research.teamDesc2') }}</p>
-      <p>{{ $t('research.teamDesc3') }}</p>
-      <p>{{ $t('research.teamDesc4') }}</p>
-      <p>{{ $t('research.teamDesc5') }}</p>
-    </div>
 
     <div class="cardIntroductionNumber">
-      <div
-        class="cardIntroductionNumberItem"
-        v-for="(item, index) in [
-          { iconName: '设计师', professosNumber: '33', professor: $t('research.stats.designers') },
-          { iconName: '工程师', professosNumber: '58', professor: $t('research.stats.engineers') },
-          { iconName: 'icon_声学', professosNumber: '23', professor: $t('research.stats.acousticPhDs') },
-          { iconName: '社区', professosNumber: '45', professor: $t('research.stats.leaders') }
-        ]"
-        :key="index"
-      >
+      <div class="cardIntroductionNumberItem" v-for="(item, index) in [
+        { iconName: '设计师', professosNumber: '33', professor: $t('research.stats.designers') },
+        { iconName: '工程师', professosNumber: '58', professor: $t('research.stats.engineers') },
+        { iconName: 'icon_声学', professosNumber: '23', professor: $t('research.stats.acousticPhDs') },
+        { iconName: '社区', professosNumber: '45', professor: $t('research.stats.leaders') }
+      ]" :key="index">
         <div class="cardIntroductionNumberItemContent">
           <div class="iconName">
             <SvgIcon :name="item.iconName" size="30" />
@@ -34,15 +22,25 @@
         </div>
       </div>
     </div>
+    <div class="introdution">
+      <!-- <div class="introdutionTitle">{{ $t('research.teamIntro') }}</div> -->
+      <p>{{ $t('research.teamDesc1') }}</p>
+      <p>{{ $t('research.teamDesc2') }}</p>
+      <p>{{ $t('research.teamDesc3') }}</p>
+      <p>{{ $t('research.teamDesc4') }}</p>
+      <p>{{ $t('research.teamDesc5') }}</p>
+    </div>
+
+    
   </div>
 
-  <div class="patent">
+  <!-- <div class="patent">
     <div class="patentTitle">{{ $t('research.patents') }}</div>
     <div style="width: 100%; text-align: center;">
       <img :src='cert1' alt="" class="patent-bg" @click="handlePreviewFormDad(cert1)"></img>
     </div>
     <Patent ref="patentRef" />
-  </div>
+  </div> -->
 </template>
 
 <script setup>
@@ -83,14 +81,12 @@ const handlePreviewFormDad = (cert1) => {
   font-size: 3vw;
   font-weight: 600;
   color: #fff;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   text-align: center;
 }
 
 .container {
-  width: 80%;
   margin: 0 auto;
-  padding: 40px 0;
 }
 
 .introdution {
@@ -109,6 +105,7 @@ const handlePreviewFormDad = (cert1) => {
 }
 
 .introdution p {
+  font-size: 16px;
   margin: 12px 0;
 }
 
@@ -117,15 +114,15 @@ const handlePreviewFormDad = (cert1) => {
   justify-content: center;
   flex-wrap: wrap;
   gap: 3vw;
-  margin-top: 40px;
+  margin: 40px 0; 
 }
 
 .cardIntroductionNumberItem {
-  width: 12%;
+  width: 36%;
 }
 
 .cardIntroductionNumberItemContent {
-  padding: 2vw  1.2vw;
+  padding: 2vw 1.2vw;
   border: 1px solid #000;
   border-radius: 8px;
   text-align: center;
@@ -161,8 +158,9 @@ const handlePreviewFormDad = (cert1) => {
   font-weight: 600;
   margin-bottom: 30px;
 }
-.patent-bg{
-  width: 58%;
+
+.patent-bg {
+  width: 72%;
   height: auto;
   object-fit: cover;
 }
@@ -182,7 +180,7 @@ const handlePreviewFormDad = (cert1) => {
   }
 
   .introdution {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .introdutionTitle {
@@ -209,13 +207,14 @@ const handlePreviewFormDad = (cert1) => {
   .patentTitle {
     font-size: 22px;
   }
+
   .cardIntroductionNumberItemContent {
-  padding: 2vw  1.2vw;
+    padding: 2vw 1.2vw;
   }
-  
-  .patent-bg{
-  width: 83%;
-}
+
+  .patent-bg {
+    width: 83%;
+  }
 }
 
 /* ====================
@@ -239,7 +238,7 @@ const handlePreviewFormDad = (cert1) => {
   }
 
   .introdution p {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
   }
 
