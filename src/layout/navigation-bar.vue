@@ -121,12 +121,12 @@ const menus = computed(() => {
   const menuList = [
     { id: 1, name: t('navigationBar.Home'), url: '/home' },
     {
-      id: 2, name: t('navigationBar.AboutUs'), url: '/AboutUs/patent?id=5', children: [
-        { id: 1, name: t('aboutUs.menu.CompanyProfile'), url: '/AboutUs?id=1' },
-        { id: 5, name: t('aboutUs.menu.RAD'), url: '/AboutUs/patent?id=5' },
-        { id: 6, name: t('aboutUs.Credentials'), url: '/AboutUs/Credentials?id=6' },
-        { id: 4, name: t('aboutUs.menu.DevelopmentCourse'), url: '/AboutUs?id=4' },
-        { id: 3, name: t('aboutUs.menu.CoreValue'), url: '/AboutUs?id=3' },
+      id: 2, name: t('navigationBar.AboutUs'), url: '/AboutUs/CompanyProfile', children: [
+        { id: 1, name: t('aboutUs.menu.CompanyProfile'), url: '/AboutUs/CompanyProfile' },
+        { id: 5, name: t('aboutUs.menu.RAD'), url: '/AboutUs/patent' },
+        { id: 6, name: t('aboutUs.Credentials'), url: '/AboutUs/Credentials' },
+        { id: 4, name: t('aboutUs.menu.DevelopmentCourse'), url: '/AboutUs/DevelopmentCourse' },
+        { id: 3, name: t('aboutUs.menu.CoreValue'), url: '/AboutUs/CoreValue' },
       ]
     },
     { id: 3, name: t('navigationBar.Products'), url: `/ProductCenter?categoryId=${categoryList.value[0]?.id}` },
@@ -135,6 +135,8 @@ const menus = computed(() => {
   ];
 
   return menuList.map(menu => {
+    console.log(menu.url, currentPath);
+    menu.url = menu.url.split('?')[0]
     let isMatch = menu.url === currentPath;
     if (!isMatch && menu.children) {
       isMatch = menu.children.some(child => child.url === currentPath || child.url.split('?')[0] === currentPath);

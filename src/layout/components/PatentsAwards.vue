@@ -8,7 +8,6 @@
           v-lazy="img1"
           alt="PatentsAwards"
           class="partner-logo"
-          @click="openPreview(img1)"
         />
       </div>
     </div>

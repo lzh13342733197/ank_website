@@ -21,8 +21,7 @@ import { ref } from 'vue'
 import Patent from '@/layout/components/Patent.vue'
 
 // 专利图片
-const cert1 = '/src/assets/images/certificate_0.jpg'
-
+import cert1 from '@/assets/images/certificate_0.jpg'
 // 子组件 ref
 const patentRef = ref(null)
 

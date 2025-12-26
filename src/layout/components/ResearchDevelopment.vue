@@ -49,7 +49,7 @@ import SvgIcon from '@/components/SvgIcon.vue'
 import { onMounted, ref } from 'vue'
 
 const patentRef = ref(null)
-const cert1 = '/src/assets/images/certificate_0.jpg'
+const cert1 = '@/assets/images/certificate_0.jpg'
 
 const handlePreviewFormDad = (cert1) => {
   patentRef.value.handlePreviewFormDad(cert1)

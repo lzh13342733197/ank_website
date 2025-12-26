@@ -22,9 +22,9 @@
         <div class="drawer-menu">
           <ul class="menu-list">
             <li v-for="item in menus" :key="item.id" class="menu-item" @click="handleMenuItemClick(item.id)">
-               <a :href="item.url" class="main-nav-link" :class="{ 'is-active': item.isActive }">
+               <router-link :to="item.url" class="main-nav-link" :class="{ 'is-active': item.isActive }">
             {{ item.name }}
-           </a>
+           </router-link>
             </li>
           </ul>
         </div>
@@ -60,7 +60,7 @@ const emit = defineEmits(['jumpToCategory'])
 
 const menus = ref([
   { id: 1, name: 'Home', url: '/home', isActive: true },
-  { id: 2, name: 'About us', url: '/AboutUs', isActive: false, 
+  { id: 2, name: 'About us', url: '/AboutUs/CompanyProfile', isActive: false, 
     // children: [
     //   { name: '公司简介', url: '/AboutUs' },
     //   { name: '愿景与使命', url: '/Content/505035.html' },

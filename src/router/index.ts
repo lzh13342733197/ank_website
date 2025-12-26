@@ -58,7 +58,21 @@ const router = createRouter({
             {
               path: 'Credentials',
               component: () => import('../layout/components/Credentials.vue'),
+            },
+            {
+              path: 'CompanyProfile',
+              component: () => import('../layout/components/aboutUs/CompanyProfile.vue'),
             }
+            ,
+            {
+              path: 'DevelopmentCourse',
+              component: () => import('../layout/components/aboutUs/DevelopmentCourse.vue'),
+            },
+            {
+              path: 'CoreValue',
+              component: () => import('../layout/components/aboutUs/CoreValue.vue'),
+            }
+
           ]
         },
         {

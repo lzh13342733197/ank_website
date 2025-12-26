@@ -106,7 +106,7 @@ const props = defineProps({
   // 更多链接
   moreLink: {
     type: String,
-    default: '/AboutUs'
+    default: '/AboutUs/CompanyProfile'
   },
 
   // 视频数据
