@@ -83,7 +83,7 @@ const jumpToCategory = async (id: string) => {
 .floating-contact {
   position: fixed;
   right: 20px;
-  top: 50%;
+  top: 70%;
   transform: translateY(-50%);
   z-index: 999;
   background-color: var(--primary-color, #222);

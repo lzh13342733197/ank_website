@@ -35,7 +35,7 @@
     </div>
   </div> -->
   <!-- <PosterBanner /> -->
-  <SwiperModule v-if="!loading" :images="slideData" class="swiperModule_" />
+  <SwiperModule v-if="!loading" :images="swiperList" class="swiperModule_" />
   <SkeletonComponent :loading="loading" />
   <div v-if="!loading">
     <AboutUsModule />
@@ -59,10 +59,14 @@ import NewsSlider from '@/layout/components/NewsSlider.vue'
 import partner from '@/layout/components/partner.vue'
 import PatentsAwards from '@/layout/components/PatentsAwards.vue'
 import banner1 from '@/assets/images/home/banner1.jpg'
-import banner2 from '@/assets/images/home/banner2.png'
+import banner1Mobile from '@/assets/images/home/banner1-mobile.jpg'
+import banner2 from '@/assets/images/home/banner2.jpg'
+import banner2Mobile from '@/assets/images/home/banner2-mobile.jpg'
 import banner3 from '@/assets/images/home/banner3.jpg'
-import banner4 from '@/assets/images/home/banner4.png'
-import banner5 from '@/assets/images/home/banner5.jpg'
+import banner3Mobile from '@/assets/images/home/banner3-mobile.jpg'
+import banner4 from '@/assets/images/home/banner4.jpg'
+import banner4Mobile from '@/assets/images/home/banner4-mobile.jpg'
+// import banner5 from '@/assets/images/home/banner5.jpg'
 import { useI18n } from 'vue-i18n'
 const { t, locale } = useI18n()
 const route = useRoute()
@@ -78,40 +82,62 @@ const getImageUrl = (item: any) => {
   return `/ankbit.png`
 }
 
-const slideData = [
-  {
-    src: banner1,
-    url: '',
-    alt: 'Slide 1'
-  },
-  {
-    src: banner2,
-    url: '',
-    alt: 'Slide 2'
-  },
-  {
-    src: banner3,
-    url: '', // 没有链接
-    alt: 'Slide 3'
-  },
-  {
-    src: banner4,
-    url: '', // 没有链接
-    alt: 'Slide 4'
-  },
-  {
-    src: banner5,
-    url: '', // 没有链接
-    alt: 'Slide 5'
-  },
-]
+const slideData = computed(() => {
+  if (window.innerWidth > 768) {
+    return [
+      {
+        src: banner1,
+        url: '',
+        alt: 'Slide 1'
+      },
+      {
+        src: banner2,
+        url: '',
+        alt: 'Slide 2'
+      },
+      {
+        src: banner3,
+        url: '', // 没有链接
+        alt: 'Slide 3'
+      },
+      {
+        src: banner4,
+        url: '', // 没有链接
+        alt: 'Slide 4'
+      },
+    ]
+  } else {
+    return [
+      {
+        src: banner1Mobile,
+        url: '',
+        alt: 'Slide 1'
+      },
+      {
+        src: banner2Mobile,
+        url: '',
+        alt: 'Slide 2'
+      },
+      {
+        src: banner3Mobile,
+        url: '', // 没有链接
+        alt: 'Slide 3'
+      },
+      {
+        src: banner4Mobile,
+        url: '',
+        alt: 'Slide 4'
+      },
+    ]
+  }
+})
 const loading = ref(true)
 const activeId = ref('')
 
 const handleChangeOption = (id: string) => {
   activeId.value = id
 }
-
+const swiperList = ref<any[]>([])
 const categoryList = ref<any[]>([])
 const isLoadingData = ref(false)
 let pendingPromise: Promise<void> | null = null
@@ -156,8 +182,23 @@ const homInit = async () => {
   return pendingPromise.then(() => categoryList.value)
 }
 
+const fetchSwiperList = async () => {
+  const data = await useFetchWithLanguage.post(`${import.meta.env.VITE_API_URL}/banner/list`, { type: window.innerWidth > 768 ? 'pc' : 'mobile' })
+  // swiperList.value = data
+  swiperList.value = data.map((item: any) => {
+    item.src = item.imageUrl
+    item.url = item.linkUrl
+    item.alt = item.title
+    return item
+  })
+  console.log(swiperList.value)
+}
 
-onMounted(homInit)
+
+onMounted(() => {
+  homInit()
+  fetchSwiperList()
+})
 
 watch(() => locale.value, (newLocale) => {
   homInit()

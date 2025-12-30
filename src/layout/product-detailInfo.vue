@@ -19,34 +19,18 @@
         </div>
 
         <div class="product-detail-info-wrapper">
-          <div v-if="productDetail.productSpuAboutList.length > 0">
+          <div v-if="productAttrList.length > 0">
             <div class="product-detail-info-item-title">
               {{ $t('productDetail.AboutThisItem') }}
             </div>
             
             <div class="specs-grid">
-              <div v-for="(item, index) in productDetail.productSpuAboutList" :key="index" class="specs-item">
-                <template v-if="item.content.includes(':') || item.content.includes('：')">
-                  <div class="specs-label">{{ splitContent(item.content).label }}</div>
-                  <div class="specs-value">{{ splitContent(item.content).value }}</div>
-                </template>
-                <template v-else>
-                  <div class="specs-value full-width">{{ item.content }}</div>
-                </template>
+              <div v-for="(item, index) in productAttrList" :key="item.id || index" class="specs-item">
+                <div class="specs-label">{{ item.name }}</div>
+                <div class="specs-value">{{ item.value }}</div>
               </div>
             </div>
           </div>
-
-          <!-- <div v-if="productDetail.manuals.length > 0" class="product-detail-info-item-title section-mt">
-            {{ $t('productDetail.ProductManual') }}
-          </div>
-          <div v-if="productDetail.manuals.length > 0" class="product-detail-info-item-content download-list">
-            <a v-for="item in productDetail.manuals" :key="item.fileId" :href="item.url" target="_blank"
-              class="download-item">
-              <SvgIcon name="download" size="22" />
-              <span>{{ item.name }}</span>
-            </a>
-          </div> -->
 
           <div v-if="productDetail.drivers.length > 0" class="product-detail-info-item-title section-mt">
             Product Drivers
@@ -107,10 +91,11 @@ const productDetail = ref<any>({
   manuals: [],
   drivers: [],
 })
+const productAttrList = ref<any[]>([])
 const currentId = computed(() => route.query.id as string)
 const { t, locale } = useI18n()
 
-// 工具函数：拆分内容
+// 工具函数：拆分内容 (如果后续还需要处理字符串则保留，单纯展示AttrList可不使用)
 const splitContent = (content: string) => {
   const separator = content.includes(':') ? ':' : '：'
   const parts = content.split(separator)
@@ -138,6 +123,11 @@ const productDetailInit = async () => {
   const data = await useFetchWithLanguage.get(
     `${import.meta.env.VITE_API_URL}/product/getProductSpuDetail?id=${productId}`,
   )
+    const dataAttr = await useFetchWithLanguage.post(
+    `${import.meta.env.VITE_API_URL}/product/getProductSpuAttrList`,
+    { productSpuId: productId },
+  )
+  productAttrList.value = dataAttr || []
   productDetail.value = data
   loading.value = false
   getProductCategoryList()
@@ -173,6 +163,7 @@ const handleInquireSubmit = (formData: any) => {
   top: 100px;
   z-index: 9;
   height: fit-content;
+  width: auto;
 }
 
 .detail-swiper {
@@ -227,7 +218,7 @@ const handleInquireSubmit = (formData: any) => {
 }
 
 .specs-label {
-  width: 120px; /* PC端标签宽度稍微收窄，留给Value更多空间 */
+  width: 120px;
   background-color: #f5f7fa;
   padding: 12px 15px;
   font-weight: 600;
@@ -248,10 +239,6 @@ const handleInquireSubmit = (formData: any) => {
   background-color: #fff;
   display: flex;
   align-items: center;
-}
-
-.full-width {
-  width: 100%;
 }
 
 /* ================= 下载 & 适配 ================= */
@@ -283,13 +270,13 @@ const handleInquireSubmit = (formData: any) => {
 /* 移动端适配：变回一行一个参数 */
 @media screen and (max-width: 900px) {
   .specs-grid {
-    grid-template-columns: 1fr; /* 屏幕较小时变回一列 */
+    grid-template-columns: 1fr;
   }
 }
 
 @media screen and (max-width: 768px) {
   .specs-item {
-    flex-direction: column; /* 手机端标签和值上下排 */
+    flex-direction: column;
   }
   .specs-label {
     width: 100%;

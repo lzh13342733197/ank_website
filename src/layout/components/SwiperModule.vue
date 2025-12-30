@@ -4,7 +4,7 @@
       :pagination="swiperOptions.pagination" :navigation="swiperOptions.navigation" :modules="modules"
       :speed="swiperOptions.speed" class="mySwiper">
       <swiper-slide v-for="(slide, index) in images" :key="index">
-        <a :href="slide.url || 'javascript:void(0)'" :target="slide.target || '_self'" class="slide-link">
+        <a :href="`/product-detailInfo?id=${slide.productSpuId}`|| 'javascript:void(0)'" :target="slide.target || '_self'" class="slide-link">
           <div class="slide-image-wrapper">
             <img :src="slide.src" :alt="slide.alt || 'Slide Image'" class="swiper-image" loading="lazy" />
           </div>
@@ -45,6 +45,7 @@ interface Slide {
   src: string; // 图片地址
   url?: string; // 点击链接
   alt?: string;
+  productSpuId?: string;
   target?: string;
 }
 
