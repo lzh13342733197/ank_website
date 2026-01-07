@@ -42,8 +42,8 @@
               {{ currentLang === 'zh' ? 'Chinese' : 'English' }}
               <span class="arrow-icon">{{ isMobileLangOpen ? '▲' : '▼' }}</span>
               <ul v-if="isMobileLangOpen" class="mobile-lang-list">
-                <li @click.stop="setLang('zh')" :class="{ 'active': currentLang === 'zh' }">Chinese</li>
                 <li @click.stop="setLang('en')" :class="{ 'active': currentLang === 'en' }">English</li>
+                <li @click.stop="setLang('zh')" :class="{ 'active': currentLang === 'zh' }">Chinese</li>
               </ul>
             </div>
           </div>
@@ -113,8 +113,11 @@ import SvgIcon from '@/components/SvgIcon.vue'
 import styles from './pc.module.less'
 import { setLanguage } from '@/locales'
 import { useI18n } from 'vue-i18n'
-import { useFetchWithLanguage } from '@/utils/http'
 const { t, locale } = useI18n()
+import { useFetchWithLanguage } from '@/utils/http'
+import { useCategoryListStore } from '@/stores/categoryList'
+const categoryListStore = useCategoryListStore()
+
 
 const menus = computed(() => {
   const currentPath = route.path;
@@ -124,19 +127,31 @@ const menus = computed(() => {
       id: 2, name: t('navigationBar.AboutUs'), url: '/AboutUs/CompanyProfile', children: [
         { id: 1, name: t('aboutUs.menu.CompanyProfile'), url: '/AboutUs/CompanyProfile' },
         { id: 5, name: t('aboutUs.menu.RAD'), url: '/AboutUs/patent' },
+        { id: 3, name: t('aboutUs.menu.Awards'), url: '/AboutUs/Awards' },
         { id: 6, name: t('aboutUs.Credentials'), url: '/AboutUs/Credentials' },
         { id: 4, name: t('aboutUs.menu.DevelopmentCourse'), url: '/AboutUs/DevelopmentCourse' },
-        { id: 3, name: t('aboutUs.menu.CoreValue'), url: '/AboutUs/CoreValue' },
+        // { id: 3, name: t('aboutUs.menu.CoreValue'), url: '/AboutUs/CoreValue' },
       ]
     },
-    { id: 3, name: t('navigationBar.Products'), url: `/ProductCenter?categoryId=${categoryList.value[0]?.id}` },
+    { name: t('navigationBar.Factory'), url: '/Factory/Production', children: [
+      { id: 1, name: t('navigationBar.Production'), url: '/Factory/Production' },
+      { id: 2, name: t('navigationBar.Testing'), url: '/Factory/Testing' },
+    ] },
+    { id: 3, name: t('navigationBar.Products'), url: `/CategoryList` },
     { id: 4, name: t('navigationBar.News'), url: '/NewsList' },
+    { id: 5, name: t('navigationBar.Blog'), url: '/Blog' },
     { id: 6, name: t('navigationBar.Contact'), url: '/Contact_us' },
   ];
 
   return menuList.map(menu => {
     menu.url = menu.url.split('?')[0]
+    // 高亮匹配
     let isMatch = menu.url === currentPath;
+    if (menu.url == '/CategoryList' && currentPath=='/ProductCenter'){
+      isMatch = true
+    }
+    // 匹配
+    // console.log(menu.url ,currentPath);
     if (!isMatch && menu.children) {
       isMatch = menu.children.some(child => child.url === currentPath || child.url.split('?')[0] === currentPath);
     }
@@ -164,7 +179,9 @@ const setLang = (lang: string) => {
   setLanguage(lang)
   isMobileLangOpen.value = false
 }
-const isPathMatch = (menuUrl: string) => { return route.fullPath === menuUrl }
+
+const isPathMatch = (menuUrl: string) => { 
+  return route.fullPath === menuUrl }
 const categoryList = ref<any[]>([])
 
 onMounted(async () => {
@@ -177,8 +194,9 @@ const getCategory = async () => {
     {},
   )
   categoryList.value = [...data]
-  if (menus.value[2]) {
-    menus.value[2].children = categoryList.value.map(item => ({
+  categoryListStore.setCategoryList(data)
+  if (menus.value[3]) {
+    menus.value[3].children = categoryList.value.map(item => ({
       url: `/ProductCenter?categoryId=${item.id}`,
       id: item.id,
       name: item.name,

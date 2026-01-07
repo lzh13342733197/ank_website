@@ -17,7 +17,6 @@
             {{ $t('productDetail.shopNow') }}
           </div>
         </div>
-
         <div class="product-detail-info-wrapper">
           <div v-if="productAttrList.length > 0">
             <div class="product-detail-info-item-title">
@@ -32,6 +31,7 @@
             </div>
           </div>
 
+
           <div v-if="productDetail.drivers.length > 0" class="product-detail-info-item-title section-mt">
             Product Drivers
           </div>
@@ -45,7 +45,10 @@
         </div>
       </div>
     </div>
-
+          <!-- 产品描述图片 -->
+           <div class="product-detail-info-item-content">
+            <img :src="productBanner" alt="" class="product-banner">
+          </div>
     <div class="product-category-container">
       <cardPeekList :id="String(route.query.categoryId || '')" :title="String(route.query.cardName || '')"
         :card-list="productCategoryList.slice(0, 6)" />
@@ -79,7 +82,7 @@ const language = useLanguageStore()
 const isInquire = ref(false)
 const loading = ref(true)
 const productCategoryList = ref<any[]>([])
-const windowWidth = computed(() => globalThis.innerWidth <= 700 ? '90%' : '30%')
+const windowWidth = computed(() => globalThis.innerWidth <= 700 ? '90%' : '50%')
 const productDetail = ref<any>({
   id: '',
   imageUrls: [],
@@ -94,7 +97,7 @@ const productDetail = ref<any>({
 const productAttrList = ref<any[]>([])
 const currentId = computed(() => route.query.id as string)
 const { t, locale } = useI18n()
-
+const productBanner = ref('')
 // 工具函数：拆分内容 (如果后续还需要处理字符串则保留，单纯展示AttrList可不使用)
 const splitContent = (content: string) => {
   const separator = content.includes(':') ? ':' : '：'
@@ -129,6 +132,11 @@ const productDetailInit = async () => {
   )
   productAttrList.value = dataAttr || []
   productDetail.value = data
+  console.log(productDetail.value);
+  if(productDetail.value.productSpuAboutList.length){
+  productBanner.value= productDetail.value.productSpuAboutList[0].imageUrls[0]
+  }
+  console.log(productBanner.value);
   loading.value = false
   getProductCategoryList()
 }
@@ -190,7 +198,19 @@ const handleInquireSubmit = (formData: any) => {
 .product-detail-info-wrapper {
   margin: 40px 0;
 }
-
+.product-detail-info-item-content{
+  text-align: center;
+  padding: 15px;
+}
+.product-banner{
+  width: 100%;
+  border-radius: 16px;
+}
+@media screen and (min-width: 1200px) {
+  .product-banner{
+    max-width: 1160px;
+  }
+}
 .product-detail-info-item-title {
   font-size: 24px;
   font-weight: 600;

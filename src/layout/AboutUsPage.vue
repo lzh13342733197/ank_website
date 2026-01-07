@@ -62,9 +62,10 @@ const isMobileMenuOpen = ref(false);
 const menuItems = computed(() => [
   { id: 1, text: t('aboutUs.menu.CompanyProfile'), path: '/AboutUs/CompanyProfile' },
   { id: 5, text: t('aboutUs.menu.RAD'), path: '/AboutUs/patent' },
+  { id: 3, text: t('aboutUs.menu.Awards'), path: '/AboutUs/Awards' },
   { id: 6, text: t('aboutUs.Credentials'), path: '/AboutUs/Credentials' },
   { id: 4, text: t('aboutUs.menu.DevelopmentCourse'), path: '/AboutUs/DevelopmentCourse' },
-  { id: 3, text: t('aboutUs.menu.CoreValue'), path: '/AboutUs/CoreValue' },
+  // { id: 3, text: t('aboutUs.menu.CoreValue'), path: '/AboutUs/CoreValue' },
 ]);
 
 const currentTitle = computed(() => {

@@ -1,8 +1,8 @@
 <template>
-  <!-- <div class="banner">
+  <div class="banner">
     <img src="@/assets/images/12.jpg" alt="研发与开发" class="banner-bg">
     <div class="bannerTitle">{{ $t('common.researchDevelopment') }}</div>
-  </div> -->
+  </div>
 
   <div class="container">
 
@@ -28,7 +28,7 @@
       <p>{{ $t('research.teamDesc2') }}</p>
       <p>{{ $t('research.teamDesc3') }}</p>
       <p>{{ $t('research.teamDesc4') }}</p>
-      <p>{{ $t('research.teamDesc5') }}</p>
+      <!-- <p>{{ $t('research.teamDesc5') }}</p> -->
     </div>
 
     

@@ -3,15 +3,20 @@ export default {
   navigationBar: {
     Home: "首页",
     AboutUs: "关于我们",
-    Products: "产品中心",
+    Products: "产品分类",
     patents: "专利与奖项",
     Credentials: "资质认证",
     News: "展会",
+    Factory: "工厂",
+    Blog: "博客",
     Contact: "联系我们",
     pleaseInputKeyword: "搜索",
     search: "搜索",
     searchPlaceholder: "请输入搜索关键词",
     showDetails: "显示详情",
+    
+      Production: "生产",
+      Testing: "测试",
   },
   home: {
     MORE: "更多",
@@ -36,7 +41,7 @@ export default {
     aboutUs: "关于我们",
   },
   productDetail: {
-    productInfo: "产品信息",
+    productInfo: "产品分类",
     AboutThisItem: "产品详情",
     ProductManual: "产品手册",
     shopNow: "立即询盘",
@@ -196,29 +201,31 @@ export default {
       fourthParagraph:
         "聚焦 : 我们以用户为中心，用心倾听，快速响应。我们致力于超越期待，为每一位用户创造持久价值与愉悦体验。",
     },
+    awards:{
+      description:'我们的产品设计不仅注重美学，更追求卓越的用户体验。凭借创新的设计理念，我们已成功斩获包括法国DNA设计奖、伦敦设计奖、美国Muse设计奖以及工业设计界“奥斯卡”之称的德国红点产品奖在内的多项国际大奖。这些荣誉是对我们设计团队专业能力与前瞻视野的最佳证明。'
+    },
     DevelopmentCourse: {
       title: "公司发展历程",
-      firstDate: "2019年6月",
-      firstParagraph: "爱科贝成立，专注OEM业务。",
-      secondDate: "2019年12月",
-      secondParagraph:
-        "累计申请与已注册的专利和商标数量突破600项，覆盖中国、欧美、日韩及台湾地区。",
-      thirdDate: "2020年8月",
-      thirdParagraph: "Hi-Fi解码器DS600成功研发，支持DSD512解码能力。",
-      fourthDate: "2020年10月",
-      fourthParagraph: "DS601申报德国红点奖并正式完成签约。",
-      fifthDate: "2021年",
-      fifthParagraph: "爱科贝获评国家高新技术企业。",
-      sixthDate: "2021年12月",
-      sixthParagraph: "深圳区工厂面积扩大至5000平方米，实现产能翻倍。",
-      seventhDate: "2022年10月",
-      seventhParagraph: "车间全面升级改造。",
-      eighthDate: "2023年9月",
-      eighthParagraph: "爱科贝通过ISO9001质量管理体系认证。",
-      ninthDate: "2024年12月",
-      ninthParagraph: "爱科贝再次获评国家高新技术企业，并获得中精特新中小企业。",
-      tenthDate: "2025年1月",
-      tenthParagraph: "启动广东省中山工厂布局。",
+      firstDate: "2025年1月",
+      firstParagraph: "启动广东省中山工厂布局。",
+      secondDate: "2024年12月",
+      secondParagraph: "爱科贝再次获评国家高新技术企业，并获得中精特新中小企业。",
+      thirdDate: "2023年9月",
+      thirdParagraph: "爱科贝通过ISO9001质量管理体系认证。",
+      fourthDate: "2022年10月",
+      fourthParagraph: "车间全面升级改造。",
+      fifthDate: "2021年12月",
+      fifthParagraph: "深圳区工厂面积扩大至5000平方米，实现产能翻倍。",
+      sixthDate: "2021年",
+      sixthParagraph: "爱科贝获评国家高新技术企业。",
+      seventhDate: "2020年10月",
+      seventhParagraph: "DS601申报德国红点奖并正式完成签约。",
+      eighthDate: "2020年8月",
+      eighthParagraph: "Hi-Fi解码器DS600成功研发，支持DSD512解码能力。",
+      ninthDate: "2019年12月",
+      ninthParagraph: "累计申请与已注册的专利和商标数量突破600项，覆盖中国、欧美、日韩及台湾地区。",
+      tenthDate: "2019年6月",
+      tenthParagraph: "爱科贝成立，专注OEM业务。",
     },
     menu: {
       CompanyProfile: "公司简介",
@@ -227,6 +234,7 @@ export default {
       DevelopmentCourse: "公司发展历程",
       RAD: "研发与研究",
       GlobalLayout: "全球布局",
+      Awards: "奖项荣誉",
     },
     Credentials: "我们的认证",
   },
@@ -237,5 +245,61 @@ export default {
     Email: "邮箱：sales{'@'}ankbit.com",
     FollowUs: "关注我们",
     FollowUsInfo: "获取更新，请关注我们。",
+  },
+  factory: {
+    title: "Our Factory", // 模块大标题（保持英文更符合外贸场景，如需中文可改为“我们的工厂”）
+    production: {
+      subtitle: "Production", // 副标题
+      desc: "我们通过标准化的流程和严格的质量控制，为客户提供稳定可靠的音频产品制造服务。",
+      steps: [
+        {
+          title: "来料检验 (IQC)",
+          desc: "对所有进厂的元器件（如喇叭、PCB板、外壳、线材）进行严格检测，确保原材料质量可靠。",
+        },
+        {
+          title: "主板烧录与测试",
+          desc: "对蓝牙收发器和智能音频设备的主板进行程序烧录，并进行初步功能测试。",
+        },
+        {
+          title: "半成品组装",
+          desc: "将喇叭、主板、电池等核心部件精确安装到产品外壳中，完成核心模块的组装。",
+        },
+        {
+          title: "成品组装",
+          desc: "进行外部结构组装，如安装耳罩、面盖、按键，以及焊接或连接线材。",
+        },
+        {
+          title: "老化与功能测试",
+          desc: "对组装完成的产品进行通电老化测试，并全面检测各项功能，如蓝牙连接、音质、按键响应、续航等。",
+        },
+        {
+          title: "包装入库",
+          desc: "执行标准化的包装流程，包含产品清洁、防静电封装、配件分装及彩盒封装，确保产品在运输和存储中的安全与美观，最终扫码入库。",
+        },
+        {
+          title: "出货检验 (OQC)",
+          desc: "在发货前，对成品进行抽检，确保批量产品的质量稳定性。",
+        },
+      ],
+    },
+    testing: {
+      subtitle: "Testing", // 副标题
+      equipment: {
+        title: "完备测试能力",
+        desc: "我们配备齐全的各类专业测试设备，构建了完善的测试环境。从功能验证到性能评估，所有设备均定期校准与维护，确保测试数据的精准与可靠，为产品质量提供坚实的硬件保障。",
+        list: [
+          { name: "蓝牙测试仪" },
+          { name: "音频分析仪" },
+          { name: "老化测试柜" },
+          { name: "按键寿命测试仪" },
+          { name: "续航测试设备" },
+          { name: "防静电测试仪" },
+        ],
+      },
+      process: {
+        title: "双重全检流程",
+        desc: "我们的测试流程以“零缺陷”为目标，执行严格的双重100%全检制度。首先，在产品组装完成后，立即进行第一轮100%全检，涵盖所有核心功能，如蓝牙配对、音频播放、麦克风通话及按键响应，确保产品基础性能完美。随后，在进入包装环节前，实施第二轮100%全检，重点复核产品外观、清洁度及最终功能稳定性，杜绝任何不良品流入市场。通过这两道严密的关卡，我们确保交付给客户的每一件产品都品质卓越。",
+      },
+    },
   },
 };

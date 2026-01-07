@@ -60,6 +60,7 @@ const closePreview = () => {
   margin: 0 auto;
   padding: 3rem 2rem;
   text-align: center;
+  max-width: 1200px;
 }
 
 .partner-title {

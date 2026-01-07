@@ -71,6 +71,10 @@ const router = createRouter({
             {
               path: 'CoreValue',
               component: () => import('../layout/components/aboutUs/CoreValue.vue'),
+            },
+            {
+              path: 'Awards',
+              component: () => import('../layout/components/aboutUs/Awards.vue'),
             }
 
           ]
@@ -83,6 +87,28 @@ const router = createRouter({
           path: 'ProductCenter',
           component: () => import('../layout/ProductCenter.vue'),
         },
+        {
+          path: 'CategoryList',
+          component: () => import('../layout/components/ProductCenter/CategoryList.vue'),
+        },
+        {
+          path: 'Factory',
+          redirect: '/Factory/Production',
+          children: [
+            {
+              path: 'Production',
+              component: () => import('../layout/Factory.vue'),
+            },
+            {
+              path: 'Testing',
+              component: () => import('../layout/Testing.vue'),
+            }
+          ]
+        },
+        {
+          path: 'Blog',
+          component: () => import('../layout/Blog.vue'),
+        }
       ],
     },
     {

@@ -9,7 +9,7 @@
     <Footer :class="{ 'noFull-width': $route.path !== '/home' }"></Footer>
   </div>
 
-  <div class="floating-contact" @click="goToContact">
+  <!-- <div class="floating-contact" @click="goToContact">
     <div class="contact-icon">
       <div class="search-icon"
         style="color: white; text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;">
@@ -18,12 +18,14 @@
       </div>
     </div>
     <div class="contact-text">{{ t('productDetail.shopNow') }}</div>
-  </div>
+  </div> -->
+  <WhatsApp />
 </template>
 
 <script setup lang="ts">
 import NavigationBarPC from '@/layout/navigation-bar.vue'
 import NavigationBarMobile from '@/layout/navigation-bar-mobile.vue'
+import WhatsApp from '@/layout/components/WhatsApp.vue'
 import Footer from '@/layout/footer.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ref, nextTick } from 'vue'
@@ -37,9 +39,7 @@ const router = useRouter()
 const route = useRoute()
 const currentComponent = ref<any>(null)
 
-// 新增：跳转到“联系我们”页面
 const goToContact = () => {
-  // 这里的路径请根据你实际的路由配置修改，通常是 /contact 或 /AboutUs?id=...
   router.push('/Contact_us')
 }
 

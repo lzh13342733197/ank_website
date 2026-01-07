@@ -105,7 +105,7 @@ const menuItems = computed(() => [
   { id: 5, text: t('aboutUs.menu.RAD'), link: '/AboutUs/patent?id=5', target: '_self' },
   { id: 6, text: t('aboutUs.Credentials'), link: '/AboutUs/Credentials?id=6', target: '_self' },
   { id: 4, text: t('aboutUs.menu.DevelopmentCourse'), link: '/AboutUs?id=4', target: '_self' },
-  { id: 3, text: t('aboutUs.menu.CoreValue'), link: '/AboutUs?id=3', target: '_self' },
+  // { id: 3, text: t('aboutUs.menu.CoreValue'), link: '/AboutUs?id=3', target: '_self' },
 ]);
 
 const currentId = ref(1);

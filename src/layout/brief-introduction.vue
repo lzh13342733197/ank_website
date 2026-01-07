@@ -38,7 +38,7 @@
             <div>
             <a href="https://www.instagram.com/1mii.shop/" target="_blank">
               <!-- <SvgIcon :name="`add`" size="24" color="#222"></SvgIcon> -->
-              <img v-lazy="instagram" alt="" class="iconImg">
+              <img v-lazy="linkedin" alt="" class="iconImg" style="scale: 0.8;">
             </a>
           </div>
           <div>
@@ -46,11 +46,11 @@
               <img v-lazy="newTwiter" alt="" class="iconImg" style="scale: 0.8;">
             </a>
           </div>
-          <div>
+          <!-- <div>
             <a href="https://www.tiktok.com/@1mii.us?lang=zh-Hans" target="_blank">
               <img v-lazy="tiktok" alt="" class="iconImg">
             </a>
-          </div>
+          </div> -->
           <div style="width: 20px; height: 20px;">
             <a href="https://www.youtube.com/@YeeMall.1Mii" target="_blank">
               <img v-lazy="youtube" alt="" class="iconImg">
@@ -67,7 +67,7 @@
 import SvgIcon from '@/components/SvgIcon.vue'
 import eightLanguage from '@/constants/language'
 import facebook from '@/assets/images/footer/Facebook.png'
-import instagram from '@/assets/images/footer/instagram.png'
+import linkedin from '@/assets/images/footer/linkedin.png'
 import newTwiter from '@/assets/images/footer/newTwiter.png'
 import tiktok from '@/assets/images/footer/Tiktok.png'
 import youtube from '@/assets/images/footer/youtube.png'

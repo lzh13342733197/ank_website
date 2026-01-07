@@ -39,6 +39,7 @@
   <SkeletonComponent :loading="loading" />
   <div v-if="!loading">
     <AboutUsModule />
+    <SocialMediaVideo style="margin: 0 auto" />
     <ProductShowcase :products="templateData" />
     <!-- <NewsSlider /> -->
     <PatentsAwards />
@@ -57,6 +58,7 @@ import ProductShowcase from '@/layout/ProductShowcase.vue'
 import AboutUsModule from '@/layout/components/AboutUsModule.vue'
 import NewsSlider from '@/layout/components/NewsSlider.vue'
 import partner from '@/layout/components/partner.vue'
+import SocialMediaVideo from '@/layout/components/SocialMediaVideo.vue'
 import PatentsAwards from '@/layout/components/PatentsAwards.vue'
 import banner1 from '@/assets/images/home/banner1.jpg'
 import banner1Mobile from '@/assets/images/home/banner1-mobile.jpg'
