@@ -63,8 +63,8 @@
             {{ currentLang === 'zh' ? 'Chinese' : 'English' }}
             <span class="arrow-icon">{{ isMobileLangOpen ? '▲' : '▼' }}</span>
             <ul v-if="isMobileLangOpen" class="mobile-lang-list">
-              <li @click.stop="setLang('zh')" :class="{ 'active': currentLang === 'zh' }">Chinese</li>
               <li @click.stop="setLang('en')" :class="{ 'active': currentLang === 'en' }">English</li>
+              <li @click.stop="setLang('zh')" :class="{ 'active': currentLang === 'zh' }">Chinese</li>
             </ul>
           </div>
           <button class="hamburger-btn" @click="toggleMobileMenu">
@@ -138,7 +138,7 @@ const menus = computed(() => {
       { id: 2, name: t('navigationBar.Testing'), url: '/Factory/Testing' },
     ] },
     { id: 3, name: t('navigationBar.Products'), url: `/CategoryList` },
-    { id: 4, name: t('navigationBar.News'), url: '/NewsList' },
+    { id: 4, name: t('navigationBar.Fair'), url: '/NewsList' },
     { id: 5, name: t('navigationBar.Blog'), url: '/Blog' },
     { id: 6, name: t('navigationBar.Contact'), url: '/Contact_us' },
   ];

@@ -6,7 +6,7 @@ export default {
     Products: "产品分类",
     patents: "专利与奖项",
     Credentials: "资质认证",
-    News: "展会",
+    Fair: "展会",
     Factory: "工厂",
     Blog: "博客",
     Contact: "联系我们",

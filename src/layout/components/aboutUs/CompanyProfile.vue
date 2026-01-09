@@ -16,6 +16,10 @@ const { t } = useI18n();
 </script>
 
 <style scoped>
+  .content-text-body{
+    padding: 0 0 20px 15px;
+    margin: 20px 0;
+  }
 .content-paragraph { 
   line-height: 1.8; 
   font-size: 16px; 

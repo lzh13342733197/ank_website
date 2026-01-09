@@ -23,6 +23,7 @@
 
     <!-- 1. Production 生产流程板块 -->
     <div class="factory-section production-section" v-if="currentTab === 'production'">
+      <div class="section-subtitle">Production</div>
       <div class="section-desc">
         {{ t('factory.production.desc') }}
       </div>
@@ -278,6 +279,7 @@ const testingProcessImages = ref([
 /* 路由Tab切换样式 */
 .factory-header {
   margin-bottom: 30px;
+  display: none;
 }
 
 .section-tab-wrapper {
@@ -302,7 +304,7 @@ const testingProcessImages = ref([
 }
 
 .section-tab-item.active {
-  background: #0066cc;
+  background: #0095d7;
   color: #fff;
 }
 
@@ -320,7 +322,7 @@ const testingProcessImages = ref([
   font-size: 24px;
   font-weight: 600;
   color: #333;
-  border-left: 4px solid #0066cc;
+  border-left: 4px solid #0095d7;
   padding-left: 12px;
   margin-bottom: 20px;
 }
@@ -357,7 +359,7 @@ const testingProcessImages = ref([
 .step-number {
   width: 40px;
   height: 40px;
-  background: #0066cc;
+  background: #0095d7;
   color: #fff;
   border-radius: 50%;
   display: flex;
@@ -523,6 +525,9 @@ const testingProcessImages = ref([
 
 /* 响应式适配 */
 @media (max-width: 768px) {
+  .factory-header {
+    display: block;
+  }
   .factory-module {
     padding: 20px 10px;
   }

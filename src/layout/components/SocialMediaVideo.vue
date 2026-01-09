@@ -38,6 +38,7 @@
             <a v-for="platform in socialPlatforms" :key="platform.name" :href="platform.link" target="_blank"
               class="social-item" :style="{ '--hover-color': platform.color }">
               <div class="icon-box">
+                <SvgIcon name="rightDeltoid" size="30" ></SvgIcon>
                 <i :class="['iconfont', platform.icon]"></i>
               </div>
               <div class="platform-info">

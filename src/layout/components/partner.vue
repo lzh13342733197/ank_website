@@ -1,24 +1,32 @@
 <template>
-  <section class="partner-section">
+  <section class="partner-carousel-section">
     <h2 class="partner-title">{{ $t('home.partner') }}</h2>
-    <div class="partner-list">
-      <div class="partner-item" v-for="item in visiblePartners" :key="item.id">
-        <img v-lazy="item.logo" :alt="item.name" :title="item.name" class="partner-logo" />
+
+    <div class="carousel-container">
+      <div class="carousel-wrapper">
+        <div class="carousel-track">
+          <div 
+            class="partner-item" 
+            v-for="item in partners" 
+            :key="'a-' + item.id"
+          >
+            <img :src="item.logo" :alt="item.name" :title="item.name" class="partner-logo" />
+          </div>
+          <div 
+            class="partner-item" 
+            v-for="item in partners" 
+            :key="'b-' + item.id"
+          >
+            <img :src="item.logo" :alt="item.name" :title="item.name" class="partner-logo" />
+          </div>
+        </div>
       </div>
     </div>
-
-    <div v-if="showToggleButton && !isExpanded" class="partner-toggle-wrapper">
-      <button @click="toggleExpanded" class="partner-toggle-btn">
-        {{ isExpanded ? less : $t('home.MORE') }}
-      </button>
-    </div>
-
   </section>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-
+import { ref } from 'vue'
 
 // 导入图片
 import img1 from '@/assets/images/partner/图片1.png'
@@ -48,150 +56,104 @@ const partners = ref([
   { id: 17, name: '京东', logo: img17 },
   { id: 18, name: '百瑞互联（BARROT）', logo: img18 },
 ])
-
-// 默认显示的 Logo 数量 (手机端默认 3行 * 3个/行 = 9个)
-const defaultVisibleCount = 7;
-
-// 状态：是否展开全部
-const isExpanded = ref(false);
-
-// 计算属性：当前应该显示的 Logo 列表
-const visiblePartners = computed(() => {
-  // 只有在非展开状态下，才截取前 defaultVisibleCount 个
-  if (!isExpanded.value) {
-    return partners.value.slice(0, defaultVisibleCount);
-  }
-  // 展开状态下显示全部
-  return partners.value;
-});
-
-// 方法：切换显示状态
-const toggleExpanded = () => {
-  isExpanded.value = !isExpanded.value;
-};
-
-// 计算属性：是否需要显示“显示更多”按钮
-const showToggleButton = computed(() => {
-  return partners.value.length > defaultVisibleCount;
-});
 </script>
 
 <style scoped>
-/* ==================================================
- 默认样式 (适用于桌面端和 1200px 以上的设备)
- ================================================== */
-.partner-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 3rem 2rem;
-  text-align: center;
+.partner-carousel-section {
+  padding: 40px 0;
+  width: 100%;
+  overflow: hidden;
 }
 
 .partner-title {
-  font-size: 1.8rem;
+  text-align: center;
+  font-size: 28px;
   color: #333;
-  margin-bottom: 2rem;
+  margin-bottom: 40px;
+  font-weight: bold;
 }
 
-.partner-list {
+.carousel-container {
+  width: 100%;
+  position: relative;
+}
+
+.carousel-wrapper {
+  overflow: hidden;
+  position: relative;
+  /* 边缘羽化遮罩，增加高级感 */
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.carousel-track {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-  align-items: center;
+  width: max-content;
+  /* 30s 是滚动一轮的速度，图片多可以调快，图片少可以调慢 */
+  animation: scroll-loop 60s linear infinite;
+}
+
+.carousel-track:hover {
+  animation-play-state: paused;
 }
 
 .partner-item {
-  flex: 0 0 auto;
-  padding: 0.5rem;
-  width: 120px;
-  height: 80px;
+  flex: 0 0 180px; /* 固定宽度 */
+  height: 100px;
+  margin: 0 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 15px;
+  transition: transform 0.3s;
+}
+
+.partner-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
 
 .partner-logo {
-  max-width: 120px;
-  height: auto;
-  /* 确保 Logo 高度自适应 */
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
-  cursor: pointer;
+  /* filter: grayscale(100%);  */
+  opacity: 0.7;
+  transition: all 0.3s;
+}
+
+.partner-item:hover .partner-logo {
+  filter: grayscale(0%); /* 悬停恢复彩色 */
+  opacity: 1;
+}
+
+/* 关键帧：移动距离刚好是总长度的一半（因为我们克隆了一份） */
+@keyframes scroll-loop {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* ==================================================
-   新增：切换按钮的样式
-   ================================================== */
-.partner-toggle-wrapper {
-  margin-top: 2rem;
-  padding-top: 1rem;
-}
-
-.partner-toggle-btn {
-  display: inline-block;
-    padding: 10px 29px;
-    background-color: #333;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    margin-bottom: 30px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-
-
-
-/* ==================================================
- 媒体查询适配：小于等于 1200px (Tablet/Mid-size PC)
- ================================================== */
-@media (max-width: 1200px) {
-  .partner-section {
-    padding: 2rem 1rem;
-  }
-
-  .partner-title {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .partner-list {
-    gap: 1rem;
-  }
-
-  .partner-item {
-    /* 每行大约 5 个 */
-    flex-basis: calc(20% - 1.5rem);
-  }
-
-  .partner-logo {
-    max-width: 100px;
-  }
-}
-
-
-/* ==================================================
- 媒体查询适配：小于等于 768px (Mobile/Small Tablet)
- ================================================== */
+  媒体查询适配
+================================================== */
 @media (max-width: 768px) {
+  .partner-title {
+    font-size: 22px;
+    margin-bottom: 25px;
+  }
+  
   .partner-item {
-    /* 每行大约 3 个 */
-    flex-basis: calc(33.33% - 1rem);
+    flex: 0 0 140px; /* 移动端缩小尺寸 */
+    height: 80px;
+    margin: 0 10px;
+    padding: 10px;
   }
 
-  .partner-logo {
-    max-height: 65px;
-    max-width: 80px;
-  }
-}
-
-/* ==================================================
- 媒体查询适配：小于等于 480px (Small Mobile)
- ================================================== */
-@media (max-width: 480px) {
-  .partner-item {
-    /* 每行大约 2 个 */
-    flex-basis: calc(50% - 0.5rem);
+  .carousel-track {
+    animation: scroll-loop 25s linear infinite; /* 移动端路程短，调快一点点 */
   }
 }
 </style>

@@ -20,7 +20,8 @@
           </div>
 
           <div class="sidebar-mobile">
-            <header class="class-title mobile-header" :class="{ 'expanded': isMobileMenuOpen }" @click="isMobileMenuOpen = !isMobileMenuOpen">
+            <header class="class-title mobile-header" :class="{ 'expanded': isMobileMenuOpen }"
+              @click="isMobileMenuOpen = !isMobileMenuOpen">
               <span class="main-class-text">{{ currentTitle }}</span>
               <span class="class-title-icon icon iconfont">
                 {{ isMobileMenuOpen ? '▲' : '▼' }}
@@ -40,7 +41,7 @@
           <div class="module-item content-header">
             <div class="content-main-title">{{ currentTitle }}</div>
           </div>
-          <div class="module-item content-body">
+          <div  style="width: 100%;">
             <router-view />
           </div>
         </div>
@@ -83,27 +84,116 @@ const goTo = (item) => {
 
 <style scoped>
 /* 引用你提供的全部公共 CSS 样式 */
-.page-container { margin-top: 10px; }
-.BodyCenter { max-width: 1200px; margin: 30px auto; width: 95%; }
-.clearfix::after { content: ""; display: table; clear: both; }
-.module-sub-container { display: flex; flex-wrap: wrap; }
-.class-title { font-size: 18px; font-weight: bold; color: #333; padding: 10px 0; border-bottom: 2px solid #ddd; display: flex; justify-content: space-between; align-items: center; }
-.main-class-item { border-bottom: 1px dashed #eee; cursor: pointer; }
-.main-class-link { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; text-decoration: none; color: #666; transition: all 0.3s; }
-.main-class-item:hover .main-class-link, .active .main-class-link { color: #0095d7; padding-left: 10px; }
-.main-class-link-active { color: #0095d7 !important; padding-left: 10px; }
+.page-container {
+  margin-top: 10px;
+}
+
+.BodyCenter {
+  max-width: 1200px;
+  margin: 30px auto;
+  width: 95%;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.module-sub-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.class-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  padding: 10px 0;
+  border-bottom: 2px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-class-item {
+  border-bottom: 1px dashed #eee;
+  cursor: pointer;
+}
+
+.main-class-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  text-decoration: none;
+  color: #666;
+  transition: all 0.3s;
+}
+
+.main-class-item:hover .main-class-link,
+.active .main-class-link {
+  color: #0095d7;
+  padding-left: 10px;
+}
+
+.main-class-link-active {
+  color: #0095d7 !important;
+  padding-left: 10px;
+}
 
 @media (min-width: 768px) {
-  .sidebar-container { flex-basis: 25%; padding-right: 20px; }
-  .content-container { flex-basis: 75%; padding-left: 20px; }
-  .sidebar-mobile { display: none; }
+  .sidebar-container {
+    flex-basis: 25%;
+    padding-right: 20px;
+  }
+
+  .content-container {
+    flex-basis: 75%;
+    padding-left: 20px;
+  }
+
+  .sidebar-mobile {
+    display: none;
+  }
 }
+
 @media (max-width: 767px) {
-  .sidebar-container, .content-container { flex-basis: 100%; }
-  .sidebar-pc, .content-header { display: none; }
-  .mobile-header { background-color: #f7f7f7; padding: 15px; border: 1px solid #eee; }
-  .mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; border: 1px solid #eee; border-top: none; }
-  .mobile-menu.open { max-height: 500px; }
+
+  .sidebar-container,
+  .content-container {
+    flex-basis: 100%;
+  }
+
+  .sidebar-pc,
+  .content-header {
+    display: none;
+  }
+
+  .mobile-header {
+    background-color: #f7f7f7;
+    padding: 15px;
+    border: 1px solid #eee;
+  }
+
+  .mobile-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    border: 1px solid #eee;
+    border-top: none;
+  }
+
+  .mobile-menu.open {
+    max-height: 500px;
+  }
 }
-.content-main-title { font-size: 24px; color: #333; font-weight: 600; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+
+.content-main-title {
+  font-size: 24px;
+  color: #333;
+  font-weight: 600;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
 </style>

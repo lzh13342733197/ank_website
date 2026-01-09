@@ -4,32 +4,20 @@
     <h1 class="category-title">产品分类</h1>
     <!-- 分类列表 - 改为纵向列表布局 -->
     <div class="category-list">
-      <div 
-        class="category-item" 
-        v-for="category in categoryList" 
-        :key="category.id"
-        @click="handleClickCategory(category)"
-      >
-        <!-- 左侧文字区域 -->
-        <div class="category-text-wrapper">
+      <div class="category-item" v-for="category in categoryList" :key="category.id"
+        @click="handleClickCategory(category)">
+        <!-- <div class="category-text-wrapper">
           <div class="category-name">{{ category.name }}</div>
-          <!-- 可选：显示分类描述 -->
           <div class="category-desc">
             {{ category.description }}
           </div>
-          <!-- 装饰线 -->
           <div class="category-divider"></div>
         </div>
-        
+         -->
         <!-- 右侧图片区域 -->
         <div class="category-image-wrapper">
-          <img 
-            :src="category.imageUrl" 
-            :alt="category.name" 
-            class="category-image"
-            loading="lazy"
-            @error="handleImageError($event)"
-          >
+          <img :src="isMobile ? category.imageMobileUrl : category.imagePCUrl" :alt="category.name"
+            class="category-image" loading="lazy" @error="handleImageError($event)">
           <!-- 悬浮装饰元素 -->
           <div class="category-hover-decoration"></div>
         </div>
@@ -39,11 +27,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useFetchWithLanguage } from '@/utils/http'
 
 const { t, locale } = useI18n()
+const isMobile = computed(() => window.innerWidth <= 768)
 
 // 类型定义保持不变
 const categoryList = ref<Array<{
@@ -53,6 +42,8 @@ const categoryList = ref<Array<{
   pid?: string
   children?: any[]
   description?: string
+  imageMobileUrl?: string,
+  imagePCUrl?: string,
 }>>([])
 
 // 获取分类列表，增加异常处理
@@ -126,7 +117,8 @@ watch(locale, () => {
 /* 分类项 - 左右布局核心样式 */
 .category-item {
   display: flex;
-  align-items: stretch; /* 让子元素高度撑满 */
+  align-items: stretch;
+  /* 让子元素高度撑满 */
   height: 180px;
   border-radius: 12px;
   overflow: hidden;
@@ -176,23 +168,27 @@ watch(locale, () => {
 .category-divider {
   width: 40px;
   height: 3px;
-  background: linear-gradient(90deg, #2c52ed 0%, #4a75f0 100%);
+  background: linear-gradient(90deg, #0095D7 0%, #0095D7 100%);
   border-radius: 2px;
   margin-top: 16px;
 }
 
 /* 右侧图片区域 - 占比40% */
 .category-image-wrapper {
-  flex: 0 0 25%;
-  height: 100%;
+  /* flex: 0 0 25%; */
+  width: 1168px;
+  height: 180px;
+  /* height: 100%; */
   position: relative;
   overflow: hidden;
 }
 
 /* 分类图片 */
 .category-image {
-
-  object-fit: cover; /* 保持图片比例，裁剪多余部分 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 保持图片比例，裁剪多余部分 */
   transition: transform 0.4s ease;
 }
 
@@ -224,8 +220,8 @@ watch(locale, () => {
   content: '';
   width: 12px;
   height: 12px;
-  border-right: 2px solid #2c52ed;
-  border-top: 2px solid #2c52ed;
+  border-right: 2px solid #0095D7;
+  border-top: 2px solid #0095D7;
   transform: rotate(45deg);
 }
 
@@ -236,6 +232,12 @@ watch(locale, () => {
 
 /* 移动端适配 */
 @media (max-width: 768px) {
+
+  .category-image-wrapper {
+    width: 414px;
+    height: 234px;
+  }
+
   .category-container {
     padding: 16px 8px;
   }
@@ -279,7 +281,7 @@ watch(locale, () => {
   }
 
   .category-image-wrapper {
-    height: 150px;
+    /* height: 150px; */
     display: flex;
     justify-content: center;
   }

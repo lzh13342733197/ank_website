@@ -71,7 +71,18 @@ const handlePreviewFormDad = (cert1) => {
   width: 100%;
   height: auto;
   object-fit: cover;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUpFade 0.6s ease-out forwards;
 }
+
+@keyframes slideUpFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 .bannerTitle {
   position: absolute;
@@ -87,6 +98,9 @@ const handlePreviewFormDad = (cert1) => {
 
 .container {
   margin: 0 auto;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUpFade 0.6s ease-out forwards;
 }
 
 .introdution {
@@ -156,7 +170,8 @@ const handlePreviewFormDad = (cert1) => {
   text-align: center;
   font-size: 1.6vw;
   font-weight: 600;
-  margin-bottom: 30px;
+  margin: 20px 0 ;
+  padding: 20px 0 20px 15px;
 }
 
 .patent-bg {

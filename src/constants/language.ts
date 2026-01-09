@@ -89,7 +89,6 @@ const footer = {
   ourValue: returnEightLanguage('公司简介', 'Company-profile', '', '', '', '', '', ''),
   R_D: returnEightLanguage('研发中心', 'R&D', '', '', '', '', '', ''),
   globalLayout: returnEightLanguage('全球布局', 'Global Layout', '', '', '', '', '', ''),
-  // new_events: returnEightLanguage('', 'News & Events', '', '', '', '', '', ''),
   follow_channel: returnEightLanguage(
     'Get our updates, please contact us through one of following channels.',
     'Get our updates, please contact us through one of following channels.',

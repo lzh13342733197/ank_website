@@ -1,25 +1,21 @@
 <template>
   <div class="patent">
-    <div class="patentTitle">{{ $t('research.patents') }}</div>
 
     <div class="patent-image-wrapper">
-      <img
-        :src="cert1"
-        alt="Patent Certificate"
-        class="patent-bg"
-        @click="handlePreviewFormDad(cert1)"
-      />
+      <img :src="cert1" alt="Patent Certificate" class="patent-bg" @click="handlePreviewFormDad(cert1)" />
     </div>
-
+    <div class="patentTitle">{{ $t('research.patents') }}</div>
     <!-- 专利预览组件 -->
     <Patent ref="patentRef" />
+    <!-- 专利列表组件 -->
+    <PatentSwiper ref="patentSwiperRef" />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import Patent from '@/layout/components/Patent.vue'
-
+import PatentSwiper from '@/layout/components/aboutUs/PatentSwiper.vue'
 // 专利图片
 import cert1 from '@/assets/images/certificate_0.jpg'
 // 子组件 ref
@@ -36,28 +32,41 @@ const handlePreviewFormDad = (img) => {
    专利模块样式
    ==================== */
 .patent {
-  background: #f8f8f8;
   width: 100%;
 }
 
 .patentTitle {
   /* text-align: center; */
   font-size: 16px;
-  margin-bottom: 30px;
   line-height: 2;
-  margin-top: 12px;
+  margin: 20px 0;
+  padding: 20px 0 20px 15px;
+
 }
 
 .patent-image-wrapper {
   width: 100%;
   text-align: center;
+  padding: 20px 0 20px 15px;
 }
 
 .patent-bg {
-  width: 72%;
+  width: 100%;
   height: auto;
   object-fit: cover;
   cursor: zoom-in;
+  border-radius: 15px;
+  /* 入场动画 */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUpFade 0.6s ease-out forwards;
+}
+
+@keyframes slideUpFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ====================
@@ -82,7 +91,7 @@ const handlePreviewFormDad = (img) => {
    ==================== */
 @media (max-width: 768px) {
   .patent {
-    padding: 30px 5%;
+    padding: 0px 5% 30px;
   }
 
   .patentTitle {

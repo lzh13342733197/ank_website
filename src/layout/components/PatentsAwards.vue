@@ -58,7 +58,7 @@ const closePreview = () => {
 .partner-section {
   display: block;
   margin: 0 auto;
-  padding: 3rem 2rem;
+  padding: 3rem 0rem;
   text-align: center;
   max-width: 1200px;
 }

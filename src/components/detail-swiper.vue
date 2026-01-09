@@ -190,7 +190,7 @@ onMounted(() => {
 
 /* 激活状态的指示器 */
 .swiper-indicator-item.active {
-  background-color: #2c52ed; /* 激活态蓝色 */
+  background-color: #0095D7; /* 激活态蓝色 */
   transform: scale(1.2); /* 激活时轻微放大，更醒目 */
 }
 

@@ -7,7 +7,7 @@ export default {
     Credentials: "Credentials",
     Products: "Product Category",
     Factory: "Factory",
-    News: "Fair",
+    Fair: "Fair",
     Blog: "Blog",
     Contact: "Contact Us",
     pleaseInputKeyword: "Search",

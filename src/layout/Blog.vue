@@ -41,8 +41,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { useFetchWithLanguage } from '@/utils/http'
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n()
 
 const isLoading = ref(false)
 const isModalOpen = ref(false)
@@ -84,6 +86,9 @@ const closeDetailModal = () => {
 }
 
 onMounted(() => {
+  getblogDataList()
+})
+watch(locale, () => {
   getblogDataList()
 })
 </script>

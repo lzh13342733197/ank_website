@@ -1,20 +1,12 @@
 <template>
   <section class="factory-module">
- <div class="factory-header">
+    <div class="factory-header">
       <!-- <div class="factory-title">Our Factory</div> -->
       <div class="section-tab-wrapper">
-        <div 
-          class="section-tab-item" 
-          :class="{ active: currentTab === 'production' }"
-          @click="switchTab('production')"
-        >
+        <div class="section-tab-item" :class="{ active: currentTab === 'production' }" @click="switchTab('production')">
           Production
         </div>
-        <div 
-          class="section-tab-item" 
-          :class="{ active: currentTab === 'testing' }"
-          @click="switchTab('testing')"
-        >
+        <div class="section-tab-item" :class="{ active: currentTab === 'testing' }" @click="switchTab('testing')">
           Testing
         </div>
       </div>
@@ -37,13 +29,8 @@
         <div class="equipment-grid">
           <div class="equipment-item" v-for="(equipment, index) in testingEquipments" :key="index">
             <!-- 添加点击事件 -->
-            <img 
-              :src="equipment.image" 
-              :alt="equipment.name" 
-              loading="lazy"
-              @click="openImagePreview(equipment.image, equipment.name)"
-              class="clickable-image"
-            />
+            <img :src="equipment.image" :alt="equipment.name" loading="lazy"
+              @click="openImagePreview(equipment.image, equipment.name)" class="clickable-image" />
             <div class="equipment-name">
               {{ equipment.name }}
             </div>
@@ -62,32 +49,17 @@
 
         <!-- 测试过程图片 -->
         <div class="process-images">
-          <img
-            v-for="(img, index) in testingProcessImages"
-            :key="index"
-            :src="img"
-            alt="测试流程"
-            loading="lazy"
-            @click="openImagePreview(img, `测试流程-${index + 1}`)"
-            class="clickable-image"
-          />
+          <img v-for="(img, index) in testingProcessImages" :key="index" :src="img" alt="测试流程" loading="lazy"
+            @click="openImagePreview(img, `测试流程-${index + 1}`)" class="clickable-image" />
         </div>
       </div>
     </div>
 
     <!-- 图片预览弹窗 -->
-    <div 
-      class="image-preview-modal" 
-      v-if="previewVisible"
-      @click.self="closeImagePreview"
-    >
+    <div class="image-preview-modal" v-if="previewVisible" @click.self="closeImagePreview">
       <button class="preview-close-btn" @click="closeImagePreview">×</button>
       <div class="preview-content">
-        <img 
-          :src="previewImageUrl" 
-          :alt="previewImageAlt"
-          class="preview-image"
-        />
+        <img :src="previewImageUrl" :alt="previewImageAlt" class="preview-image" />
       </div>
     </div>
   </section>
@@ -124,7 +96,7 @@ onMounted(() => {
   const routeWatcher = router.afterEach((to) => {
     currentTab.value = to.path === '/Factory/Testing' ? 'testing' : 'production';
   });
-  
+
   // 组件卸载时取消监听
   onUnmounted(() => {
     routeWatcher();
@@ -206,8 +178,6 @@ const testingProcessImages = ref([
 </script>
 
 <style scoped>
-
-
 .factory-module {
   width: 100%;
   max-width: 1200px;
@@ -227,6 +197,7 @@ const testingProcessImages = ref([
 /* 路由Tab切换样式 */
 .factory-header {
   margin-bottom: 30px;
+  display: none;
 }
 
 .section-tab-wrapper {
@@ -251,7 +222,7 @@ const testingProcessImages = ref([
 }
 
 .section-tab-item.active {
-  background: #0066cc;
+  background: #0095d7;
   color: #fff;
 }
 
@@ -259,6 +230,7 @@ const testingProcessImages = ref([
   background: #eee;
   color: #333;
 }
+
 /* 基础样式 */
 .factory-module {
   width: 100%;
@@ -285,7 +257,7 @@ const testingProcessImages = ref([
   font-size: 24px;
   font-weight: 600;
   color: #333;
-  border-left: 4px solid #0066cc;
+  border-left: 4px solid #0095d7;
   padding-left: 12px;
   margin-bottom: 20px;
 }
@@ -322,7 +294,7 @@ const testingProcessImages = ref([
 .step-number {
   width: 40px;
   height: 40px;
-  background: #0066cc;
+  background: #0095d7;
   color: #fff;
   border-radius: 50%;
   display: flex;
@@ -522,6 +494,78 @@ const testingProcessImages = ref([
 }
 
 @media (max-width: 480px) {
+  .equipment-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .process-images {
+    grid-template-columns: 1fr;
+  }
+
+  .step-image {
+    height: 160px;
+  }
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+  .factory-header {
+    display: block;
+  }
+  .factory-module {
+    padding: 20px 10px;
+  }
+
+  .factory-title {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
+
+  .section-tab-item {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  .section-subtitle {
+    font-size: 20px;
+  }
+
+  .step-item {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .step-image {
+    width: 100%;
+    height: 200px;
+  }
+
+  .equipment-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .process-images {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .preview-close-btn {
+    font-size: 30px;
+    top: 15px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-tab-wrapper {
+    width: 100%;
+  }
+
+  .section-tab-item {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+  }
+
   .equipment-grid {
     grid-template-columns: 1fr;
   }

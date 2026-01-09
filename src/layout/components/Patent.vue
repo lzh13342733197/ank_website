@@ -9,7 +9,8 @@
       }">
         <div class="carousel-item" v-for="(group, gIndex) in images" :key="gIndex">
           <img v-for="(img, index) in group" :key="index" :src="img" loading="lazy" class="cert-img"
-            @click="handlePreview(index)" />
+          :style="{ 'animation-delay': (gIndex * 0.1) + 's' }" alt="patent"  
+          @click="handlePreview(index)" />
         </div>
       </div>
 
@@ -151,7 +152,19 @@ defineExpose({
   cursor: pointer;
   object-fit: contain;
   transition: transform 0.3s ease;
+      /* 入场动画 */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUpFade 0.6s ease-out forwards;
 }
+@keyframes slideUpFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 
 .cert-img:hover {
   transform: scale(1.03);
