@@ -67,6 +67,7 @@
 
             <div class="form-item">
               <div class="form-item-row">
+                <!-- 留言 -->
                 <p class="form-item-label">{{ $t('contact.form.messageLabel') }}</p>
                 <textarea v-model="formData.message" :placeholder="$t('contact.form.message')" class="textarea-field"
                   style="height: 150px;"></textarea>

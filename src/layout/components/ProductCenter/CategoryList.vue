@@ -1,7 +1,7 @@
 <template>
   <!-- 产品分类列表容器 -->
   <div class="category-container">
-    <h1 class="category-title">产品分类</h1>
+    <h1 class="category-title">{{ $t('productDetail.productInfo') }}</h1>
     <!-- 分类列表 - 改为纵向列表布局 -->
     <div class="category-list">
       <div class="category-item" v-for="category in categoryList" :key="category.id"
@@ -262,7 +262,7 @@ watch(locale, () => {
   .category-image-wrapper {
     flex: none;
     width: 100%;
-    height: 180px;
+    height: 234px;
   }
 
   .category-name {

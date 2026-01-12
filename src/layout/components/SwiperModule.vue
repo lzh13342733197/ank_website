@@ -4,7 +4,7 @@
       :pagination="swiperOptions.pagination" :navigation="swiperOptions.navigation" :modules="modules"
       :speed="swiperOptions.speed" class="mySwiper">
       <swiper-slide v-for="(slide, index) in images" :key="index">
-        <a :href="`/product-detailInfo?id=${slide.productSpuId}`|| 'javascript:void(0)'" :target="slide.target || '_self'" class="slide-link">
+        <a :href="slide.productSpuId ? `/product-detailInfo?id=${slide.productSpuId}` : 'javascript:void(0)'" :target="slide.target || '_self'" class="slide-link">
           <div class="slide-image-wrapper">
             <img :src="slide.src" :alt="slide.alt || 'Slide Image'" class="swiper-image" loading="lazy" />
           </div>

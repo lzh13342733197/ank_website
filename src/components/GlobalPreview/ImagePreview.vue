@@ -73,9 +73,9 @@ const close = () => {
   visible.value = false
   window.removeEventListener('popstate', handleBack)
   // 如果是手动关闭，且历史记录里还有我们的标记，则回退一格
-  if (window.history.state?.target === 'imgPreview') {
-    window.history.back()
-  }
+  // if (window.history.state?.target === 'imgPreview') {
+  //   window.history.back()
+  // }
   setTimeout(props.remove, 300)
 }
 

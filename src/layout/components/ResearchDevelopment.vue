@@ -1,6 +1,6 @@
 <template>
   <div class="banner">
-    <img src="@/assets/images/12.jpg" alt="研发与开发" class="banner-bg">
+    <img src="@/assets/images/aboutUs/1研发图1280-720.jpg" alt="研发与开发" class="banner-bg">
     <div class="bannerTitle">{{ $t('common.researchDevelopment') }}</div>
   </div>
 
@@ -22,16 +22,22 @@
         </div>
       </div>
     </div>
+    <div class="banner">
+      <img src="@/assets/images/aboutUs/4研发图1280-720.jpg" alt="研发与开发" class="banner-bg">
+    </div>
     <div class="introdution">
       <!-- <div class="introdutionTitle">{{ $t('research.teamIntro') }}</div> -->
       <p>{{ $t('research.teamDesc1') }}</p>
       <p>{{ $t('research.teamDesc2') }}</p>
+    <div class="banner">
+      <img src="@/assets/images/aboutUs/5研发图1280-720.jpg" alt="研发与开发" class="banner-bg">
+    </div>
       <p>{{ $t('research.teamDesc3') }}</p>
       <p>{{ $t('research.teamDesc4') }}</p>
       <!-- <p>{{ $t('research.teamDesc5') }}</p> -->
     </div>
 
-    
+
   </div>
 
   <!-- <div class="patent">
@@ -71,6 +77,7 @@ const handlePreviewFormDad = (cert1) => {
   width: 100%;
   height: auto;
   object-fit: cover;
+  border-radius: 10px;
   opacity: 0;
   transform: translateY(30px);
   animation: slideUpFade 0.6s ease-out forwards;
@@ -128,7 +135,7 @@ const handlePreviewFormDad = (cert1) => {
   justify-content: center;
   flex-wrap: wrap;
   gap: 3vw;
-  margin: 40px 0; 
+  margin: 40px 0;
 }
 
 .cardIntroductionNumberItem {
@@ -170,7 +177,7 @@ const handlePreviewFormDad = (cert1) => {
   text-align: center;
   font-size: 1.6vw;
   font-weight: 600;
-  margin: 20px 0 ;
+  margin: 20px 0;
   padding: 20px 0 20px 15px;
 }
 

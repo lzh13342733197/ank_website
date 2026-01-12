@@ -1,15 +1,17 @@
 <template>
   <div class="patent">
 
-    <div class="patent-image-wrapper">
+    <!-- <div class="patent-image-wrapper">
       <img :src="cert1" alt="Patent Certificate" class="patent-bg" @click="handlePreviewFormDad(cert1)" />
-    </div>
-    <div class="patentTitle">{{ $t('research.patents') }}</div>
+    </div> -->
     <!-- 专利预览组件 -->
     <Patent ref="patentRef" />
+
+    <div class="patentTitle">{{ $t('research.patents') }}</div>
+
     <!-- 专利列表组件 -->
     <PatentSwiper ref="patentSwiperRef" />
-  </div>
+    </div>
 </template>
 
 <script setup>

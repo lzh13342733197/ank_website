@@ -8,11 +8,21 @@
       <ul class="news-container">
         <li v-for="news in newsData" :key="news.id" class="news-card">
           <div class="news-image-layout">
-            <div class="image-grid" :class="'grid-count-' + getImageList(news).length">
-              <div v-for="(img, idx) in getImageList(news)" :key="idx" class="img-item" @click="openLightbox(img)">
+            <div 
+              class="stack-wrapper" 
+              :class="{ 'is-expanded': news.isExpanded }"
+              @click="toggleExpand(news)"
+            >
+              <div 
+                v-for="(img, idx) in getImageList(news)" 
+                :key="idx" 
+                class="stack-item"
+                :style="news.isExpanded ? {} : getStackStyle(idx)"
+                @click.stop="handlePhotoClick(img, news)"
+              >
                 <img :src="img" :alt="news.title" loading="lazy" />
-                <div v-if="idx === 4 && getImageList(news).length > 5" class="more-mask">
-                  +{{ getImageList(news).length - 5 }}
+                <div v-if="!news.isExpanded && idx === 0" class="click-hint">
+                  <span>Click to Expand</span>
                 </div>
               </div>
             </div>
@@ -21,9 +31,9 @@
           <div class="news-info-layout">
             <div class="news-meta">
               <span class="news-date-text">{{ news.date }}</span>
-              <h2 class="news-item-title">{{ news.title }}</h2>
+              <h2 class="news-item-title" v-if="locale === 'en'">{{ news.title }}</h2>
+              <h2 class="news-item-title" v-else>{{ news.description }}</h2>
             </div>
-            <p class="news-item-desc">{{ news.description }}</p>
           </div>
         </li>
       </ul>
@@ -41,87 +51,105 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+const { locale } = useI18n();
 
-// --- 导入你的图片资源 ---
-import news201909 from '@/assets/images/news/201909.png'
-import news201910_1 from '@/assets/images/news/201910_1.png'
-import news202309_SATF from '@/assets/images/news/202309_SATF.png'
-import news202309_IFA from '@/assets/images/news/202309_IFA.png'
-import news202311 from '@/assets/images/news/202311.png'
-import news202401_1 from '@/assets/images/news/202401_1.png'
-import news202510_1 from '@/assets/images/news/202510_1.png'
+// --- 导入图片资源 ---
+import news202401CES展1 from '@/assets/images/Fari/1-202401CES展-720-405-1.jpg'
+import news202401CES展2 from '@/assets/images/Fari/1-202401CES展-720-405-2.jpg'
+import news202401CES展3 from '@/assets/images/Fari/1-202401CES展-720-405-3.jpg'
+import news202401CES展4 from '@/assets/images/Fari/1-202401CES展-720-405-4.jpg'
+import news202401CES展5 from '@/assets/images/Fari/1-202401CES展-720-405-5.jpg'
 
-// --- 新闻数据：内容保持不变，仅扩展了图片数组用于演示 ---
+import news202410香港展1 from '@/assets/images/Fari/2-202410香港展-720-405-1.jpg'
+import news202410香港展2 from '@/assets/images/Fari/2-202410香港展-720-405-2.jpg'
+import news202410香港展3 from '@/assets/images/Fari/2-202410香港展-720-405-3.jpg'
+import news202410香港展4 from '@/assets/images/Fari/2-202410香港展-720-405-4.jpg'
+import news202410香港展5 from '@/assets/images/Fari/2-202410香港展-720-405-5.jpg'
+
+import news202510香港环球展1 from '@/assets/images/Fari/3-202510香港环球展-720-405-1.jpg'
+import news202510香港环球展2 from '@/assets/images/Fari/3-202510香港环球展-720-405-2.jpg'
+import news202510香港环球展3 from '@/assets/images/Fari/3-202510香港环球展-720-405-3.jpg'
+import news202510香港环球展4 from '@/assets/images/Fari/3-202510香港环球展-720-405-4.jpg'
+import news202510香港环球展7 from '@/assets/images/Fari/3-202510香港环球展-720-405-7.jpg'
+
+import news202601CES展1 from '@/assets/images/Fari/4-202601CES展-720-405-1.jpg'
+import news202601CES展2 from '@/assets/images/Fari/4-202601CES展-720-405-2.jpg'
+import news202601CES展3 from '@/assets/images/Fari/4-202601CES展-720-405-3.jpg'
+import news202601CES展4 from '@/assets/images/Fari/4-202601CES展-720-405-4.jpg'
+import news202601CES展5 from '@/assets/images/Fari/4-202601CES展-720-405-5.jpg'
+
+// --- 数据定义 ---
 const newsData = ref([
+  {
+    id: 8,
+    date: '2026.01',
+    title: 'CES FAIR',
+    imageUrls: [news202601CES展1, news202601CES展2, news202601CES展3, news202601CES展4, news202601CES展5],
+    description: '美国拉斯维加斯消费电子展',
+    isExpanded: false
+  },
   {
     id: 7,
     date: '2025.10',
     title: 'HK FAIR',
-    // 这里演示复制了5张对应的图片
-    imageUrls: [news202510_1, news202510_1, news202510_1, news202510_1, news202510_1],
-    description: '2015年10月 环球资源香港展',
-    categoryId: 1
+    imageUrls: [news202510香港环球展7, news202510香港环球展2, news202510香港环球展3, news202510香港环球展4, news202510香港环球展1],
+    description: '环球资源香港展',
+    isExpanded: false
+  },
+  {
+    id: 6,
+    date: '2024.10',
+    title: 'HK FAIR',
+    imageUrls: [news202410香港展1, news202410香港展2, news202410香港展3, news202410香港展4, news202410香港展5],
+    description: '香港展',
+    isExpanded: false
   },
   {
     id: 6,
     date: '2024.01',
-    title: 'CES FAIR',
-    imageUrl: news202401_1,
-    description: '2024年1月 美国拉斯维加斯消费电子展',
-    categoryId: 1
-  },
-  {
-    id: 5,
-    date: '2023.11',
-    title: 'BRAZIL FAIR',
-    imageUrl: news202311,
-    description: '2023年11月 巴西贸易展览会',
-    categoryId: 3
-  },
-  {
-    id: 4,
-    date: '2023.09',
-    title: 'IFA FAIR',
-    imageUrl: news202309_IFA,
-    description: '2023年9月 柏林国际消费电子展',
-    categoryId: 2
-  },
-  {
-    id: 3,
-    date: '2023.09',
-    title: 'SOUTH AFRICA TRADING FAIR',
-    imageUrl: news202309_SATF,
-    description: '2023年9月 南非贸易展览会',
-    categoryId: 2
-  },
-  {
-    id: 2,
-    date: '2019.10',
     title: 'HK FAIR',
-    imageUrl: news201910_1,
-    description: '2019年9月 香港展',
-    categoryId: 1
-  },
-  {
-    id: 1,
-    date: '2019.09',
-    title: 'IFA FAIR',
-    imageUrl: news201909,
-    description: '2019年9月 柏林国际消费电子展',
-    categoryId: 1
-  },
+    imageUrls: [news202401CES展1, news202401CES展2, news202401CES展3, news202401CES展4, news202401CES展5],
+    description: '美国拉斯维加斯消费电子展',
+    isExpanded: false
+  }
 ]);
 
-// --- 弹窗逻辑 ---
-const lightboxVisible = ref(false);
-const lightboxImage = ref('');
+// --- 动画逻辑 ---
+
+// 计算初始堆叠时的错位样式
+const getStackStyle = (idx) => {
+  const rotations = [-4, 3, -2, 5, 0]; // 每张图旋转角度
+  const xOffsets = [-15, 10, -5, 15, 0]; // 每张图左右偏移
+  const yOffsets = [-10, 5, 10, -5, 0];  // 每张图上下偏移
+  
+  return {
+    transform: `rotate(${rotations[idx] || 0}deg) translate(${xOffsets[idx] || 0}px, ${yOffsets[idx] || 0}px)`,
+    zIndex: 10 - idx // 让第一张图在最上面
+  };
+};
+
+const toggleExpand = (news) => {
+  news.isExpanded = !news.isExpanded;
+};
 
 const getImageList = (news) => {
-  if (Array.isArray(news.imageUrls)) return news.imageUrls.slice(0, 5); // 限制最多展示5张
-  if (news.imageUrl) return [news.imageUrl];
-  return [];
+  return news.imageUrls ? news.imageUrls.slice(0, 5) : [];
 };
+
+// 只有在展开后点击图片才打开灯箱
+const handlePhotoClick = (img, news) => {
+  if (news.isExpanded) {
+    openLightbox(img);
+  } else {
+    news.isExpanded = true;
+  }
+};
+
+// --- 灯箱逻辑 ---
+const lightboxVisible = ref(false);
+const lightboxImage = ref('');
 
 const openLightbox = (img) => {
   lightboxImage.value = img;
@@ -133,181 +161,152 @@ const closeLightbox = () => {
   lightboxVisible.value = false;
   document.body.style.overflow = 'auto';
 };
-
 </script>
 
 <style scoped>
-/* 核心容器 */
 .news-list-container {
-  max-width: 1200px;
-  /* 移除了导航栏后，收窄容器让阅读更集中 */
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 24px 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-}
-
-.news-header {
-  text-align: left;
-  margin-bottom: 28px;
-  position: relative;
+  padding: 40px 20px;
+  background-color: #fff;
 }
 
 .page-title {
   font-size: 1.5rem;
-  position: relative;
-  display: inline-block;
   border-left: 4px solid #0095D7;
   font-weight: 700;
-  padding-left: 8px;
-  line-height: 1.2;
+  padding-left: 12px;
+  margin-bottom: 40px;
 }
 
-
-
-/* 新闻卡片 */
 .news-container {
   list-style: none;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 80px;
 }
 
-.news-card {
-  border-bottom: 1px solid #f0f0f0;
-  padding-bottom: 40px;
-}
-
-/* --- 图片网格 (上下排布核心) --- */
+/* --- 核心动画区域 --- */
 .news-image-layout {
-  margin-bottom: 25px;
+  perspective: 1000px; /* 增加3D感 */
+  margin-bottom: 30px;
 }
 
-.image-grid {
-  display: grid;
-  gap: 10px;
-}
-
-.img-item {
+.stack-wrapper {
   position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  cursor: zoom-in;
-  background: #f7f7f7;
+  width: 100%;
+  max-width: 600px;
+  height: 350px;
+  margin: 0 auto;
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
 }
 
-.img-item img {
+.stack-item {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f0f0f0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 4px solid #fff;
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stack-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  transition: transform 0.4s;
+  transition: transform 0.3s;
 }
 
-.img-item:hover img {
-  transform: scale(1.03);
+/* 提示文字 */
+.click-hint {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 149, 215, 0.8);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
-/* PC端 多图网格 (1大+4小) */
-.grid-count-5 {
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 450px 180px;
+.stack-wrapper:hover .click-hint {
+  opacity: 1;
 }
 
-.grid-count-5 .img-item:nth-child(1) {
-  grid-column: span 4;
-}
-
-/* PC端 单图 */
-.grid-count-1 img {
+/* --- 展开后的状态 --- */
+.stack-wrapper.is-expanded {
   height: auto;
-  max-height: 600px;
-  object-fit: contain;
-  /* 单图保持原比例 */
-  background: #fff;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  max-width: 100%;
 }
 
-/* 文字区域 */
+.is-expanded .stack-item {
+  position: relative;
+  height: 180px;
+  transform: none !important; /* 清除旋转错位 */
+  z-index: 1 !important;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  cursor: zoom-in;
+}
+
+.is-expanded .stack-item:hover img {
+  transform: scale(1.05);
+}
+
+/* --- 文字样式 --- */
 .news-info-layout {
-  padding: 0 5px;
-}
-
-.news-meta {
-  margin-bottom: 15px;
+  text-align: left;
 }
 
 .news-date-text {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 800;
   color: #0095D7;
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
 .news-item-title {
-  font-size: 24px;
-  color: #111;
+  font-size: 20px;
+  color: #333;
   margin: 0;
-  line-height: 1.3;
-}
-
-.news-item-desc {
-  font-size: 16px;
-  color: #555;
-  line-height: 1.8;
-  margin-top: 15px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
 }
 
 /* --- 移动端适配 --- */
 @media (max-width: 768px) {
-  .news-list-container {
-    padding: 30px 15px;
+  .stack-wrapper {
+    height: 220px;
+    max-width: 90%;
   }
-
-  .page-title {
-    font-size: 1.8rem;
-  }
-
-  /* 移动端 5张图 (1大+4小，2x2排布) */
-  .grid-count-5 {
+  
+  .stack-wrapper.is-expanded {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 250px 120px 120px;
   }
-
-  .grid-count-5 .img-item:nth-child(1) {
-    grid-column: span 2;
-  }
-
-  .news-date-text {
-    font-size: 20px;
-  }
-
-  .news-item-title {
-    font-size: 1.2rem;
-  }
-
-  .news-item-desc {
-    font-size: 14px;
+  
+  .is-expanded .stack-item {
+    height: 120px;
   }
 }
 
-/* 预览层动画 */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+/* --- 灯箱效果 --- */
+.fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
 
 .lightbox-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.95);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -315,15 +314,16 @@ const closeLightbox = () => {
 }
 
 .lightbox-content {
-  max-width: 95%;
-  max-height: 90%;
+  max-width: 90%;
+  max-height: 85%;
   object-fit: contain;
+  border-radius: 4px;
 }
 
 .lightbox-close-btn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 30px;
+  right: 30px;
   background: none;
   border: none;
   color: #fff;

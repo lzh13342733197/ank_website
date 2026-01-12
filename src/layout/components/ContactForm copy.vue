@@ -104,7 +104,7 @@
 
             <div class="form-item">
               <div class="form-item-row">
-                <p class="form-item-label">{{ $t('contact.form.messageLabel') }}</p>
+                <p class="form-item-label">{{ $t('contact.form.messageLabel') }}</p> 
                 <textarea v-model="formData.message" :placeholder="$t('contact.form.message')" class="textarea-field"
                   style="height: 100px;"></textarea>
               </div>

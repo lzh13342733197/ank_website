@@ -14,7 +14,9 @@
 
     <!-- 2. Testing 测试流程板块 -->
     <div class="factory-section testing-section">
-      <div class="section-subtitle">Testing</div>
+      <div class="section-subtitle">         
+        {{ t('factory.testing.subtitle') }}
+</div>
 
       <!-- 2.1 测试设备部分 -->
       <div class="testing-equipment">
@@ -28,7 +30,6 @@
         <!-- 测试设备图片网格 -->
         <div class="equipment-grid">
           <div class="equipment-item" v-for="(equipment, index) in testingEquipments" :key="index">
-            <!-- 添加点击事件 -->
             <img :src="equipment.image" :alt="equipment.name" loading="lazy"
               @click="openImagePreview(equipment.image, equipment.name)" class="clickable-image" />
             <div class="equipment-name">
@@ -74,6 +75,25 @@ const route = useRoute(); // 初始化路由实例
 
 const { t } = useI18n();
 
+import productionStep1 from '@/assets/images/Factory/5测试设备RAC耐磨1280-720.jpg'
+import productionStep2 from '@/assets/images/Factory/5测试设备USB插拔1280-720.jpg'
+import productionStep3 from '@/assets/images/Factory/5测试设备耳机夹力1280-720.jpg'
+import productionStep4 from '@/assets/images/Factory/5测试设备耳机扩张1280-720.jpg'
+import productionStep5 from '@/assets/images/Factory/5测试设备高低温1280-720.jpg'
+import productionStep6 from '@/assets/images/Factory/5测试设备酒精耐摩擦1280-720.jpg'
+import productionStep7 from '@/assets/images/Factory/5测试设备蓝牙测试1280-720.jpg'
+import productionStep8 from '@/assets/images/Factory/5测试设备卧式插拔1280-720.jpg'
+import productionStep9 from '@/assets/images/Factory/5测试设备线材弯折1280-720.jpg'
+
+
+// \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\11生产线1280-720.jpg \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\8测试过程1280-720.jpg \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\8测试过程1280-720-2.jpg \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\8测试过程1280-720-3.jpg \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\8测试过程1280-720-4.jpg \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\9测试室1280-720.jpg \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\10测试1280-720.jpg
+import testingProcess1 from '@/assets/images/Factory/8测试过程1280-720.jpg'
+import testingProcess2 from '@/assets/images/Factory/8测试过程1280-720-2.jpg'
+import testingProcess3 from '@/assets/images/Factory/8测试过程1280-720-3.jpg'
+import testingProcess4 from '@/assets/images/Factory/8测试过程1280-720-4.jpg'
+import testingProcess5 from '@/assets/images/Factory/9测试室1280-720.jpg'
+import testingProcess6 from '@/assets/images/Factory/10测试1280-720.jpg' 
+import testingProcess7 from '@/assets/images/Factory/11生产线1280-720.jpg' 
 
 // 路由Tab切换状态（优先从路由获取，实现路由联动）
 const currentTab = ref<string>(
@@ -144,36 +164,53 @@ onUnmounted(() => {
 const testingEquipments = computed(() => [
   {
     name: t('factory.testing.equipment.list[0].name'),
-    image: 'https://picsum.photos/id/1024/300/200'
+    image: productionStep1
   },
   {
     name: t('factory.testing.equipment.list[1].name'),
-    image: 'https://picsum.photos/id/1035/300/200'
+    image: productionStep2
   },
   {
     name: t('factory.testing.equipment.list[2].name'),
-    image: 'https://picsum.photos/id/1040/300/200'
+    image: productionStep3
   },
   {
     name: t('factory.testing.equipment.list[3].name'),
-    image: 'https://picsum.photos/id/1045/300/200'
+    image: productionStep4
   },
   {
     name: t('factory.testing.equipment.list[4].name'),
-    image: 'https://picsum.photos/id/1050/300/200'
+    image: productionStep5
   },
   {
     name: t('factory.testing.equipment.list[5].name'),
-    image: 'https://picsum.photos/id/1060/300/200'
+    image: productionStep6
+  },
+  {
+    name: t('factory.testing.equipment.list[6].name'),
+    image: productionStep7
+  },
+  {
+    name: t('factory.testing.equipment.list[7].name'),
+    image: productionStep8
+  },
+  {
+    name: t('factory.testing.equipment.list[8].name'),
+    image: productionStep9
   }
+
+
 ])
 
 // 测试流程图片
 const testingProcessImages = ref([
-  'https://picsum.photos/id/1065/400/300',
-  'https://picsum.photos/id/1070/400/300',
-  'https://picsum.photos/id/1074/400/300',
-  'https://picsum.photos/id/1080/400/300'
+  testingProcess1,
+  testingProcess2,
+  testingProcess3,
+  testingProcess4,
+  testingProcess5,
+  testingProcess6,
+  testingProcess7
 ])
 </script>
 
@@ -366,7 +403,7 @@ const testingProcessImages = ref([
 .equipment-item img {
   width: 100%;
   height: 180px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 4px;
   margin-bottom: 10px;
 }

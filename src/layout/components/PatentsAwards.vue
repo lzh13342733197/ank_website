@@ -2,16 +2,8 @@
   <div class="partner-section">
     <h2 class="partner-title">{{ $t('home.PatentsAwards') }}</h2>
 
-    <div class="partner-list">
-      <div class="partner-item">
-        <img
-          v-lazy="img1"
-          alt="PatentsAwards"
-          class="partner-logo"
-        />
-      </div>
-    </div>
-
+    <!-- 专利合作方组件 -->
+    <Patent_home />
     <!-- 图片放大预览层 -->
     <div
       v-if="previewVisible"
@@ -30,6 +22,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import Patent_home from '@/layout/components/Patent_home.vue'
 const { t } = useI18n()
 
 
@@ -60,13 +53,11 @@ const closePreview = () => {
   margin: 0 auto;
   padding: 3rem 0rem;
   text-align: center;
-  max-width: 1200px;
 }
 
 .partner-title {
-  font-size: 1.8rem;
+  font-size: 24px;
   color: #333;
-  margin-bottom: 2rem;
 }
 
 
@@ -101,7 +92,7 @@ const closePreview = () => {
  ================================================== */
 @media (max-width: 1200px) {
   .partner-section {
-    padding: 2rem 1rem;
+    padding: 2rem 0rem;
   }
 
   .partner-title {

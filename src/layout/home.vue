@@ -39,7 +39,7 @@
   <SkeletonComponent :loading="loading" />
   <div v-if="!loading">
     <AboutUsModule />
-    <SocialMediaVideo style="margin: 0 auto" />
+    <!-- <SocialMediaVideo style="margin: 0 auto" /> -->
     <ProductShowcase :products="templateData" />
     <!-- <NewsSlider /> -->
     <PatentsAwards />
@@ -232,7 +232,7 @@ defineExpose({
 
 <style scoped>
 .swiperModule_ {
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
 }
 
 .card-wrap-container {

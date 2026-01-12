@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <div v-if="!isLoading && blogPostsList.length === 0" class="empty">No posts yet.</div>
+      <div v-if="!isLoading && blogPostsList.length === 0" class="empty">No Blog yet.</div>
     </div>
 
     <div v-if="isModalOpen" class="modal-mask" @click="closeDetailModal">
@@ -136,7 +136,7 @@ watch(locale, () => {
 .blog-card:active { transform: scale(0.98); } /* 移动端点击反馈 */
 
 .blog-img { width: 100%; height: 200px; object-fit: cover; }
-.blog-content { padding: 15px; }
+.blog-content { padding: 0 15px; }
 .blog-subtitle { font-size: 1.1rem; margin-bottom: 8px; line-height: 1.4; }
 .blog-desc { color: #666; font-size: 0.9rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
@@ -215,5 +215,8 @@ watch(locale, () => {
   .modal-content-html {
     font-size: 15px; /* 移动端字号稍微缩小一点更精致 */
   }
+}
+.empty {
+  height: 60vh;
 }
 </style>

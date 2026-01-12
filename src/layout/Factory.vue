@@ -9,21 +9,21 @@
           :class="{ active: currentTab === 'production' }"
           @click="switchTab('production')"
         >
-          Production
+          {{ t('factory.production.subtitle') }}
         </div>
         <div 
           class="section-tab-item" 
           :class="{ active: currentTab === 'testing' }"
           @click="switchTab('testing')"
         >
-          Testing
+          {{ t('factory.testing.subtitle') }}
         </div>
       </div>
     </div>
 
     <!-- 1. Production 生产流程板块 -->
     <div class="factory-section production-section" v-if="currentTab === 'production'">
-      <div class="section-subtitle">Production</div>
+      <div class="section-subtitle">{{ t('factory.production.subtitle') }}</div>
       <div class="section-desc">
         {{ t('factory.production.desc') }}
       </div>
@@ -112,6 +112,16 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, useRoute } from 'vue-router' // 引入路由相关API
+import productionStep1 from '@/assets/images/Factory/1来料检验1280-720.jpg'
+import productionStep2 from '@/assets/images/Factory/2主板测试1280-720.jpg'
+import productionStep3 from '@/assets/images/Factory/3半成品组装1280-720.jpg'
+import productionStep4 from '@/assets/images/Factory/4成品组装1280-720.jpg'
+import productionStep5 from '@/assets/images/Factory/5测试设备1280-720.jpg'
+import productionStep5RAC from '@/assets/images/Factory/5测试设备RAC耐磨1280-720.jpg'
+import productionStep6 from '@/assets/images/Factory/6包装入库1280-720.jpg'
+import productionStep7 from '@/assets/images/Factory/7仓库1280-720.jpg'
+
+
 
 const { t } = useI18n();
 const router = useRouter();
@@ -187,37 +197,37 @@ const productionSteps = computed(() => [
   {
     title: t('factory.production.steps[0].title'),
     desc: t('factory.production.steps[0].desc'),
-    image: 'https://picsum.photos/id/1002/400/300' 
+    image: productionStep1
   },
   {
     title: t('factory.production.steps[1].title'),
     desc: t('factory.production.steps[1].desc'),  
-    image: 'https://picsum.photos/id/1012/400/300' 
+    image: productionStep2
   },
   {
     title: t('factory.production.steps[2].title'),
     desc: t('factory.production.steps[2].desc'),
-    image: 'https://picsum.photos/id/1013/400/300' 
+    image: productionStep3
   },
   {
     title: t('factory.production.steps[3].title'),
     desc: t('factory.production.steps[3].desc'),
-    image: 'https://picsum.photos/id/1015/400/300' 
+    image: productionStep4
   },
   {
     title: t('factory.production.steps[4].title'),
     desc: t('factory.production.steps[4].desc'),
-    image: 'https://picsum.photos/id/1016/400/300' 
+    image: productionStep5
   },
   {
     title: t('factory.production.steps[5].title'),
     desc: t('factory.production.steps[5].desc'),
-    image: 'https://picsum.photos/id/1020/400/300' 
+    image: productionStep6 
   },
   {
     title: t('factory.production.steps[6].title'),
     desc: t('factory.production.steps[6].desc'),
-    image: 'https://picsum.photos/id/1018/400/300' 
+    image: productionStep7 
   },
 ])
 

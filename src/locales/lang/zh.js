@@ -25,7 +25,7 @@ export default {
       'Ankbit 是一家专注于音频设备制造的高新技术企业，在耳机、音箱及蓝牙收发器领域具备深厚的技术积累与生产经验。我们提供从产品定义、工业设计、软硬件研发到规模生产的 <strong style="color: #efeded;">ODM、OEM 与深度定制化服务</strong>，拥有完整的供应链体系与自动化生产线。凭借严格的质量管控与敏捷的交付能力，我们致力于为全球客户提供高品质、可定制的一站式音频解决方案。',
     companyName: "深圳市爱科贝电子有限公司",
     partner: "合作伙伴",
-    PRODUCTS_SHOW: "产品展示",
+    PRODUCTS_SHOW: "热门产品",
     PatentsAwards: "专利与奖项",
   },
   productCenter: {
@@ -249,7 +249,7 @@ export default {
   factory: {
     title: "Our Factory", // 模块大标题（保持英文更符合外贸场景，如需中文可改为“我们的工厂”）
     production: {
-      subtitle: "Production", // 副标题
+      subtitle: "生产", // 副标题
       desc: "我们通过标准化的流程和严格的质量控制，为客户提供稳定可靠的音频产品制造服务。",
       steps: [
         {
@@ -283,17 +283,20 @@ export default {
       ],
     },
     testing: {
-      subtitle: "Testing", // 副标题
+      subtitle: "测试", // 副标题
       equipment: {
         title: "完备测试能力",
         desc: "我们配备齐全的各类专业测试设备，构建了完善的测试环境。从功能验证到性能评估，所有设备均定期校准与维护，确保测试数据的精准与可靠，为产品质量提供坚实的硬件保障。",
         list: [
-          { name: "蓝牙测试仪" },
-          { name: "音频分析仪" },
-          { name: "老化测试柜" },
-          { name: "按键寿命测试仪" },
-          { name: "续航测试设备" },
-          { name: "防静电测试仪" },
+          { name: "RAC耐磨" },
+          { name: "USB插拔" },
+          { name: "耳机夹力" },
+          { name: "耳机扩张" },
+          { name: "高低温" },
+          { name: "酒精耐摩擦" },
+          { name: "蓝牙测试" },
+          { name: "卧式插拔" },
+          { name: "线材弯折" },
         ],
       },
       process: {

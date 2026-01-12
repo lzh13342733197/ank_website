@@ -5,19 +5,23 @@
     <div class="carousel-container">
       <div class="carousel-wrapper">
         <div class="carousel-track">
-          <div 
-            class="partner-item" 
-            v-for="item in partners" 
-            :key="'a-' + item.id"
-          >
-            <img :src="item.logo" :alt="item.name" :title="item.name" class="partner-logo" />
+          <div class="partner-group">
+            <div 
+              class="partner-item" 
+              v-for="item in partners" 
+              :key="'orig-' + item.id"
+            >
+              <img :src="item.logo" :alt="item.name" class="partner-logo" />
+            </div>
           </div>
-          <div 
-            class="partner-item" 
-            v-for="item in partners" 
-            :key="'b-' + item.id"
-          >
-            <img :src="item.logo" :alt="item.name" :title="item.name" class="partner-logo" />
+          <div class="partner-group" aria-hidden="true">
+            <div 
+              class="partner-item" 
+              v-for="item in partners" 
+              :key="'copy-' + item.id"
+            >
+              <img :src="item.logo" :alt="item.name" class="partner-logo" />
+            </div>
           </div>
         </div>
       </div>
@@ -28,7 +32,7 @@
 <script setup>
 import { ref } from 'vue'
 
-// 导入图片
+// 导入图片（保持原样）
 import img1 from '@/assets/images/partner/图片1.png'
 import img2 from '@/assets/images/partner/图片2.png'
 import img3 from '@/assets/images/partner/图片3.png'
@@ -60,28 +64,22 @@ const partners = ref([
 
 <style scoped>
 .partner-carousel-section {
-  padding: 40px 0;
-  width: 100%;
+  padding: 0 0 40px 0;
   overflow: hidden;
 }
 
 .partner-title {
   text-align: center;
-  font-size: 28px;
-  color: #333;
+  font-size: 24px;
   margin-bottom: 40px;
-  font-weight: bold;
-}
-
-.carousel-container {
-  width: 100%;
-  position: relative;
 }
 
 .carousel-wrapper {
+  display: flex;
   overflow: hidden;
   position: relative;
-  /* 边缘羽化遮罩，增加高级感 */
+  /* 解决移动端闪烁的关键：强制 3D 渲染 */
+  transform: translate3d(0, 0, 0);
   mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
@@ -89,71 +87,74 @@ const partners = ref([
 .carousel-track {
   display: flex;
   width: max-content;
-  /* 30s 是滚动一轮的速度，图片多可以调快，图片少可以调慢 */
-  animation: scroll-loop 60s linear infinite;
+  /* 使用 3D 变换减少闪烁 */
+  animation: infinite-scroll 40s linear infinite;
+  will-change: transform;
 }
 
-.carousel-track:hover {
-  animation-play-state: paused;
+/* 包含一组图标的容器 */
+.partner-group {
+  display: flex;
+  flex-shrink: 0;
 }
 
 .partner-item {
-  flex: 0 0 180px; /* 固定宽度 */
-  height: 100px;
+  /* PC端固定宽度，确保计算准确 */
+    width: 162px;
+    height: auto;
   margin: 0 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0; /* 禁止挤压 */
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  padding: 15px;
-  transition: transform 0.3s;
-}
 
-.partner-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  border-radius: 10px;
 }
 
 .partner-logo {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 140px;
+  max-height: 60px;
   object-fit: contain;
-  /* filter: grayscale(100%);  */
-  opacity: 0.7;
-  transition: all 0.3s;
+  /* 防止图片加载前的闪烁 */
+  backface-visibility: hidden;
 }
 
-.partner-item:hover .partner-logo {
-  filter: grayscale(0%); /* 悬停恢复彩色 */
-  opacity: 1;
+/* 悬停暂停 */
+.carousel-track:hover {
+  animation-play-state: paused;
 }
 
-/* 关键帧：移动距离刚好是总长度的一半（因为我们克隆了一份） */
-@keyframes scroll-loop {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* ==================================================
-  媒体查询适配
-================================================== */
-@media (max-width: 768px) {
-  .partner-title {
-    font-size: 22px;
-    margin-bottom: 25px;
+/* 核心动画：位移刚好是一组的总宽度 */
+@keyframes infinite-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
   }
-  
+  100% {
+    /* 这里使用 -50% 是因为两组一模一样的内容 */
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
   .partner-item {
-    flex: 0 0 140px; /* 移动端缩小尺寸 */
-    height: 80px;
+    width: 118px; 
     margin: 0 10px;
-    padding: 10px;
+    height: 72px;
+  }
+  .partner-logo {
+    max-width:100px;
+}
+  
+  .carousel-wrapper {
+    /* 移动端减弱遮罩，防止小屏显示不全 */
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
   }
 
   .carousel-track {
-    animation: scroll-loop 25s linear infinite; /* 移动端路程短，调快一点点 */
+    animation-duration: 20s; /* 移动端滚动速度 */
   }
 }
 </style>

@@ -17,7 +17,6 @@
         <div class="award-image-wrapper">
           <img :src="award.img" :alt="award.title" class="award-img" loading="lazy" />
           <div class="award-overlay">
-            <!-- <span class="view-icon">🔍</span> -->
             <p class="award-title">{{ award.title }}</p>
           </div>
         </div>
@@ -27,31 +26,53 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-const { t } = useI18n();
-
+const { t ,locale} = useI18n();
+import awardImg1 from '@/assets/images/aboutUs/2奖项小图_01.jpg'
+import awardImg2 from '@/assets/images/aboutUs/2奖项小图_03.jpg'
+import awardImg3 from '@/assets/images/aboutUs/2奖项小图_05.jpg'
+import awardImg4 from '@/assets/images/aboutUs/2奖项小图_07.jpg'
+// C:\Users\Honjeng\Desktop\公司项目\ankbit\src\assets\images\aboutUs\2奖项小图_07.jpg
 // 模拟数据：建议将数据抽离，包含标题，让SEO和用户体验更好
 const awardList = ref([
-  { title: 'IF Design Award', img: 'https://picsum.photos/100/100?random=1' },
-  { title: 'Red Dot Winner', img: 'https://picsum.photos/100/100?random=2' },
-  { title: 'Innovative Product', img: 'https://picsum.photos/100/100?random=3' },
-  { title: 'Gold Medal 2024', img: 'https://picsum.photos/100/100?random=4' },
-  { title: 'Best Quality Award', img: 'https://picsum.photos/100/100?random=5' },
-  { title: 'Top 10 Brand', img: 'https://picsum.photos/100/100?random=6' },
+  { title: 'MUSE Design Awards', img: awardImg1 },
+  { title: 'DNA Paris Design Awards 2025', img: awardImg2 },
+  { title: 'London Design Awards', img: awardImg3 },
+  { title: 'Red Dot Design Award', img: awardImg4 },
+  // { title: 'Best Quality Award', img: 'https://picsum.photos/100/100?random=5' },
+  // { title: 'Top 10 Brand', img: 'https://picsum.photos/100/100?random=6' },
 ]);
 
 const handlePreview = (img) => {
   // 这里可以调用你父组件或全局的预览方法
   console.log('Preview image:', img);
 };
+watch(locale, (newLocale) => {
+  // 当语言切换时，重新加载翻译
+  if(newLocale === 'en'){
+    awardList.value=[
+      { title: 'MUSE Design Awards', img: awardImg1 },
+      { title: 'DNA Paris Design Awards 2025', img: awardImg2 },
+      { title: 'London Design Awards', img: awardImg3 },
+      { title: 'Red Dot Design Award', img: awardImg4 },
+     ]
+  }else{
+    awardList.value=[
+      { title: '缪斯设计奖', img: awardImg1 },
+      { title: '巴黎 DNA 设计奖', img: awardImg2 },
+      { title: '伦敦设计奖', img: awardImg3 },
+      { title: '红点设计奖', img: awardImg4 },
+     ]
+  }
+});
 </script>
 
 <style scoped>
 .awards-page {
   padding: 20px 0;
-  margin-bottom: 100px; /* 适当减少 margin */
+  margin-bottom: 400px; /* 适当减少 margin */
 }
 
 .awards-header {

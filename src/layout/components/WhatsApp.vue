@@ -25,6 +25,26 @@
 
         <div class="chat-content" ref="chatContentRef">
           <div class="message-list">
+            <div class="msg-wrapper msg-bot">
+              <div class="msg-bubble animate-fade-in">
+                <p>Hello! I'm your online assistant. How can I help you today?</p>
+                <span class="msg-time">{{ startTime }}</span>
+              </div>
+            </div>
+
+            <div v-if="!isIdentified" class="msg-wrapper msg-bot">
+              <div class="msg-bubble inline-form-bubble animate-fade-in">
+                <p class="form-title">To better assist you, please let us know who you are:</p>
+                <div class="inline-form">
+                  <input v-model="userInfo.name" type="text" placeholder="Name" class="inline-input" />
+                  <input v-model="userInfo.email" type="email" placeholder="Email" class="inline-input" />
+                  <button class="inline-submit-btn" :disabled="!isFormValid || isLoading" @click="submitIdentity">
+                    {{ isLoading ? 'Saving...' : 'Confirm' }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <div v-for="(msg, index) in chatHistory" :key="index"
               :class="['msg-wrapper', msg.role === 'user' ? 'msg-user' : 'msg-bot']">
               <div class="msg-bubble animate-fade-in">
@@ -55,35 +75,64 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, watch, nextTick, computed } from 'vue'
+import axios from 'axios'
 import SvgIcon from '@/components/SvgIcon.vue'
 
 // --- 基础状态 ---
 const isClient = typeof window !== 'undefined'
 const isMobile = ref(false)
 const isChatOpen = ref(false)
+const isIdentified = ref(false) 
+const isLoading = ref(false)
 const messageContent = ref('')
 const buttonYOffset = ref(0)
 const chatContentRef = ref<HTMLElement | null>(null)
+const startTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+
+const userInfo = ref({ name: '', email: '' })
 
 // --- WebSocket & 消息状态 ---
 const socket = ref<WebSocket | null>(null)
 const isConnecting = ref(false)
-const chatHistory = ref([
-  {
-    role: 'bot',
-    content: "Hello! I'm your online assistant. Please leave your question and we will sync it to our support team.",
-    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-  }
-])
+const chatHistory = ref<any[]>([])
 
-// --- 核心方法：连接 WebSocket ---
+// --- 验证逻辑 ---
+const isFormValid = computed(() => {
+  return userInfo.value.name.trim() !== '' && /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(userInfo.value.email)
+})
+
+// --- 身份提交方法 ---
+const submitIdentity = async () => {
+  if (!isFormValid.value) return
+  isLoading.value = true
+  
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/contactMessage/create`, {
+      name: userInfo.value.name,
+      email: userInfo.value.email,
+      comment: 'Online Service (Inline Form)'
+    })
+
+    if (response.data.code === 1) {
+      isIdentified.value = true
+      localStorage.setItem('cs_user_info', JSON.stringify(userInfo.value))
+      // 提交成功后提示一下用户
+      addMessage('bot', `Thank you, ${userInfo.value.name}. Your information has been synced.`)
+      connectWebSocket()
+    }
+  } catch (error) {
+    console.error('Submit identity failed:', error)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+// --- WebSocket 连接 ---
 const connectWebSocket = () => {
   if (!isClient || socket.value) return
-
   isConnecting.value = true
-  // 注意：生产环境需改为 wss://yourdomain.com/chat
-  socket.value = new WebSocket('ws://localhost:8080/chat')
+  socket.value = new WebSocket(`ws://localhost:8080/chat?email=${userInfo.value.email || 'guest'}`)
 
   socket.value.onopen = () => {
     isConnecting.value = false
@@ -98,19 +147,16 @@ const connectWebSocket = () => {
   socket.value.onclose = () => {
     isConnecting.value = false
     socket.value = null
-    // 可以在此处实现简易断线重连
   }
 }
 
-// --- 核心方法：发送消息 ---
+// --- 发送消息 ---
 const sendMessage = () => {
   const text = messageContent.value.trim()
   if (!isClient || !text) return
 
-  // 1. 本地展示
   addMessage('user', text)
 
-  // 2. 通过 WebSocket 发送给 Java 后端入库
   if (socket.value && socket.value.readyState === WebSocket.OPEN) {
     socket.value.send(JSON.stringify({
       type: 'USER_INQUIRY',
@@ -119,8 +165,7 @@ const sendMessage = () => {
     }))
   }
 
-  // 3. 跳转 WhatsApp (保持你原有的逻辑)
-  const phoneNumber = "+15551740096"
+  const phoneNumber = "+12138426868"
   const encodedMessage = encodeURIComponent(text)
   const whatsappUrl = isMobile.value
     ? `https://wa.me/${phoneNumber}?text=${encodedMessage}`
@@ -128,7 +173,6 @@ const sendMessage = () => {
 
   window.open(whatsappUrl, '_blank', 'noopener noreferrer')
 
-  // 4. 清空输入并滚动到底部
   messageContent.value = ''
   scrollToBottom()
 }
@@ -152,13 +196,19 @@ const scrollToBottom = async () => {
 const toggleChatWindow = () => {
   isChatOpen.value = !isChatOpen.value
   if (isChatOpen.value) {
+    // 即使没填表，打开窗口也尝试连接 WS (以 guest 身份或静默连接)
     connectWebSocket()
     scrollToBottom()
   }
 }
 
-// --- 生命周期 ---
 onMounted(() => {
+  const saved = localStorage.getItem('cs_user_info')
+  if (saved) {
+    userInfo.value = JSON.parse(saved)
+    isIdentified.value = true
+  }
+
   if (isClient) {
     const checkMobile = () => isMobile.value = window.innerWidth <= 480
     checkMobile()
@@ -176,11 +226,11 @@ watch(isChatOpen, (newVal) => {
 </script>
 
 <style scoped>
-/* 悬浮按钮 */
+/* 保持原有动画和基础布局不动 */
 .floating-cs-button {
   position: fixed;
   right: 24px;
-  top: 70%;
+  bottom: 1%;
   display: flex;
   align-items: center;
   z-index: 9999;
@@ -205,7 +255,6 @@ watch(isChatOpen, (newVal) => {
   display: block;
 }
 
-/* 聊天窗口 */
 .chat-window {
   position: fixed;
   right: 24px;
@@ -267,12 +316,18 @@ watch(isChatOpen, (newVal) => {
   margin-right: 4px;
 }
 
-/* 聊天内容区 */
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
 .chat-content {
   flex: 1;
   padding: 15px;
   background: #e5ddd5;
-  /* 经典 WhatsApp 背景色 */
   overflow-y: auto;
   scroll-behavior: smooth;
 }
@@ -280,7 +335,7 @@ watch(isChatOpen, (newVal) => {
 .message-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .msg-wrapper {
@@ -302,18 +357,67 @@ watch(isChatOpen, (newVal) => {
   border-radius: 8px;
   position: relative;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  background: white;
+  color: #333;
 }
 
 .msg-bot .msg-bubble {
-  background: white;
-  color: #333;
   border-top-left-radius: 0;
 }
 
 .msg-user .msg-bubble {
   background: #dcf8c6;
-  color: #333;
   border-top-right-radius: 0;
+}
+
+/* 嵌入表单气泡的特殊样式 */
+.inline-form-bubble {
+  background: #ffffff;
+  border: 1px solid #c9c3bd;
+  width: 90%;
+}
+
+.form-title {
+  font-weight: 600;
+  margin-bottom: 10px !important;
+  font-size: 13px !important;
+  color: #075e54;
+}
+
+.inline-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inline-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+}
+
+.inline-input:focus {
+  border-color: #25d366;
+}
+
+.inline-submit-btn {
+  background: #25d366;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s;
+}
+
+.inline-submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
 }
 
 .msg-bubble p {
@@ -331,7 +435,6 @@ watch(isChatOpen, (newVal) => {
   margin-top: 4px;
 }
 
-/* 输入区 */
 .chat-input-area {
   padding: 10px;
   background: #f0f0f0;
@@ -375,7 +478,6 @@ watch(isChatOpen, (newVal) => {
   background: #ccc;
 }
 
-/* 动画 */
 .chat-window-enter-from,
 .chat-window-leave-to {
   transform: translateY(20px) scale(0.9);

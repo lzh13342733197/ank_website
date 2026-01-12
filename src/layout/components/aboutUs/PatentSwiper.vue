@@ -14,7 +14,7 @@
         >
           <swiper-slide v-for="(item, index) in virtualPatents" :key="index" class="patent-slide-item">
             <div class="a4-card" @click="handlePreviewFormDad(item.img)">
-              <img :src="item.img" :alt="'Patent ' + index" class="swiper-img-item" @click="showPreview(item.img)" />
+              <img :src="item.img" :alt="'Patent ' + index" class="swiper-img-item" @click="showPreview(previewImages,index)" />
             </div>
           </swiper-slide>
         </swiper>
@@ -38,14 +38,31 @@ import { showPreview } from '@/components/GlobalPreview'
 // 导入 Swiper 样式
 import 'swiper/css'
 import 'swiper/css/navigation'
+import patent1 from '@/assets/images/patents/2019-001579  锐果电子商务   日本外观专利证书_page-0001.jpg'
+import patent2 from '@/assets/images/patents/185862-RT615加拿大外观专利证书Shenzhen Mafiti E-commerce Co., Ltd_page-0001.jpg'
+import patent3 from '@/assets/images/patents/015026156 爱科贝 无线音频接收发射器（RT5066 ） 欧盟外观证书_page-0001.jpg'
+import patent4 from '@/assets/images/patents/015026157 爱科贝  蓝牙收发一体机（RT5013 ）欧盟外观证书_page-0001.jpg'
+import patent5 from '@/assets/images/patents/29756368 一魔 头戴式耳机（RT952） 美国外观证书_page-0001.jpg'
+import patent6 from '@/assets/images/patents/29758244- 一魔声学 蓝牙接收器（RT936）美国外观证书_page-0001.jpg'
+import patent7 from '@/assets/images/patents/2024101575404一种耳机信息展示方法、装置、系统和设备-发明专利证书-爱科贝_page-0001.jpg'
+import patent8 from '@/assets/images/patents/爱科贝ISO9001证书_page-0001.jpg'
+import patent9 from '@/assets/images/patents/SZ2022224192855- 一种带音频发射接收功能的条形音响-实用新型专利证书_pages-to-jpg-0001.jpg'
 
+import patent10 from '@/assets/images/patents/美国muse设计奖_page-0001.jpg'
+import patent11 from '@/assets/images/patents/法国巴黎设计奖_page-0001.jpg'
+import patent12 from '@/assets/images/patents/伦敦设计奖_page-0001.jpg'
+
+import patent13 from '@/assets/images/patents/RT807英国外观专利证书_page-0001.jpg'
+import patent14 from '@/assets/images/patents/锐爱转让一魔 2016211581436 新型无线音响 手续合格通知书_pages-to-jpg-0001.jpg'
+import patent15 from '@/assets/images/patents/107306737台湾外观专利证书_page-0001.jpg'
 const virtualPatents = ref(
-  Array.from({ length: 8 }).map((_, i) => ({
+  Array.from({ length: 15 }).map((_, i) => ({
     id: i,
-    name: `专利证书名称 ${i + 1}`,
-    img: `https://placehold.co/200x283/ffffff/333333?text=Patent+${i + 1}`
+    name: `专利证书名称 ${i}`,
+    img: [patent1, patent2,  patent5, patent6, patent7, patent8, patent3, patent4, patent9, patent10, patent11, patent12, patent13, patent14, patent15][i]
   }))
 )
+const previewImages = [patent1, patent2,  patent5, patent6, patent7, patent8, patent3, patent4, patent9, patent10, patent11, patent12, patent13, patent14, patent15]
 
 const patentRef = ref(null)
 
@@ -109,10 +126,11 @@ const handlePreviewFormDad = (img) => {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   opacity: 0;
   transform: translateY(30px);
   animation: slideUpFade 0.6s ease-out forwards;
+  background-color: #fff;
 }
 
 @keyframes slideUpFade {
@@ -183,7 +201,7 @@ const handlePreviewFormDad = (img) => {
 
 @media (max-width: 768px) {
   .patent-slide-item {
-    width: 48%;
+    width: 42%;
   }
   .patent-list-section {
   }
