@@ -70,7 +70,7 @@ const partners = ref([
 
 .partner-title {
   text-align: center;
-  font-size: 24px;
+  font-size: 31px;
   margin-bottom: 40px;
 }
 
@@ -156,5 +156,8 @@ const partners = ref([
   .carousel-track {
     animation-duration: 20s; /* 移动端滚动速度 */
   }
+  .partner-title {
+  font-size: 24px;
+}
 }
 </style>

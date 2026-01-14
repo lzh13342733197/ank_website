@@ -21,12 +21,12 @@
                 :class="{ 'is-active': isPathMatch(sub.url) }">
                 <div style="display: flex; align-items: center;">
                   <img :src="sub.imageUrl" alt="Category Image" class="category-image">
-                  <div style="min-width: 150px;">
+                  <div style="min-width: 150px; ">
                     {{ sub.name }}
                   </div>
                 </div>
               </a>
-              <a v-else :href="sub.url" class="sub-nav-link" :class="{ 'is-active': isPathMatch(sub.url) }">
+              <a v-else :href="sub.url" class="sub-nav-link" style="white-space: nowrap;" :class="{ 'is-active': isPathMatch(sub.url) }">
                 {{ sub.name }}
               </a>
             </li>
@@ -268,7 +268,7 @@ watch(locale, () => {
 .sub-nav-group {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 0%;
   list-style: none;
   padding: 0;
   margin: 0;

@@ -48,21 +48,21 @@ import patent7 from '@/assets/images/patents/2024101575404一种耳机信息展�
 import patent8 from '@/assets/images/patents/爱科贝ISO9001证书_page-0001.jpg'
 import patent9 from '@/assets/images/patents/SZ2022224192855- 一种带音频发射接收功能的条形音响-实用新型专利证书_pages-to-jpg-0001.jpg'
 
-import patent10 from '@/assets/images/patents/美国muse设计奖_page-0001.jpg'
-import patent11 from '@/assets/images/patents/法国巴黎设计奖_page-0001.jpg'
-import patent12 from '@/assets/images/patents/伦敦设计奖_page-0001.jpg'
+// import patent10 from '@/assets/images/patents/美国muse设计奖_page-0001.jpg'
+// import patent11 from '@/assets/images/patents/法国巴黎设计奖_page-0001.jpg'
+// import patent12 from '@/assets/images/patents/伦敦设计奖_page-0001.jpg'
 
 import patent13 from '@/assets/images/patents/RT807英国外观专利证书_page-0001.jpg'
 import patent14 from '@/assets/images/patents/锐爱转让一魔 2016211581436 新型无线音响 手续合格通知书_pages-to-jpg-0001.jpg'
 import patent15 from '@/assets/images/patents/107306737台湾外观专利证书_page-0001.jpg'
 const virtualPatents = ref(
-  Array.from({ length: 15 }).map((_, i) => ({
+  Array.from({ length: 12 }).map((_, i) => ({
     id: i,
     name: `专利证书名称 ${i}`,
-    img: [patent1, patent2,  patent5, patent6, patent7, patent8, patent3, patent4, patent9, patent10, patent11, patent12, patent13, patent14, patent15][i]
+    img: [patent1, patent2,  patent5, patent6, patent7, patent8, patent3, patent4, patent9, patent13, patent14, patent15][i]
   }))
 )
-const previewImages = [patent1, patent2,  patent5, patent6, patent7, patent8, patent3, patent4, patent9, patent10, patent11, patent12, patent13, patent14, patent15]
+const previewImages = [patent1, patent2,  patent5, patent6, patent7, patent8, patent3, patent4, patent9, patent13, patent14, patent15]
 
 const patentRef = ref(null)
 
@@ -97,7 +97,7 @@ const handlePreviewFormDad = (img) => {
 
 /* 保持你原本的条目尺寸配置 */
 .patent-slide-item {
-  width: 22.3%;
+  width: 18.3%;
   margin-right: 1.5vw;
 }
 

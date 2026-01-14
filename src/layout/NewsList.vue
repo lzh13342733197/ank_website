@@ -1,57 +1,55 @@
 <template>
-  <div class="news-list-container">
-    <div class="news-header">
-      <div class="page-title">{{ $t('news.title') }}</div>
+  <div style="background-color: #fff;">
+    <div class="top_img">
+       <!-- <img v-if="!isMobile" style="width: 100%" src="https://picsum.photos/1920/300" alt="">
+        <img v-else style="width: 100%" src="https://picsum.photos/500/200" alt=""> -->
     </div>
+    <div class="news-list-container">
+      <div class="news-header">
+        <div class="page-title">{{ $t('news.title') }}</div>
+      </div>
 
-    <div class="news-list-area">
-      <ul class="news-container">
-        <li v-for="news in newsData" :key="news.id" class="news-card">
-          <div class="news-image-layout">
-            <div 
-              class="stack-wrapper" 
-              :class="{ 'is-expanded': news.isExpanded }"
-              @click="toggleExpand(news)"
-            >
-              <div 
-                v-for="(img, idx) in getImageList(news)" 
-                :key="idx" 
-                class="stack-item"
-                :style="news.isExpanded ? {} : getStackStyle(idx)"
-                @click.stop="handlePhotoClick(img, news)"
-              >
-                <img :src="img" :alt="news.title" loading="lazy" />
-                <div v-if="!news.isExpanded && idx === 0" class="click-hint">
-                  <span>Click to Expand</span>
+      <div class="news-list-area">
+        <ul class="news-container">
+          <li v-for="news in newsData" :key="news.id" class="news-card">
+            <div class="news-image-layout">
+              <div class="stack-wrapper" :class="{ 'is-expanded': news.isExpanded }" @click="toggleExpand(news)">
+                <div v-for="(img, idx) in getImageList(news)" :key="idx" class="stack-item"
+                  :style="news.isExpanded ? {} : getStackStyle(idx)" @click.stop="handlePhotoClick(img, news)">
+                  <img :src="img" :alt="news.title" loading="lazy" />
+                  <div v-if="!news.isExpanded && idx === 0" class="click-hint">
+                    <span>Click to Expand</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="news-info-layout">
-            <div class="news-meta">
-              <span class="news-date-text">{{ news.date }}</span>
-              <h2 class="news-item-title" v-if="locale === 'en'">{{ news.title }}</h2>
-              <h2 class="news-item-title" v-else>{{ news.description }}</h2>
+            <div class="news-info-layout">
+              <div class="news-meta">
+                <span class="news-date-text">{{ news.date }}</span>
+                <h2 class="news-item-title" v-if="locale === 'en'">{{ news.title }}</h2>
+                <h2 class="news-item-title" v-else>{{ news.description }}</h2>
+              </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
 
-      <div v-if="newsData.length === 0" class="empty-status">No news available.</div>
+        <div v-if="newsData.length === 0" class="empty-status">No news available.</div>
+      </div>
     </div>
-  </div>
 
-  <Transition name="fade">
-    <div v-if="lightboxVisible" class="lightbox-overlay" @click="closeLightbox">
-      <img :src="lightboxImage" class="lightbox-content" />
-      <button class="lightbox-close-btn" @click.stop="closeLightbox">×</button>
+    <Transition name="fade">
+      <div v-if="lightboxVisible" class="lightbox-overlay" @click="closeLightbox">
+        <img :src="lightboxImage" class="lightbox-content" />
+        <button class="lightbox-close-btn" @click.stop="closeLightbox">×</button>
+      </div>
+    </Transition>
+
     </div>
-  </Transition>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 const { locale } = useI18n();
 
@@ -79,7 +77,7 @@ import news202601CES展2 from '@/assets/images/Fari/4-202601CES展-720-405-2.jpg
 import news202601CES展3 from '@/assets/images/Fari/4-202601CES展-720-405-3.jpg'
 import news202601CES展4 from '@/assets/images/Fari/4-202601CES展-720-405-4.jpg'
 import news202601CES展5 from '@/assets/images/Fari/4-202601CES展-720-405-5.jpg'
-
+const isMobile = computed(() => window.innerWidth <= 768)
 // --- 数据定义 ---
 const newsData = ref([
   {
@@ -123,7 +121,7 @@ const getStackStyle = (idx) => {
   const rotations = [-4, 3, -2, 5, 0]; // 每张图旋转角度
   const xOffsets = [-15, 10, -5, 15, 0]; // 每张图左右偏移
   const yOffsets = [-10, 5, 10, -5, 0];  // 每张图上下偏移
-  
+
   return {
     transform: `rotate(${rotations[idx] || 0}deg) translate(${xOffsets[idx] || 0}px, ${yOffsets[idx] || 0}px)`,
     zIndex: 10 - idx // 让第一张图在最上面
@@ -167,7 +165,7 @@ const closeLightbox = () => {
 .news-list-container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 20px 20px;
   background-color: #fff;
 }
 
@@ -189,7 +187,8 @@ const closeLightbox = () => {
 
 /* --- 核心动画区域 --- */
 .news-image-layout {
-  perspective: 1000px; /* 增加3D感 */
+  perspective: 1000px;
+  /* 增加3D感 */
   margin-bottom: 30px;
 }
 
@@ -254,9 +253,10 @@ const closeLightbox = () => {
 .is-expanded .stack-item {
   position: relative;
   height: 180px;
-  transform: none !important; /* 清除旋转错位 */
+  transform: none !important;
+  /* 清除旋转错位 */
   z-index: 1 !important;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   cursor: zoom-in;
 }
 
@@ -289,19 +289,26 @@ const closeLightbox = () => {
     height: 220px;
     max-width: 90%;
   }
-  
+
   .stack-wrapper.is-expanded {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .is-expanded .stack-item {
     height: 120px;
   }
 }
 
 /* --- 灯箱效果 --- */
-.fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
-.fade-enter-from, .fade-leave-to { opacity: 0; }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 
 .lightbox-overlay {
   position: fixed;

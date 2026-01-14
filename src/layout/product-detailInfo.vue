@@ -22,7 +22,7 @@
             <div class="product-detail-info-item-title">
               {{ $t('productDetail.AboutThisItem') }}
             </div>
-            
+
             <div class="specs-grid">
               <div v-for="(item, index) in productAttrList" :key="item.id || index" class="specs-item">
                 <div class="specs-label">{{ item.name }}</div>
@@ -45,10 +45,10 @@
         </div>
       </div>
     </div>
-          <!-- 产品描述图片 -->
-           <div class="product-detail-info-item-content">
-            <img :src="productBanner" alt="" class="product-banner">
-          </div>
+    <!-- 产品描述图片 -->
+    <div class="product-detail-info-item-content">
+      <img v-for="item in productBanner" :src="item" alt="" class="product-banner">
+    </div>
     <div class="product-category-container">
       <cardPeekList :id="String(route.query.categoryId || '')" :title="String(route.query.cardName || '')"
         :card-list="productCategoryList.slice(0, 6)" />
@@ -97,7 +97,7 @@ const productDetail = ref<any>({
 const productAttrList = ref<any[]>([])
 const currentId = computed(() => route.query.id as string)
 const { t, locale } = useI18n()
-const productBanner = ref('')
+const productBanner = ref([])
 // 工具函数：拆分内容 (如果后续还需要处理字符串则保留，单纯展示AttrList可不使用)
 const splitContent = (content: string) => {
   const separator = content.includes(':') ? ':' : '：'
@@ -126,15 +126,18 @@ const productDetailInit = async () => {
   const data = await useFetchWithLanguage.get(
     `${import.meta.env.VITE_API_URL}/product/getProductSpuDetail?id=${productId}`,
   )
-    const dataAttr = await useFetchWithLanguage.post(
+  const dataAttr = await useFetchWithLanguage.post(
     `${import.meta.env.VITE_API_URL}/product/getProductSpuAttrList`,
     { productSpuId: productId },
   )
   productAttrList.value = dataAttr || []
   productDetail.value = data
   console.log(productDetail.value);
-  if(productDetail.value.productSpuAboutList.length){
-  productBanner.value= productDetail.value.productSpuAboutList[0].imageUrls[0]
+  if (productDetail.value.productSpuAboutList.length) {
+    productBanner.value = productDetail.value.productSpuAboutList.map(item => {
+      return item.imageUrls[0]
+    })
+    // productBanner.value= productDetail.value.productSpuAboutList[0].imageUrls[0]
   }
   console.log(productBanner.value);
   loading.value = false
@@ -198,19 +201,23 @@ const handleInquireSubmit = (formData: any) => {
 .product-detail-info-wrapper {
   margin: 40px 0;
 }
-.product-detail-info-item-content{
+
+.product-detail-info-item-content {
   text-align: center;
-  padding: 15px;
 }
-.product-banner{
+
+.product-banner {
   width: 100%;
   border-radius: 16px;
+  margin-bottom: 10px;
 }
+
 @media screen and (min-width: 1200px) {
-  .product-banner{
+  .product-banner {
     max-width: 1160px;
   }
 }
+
 .product-detail-info-item-title {
   font-size: 24px;
   font-weight: 600;
@@ -224,7 +231,8 @@ const handleInquireSubmit = (formData: any) => {
 /* ================= 一行两个参数的 Grid 布局 ================= */
 .specs-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 核心：一行两列 */
+  grid-template-columns: repeat(2, 1fr);
+  /* 核心：一行两列 */
   border-top: 1px solid #ebeef5;
   border-left: 1px solid #ebeef5;
   border-radius: 4px;
@@ -283,8 +291,15 @@ const handleInquireSubmit = (formData: any) => {
     padding: 15px;
     gap: 30px;
   }
-  .swiper-wrapper { position: relative; top: auto; }
-  .detail-swiper { width: 100%; }
+
+  .swiper-wrapper {
+    position: relative;
+    top: auto;
+  }
+
+  .detail-swiper {
+    width: 100%;
+  }
 }
 
 /* 移动端适配：变回一行一个参数 */
@@ -298,14 +313,22 @@ const handleInquireSubmit = (formData: any) => {
   .specs-item {
     flex-direction: column;
   }
+
   .specs-label {
     width: 100%;
     border-right: none;
     border-bottom: 1px solid #ebeef5;
     padding: 8px 12px;
   }
+
   .specs-value {
     padding: 10px 12px;
   }
+  .product-banner {
+  width: 100%;
+  border-radius: 0;
+  margin-bottom:0;
+  display: block;
+}
 }
 </style>

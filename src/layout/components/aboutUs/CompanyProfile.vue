@@ -1,9 +1,10 @@
 <template>
   <div class="content-text-body">
+    <p class="content-paragraph" v-html="t('home.homeAboutUs')"></p>
+    <img v-lazy="companyImg" class="content-image animate-img" />
     <p class="content-paragraph">{{ t('aboutUs.companyProfile.thirdParagraph') }}</p>
     <p class="content-paragraph">{{ t('aboutUs.companyProfile.secondParagraph') }}</p>
     <!-- 为图片添加动画类名 -->
-    <img v-lazy="companyImg" class="content-image animate-img" />
     <img v-lazy="companyFactoryImg" class="content-image animate-img" />
   </div>
 </template>

@@ -8,8 +8,9 @@
               <div class="BodyCenter clearfix">
                 <div class="clearfix">
                   <div>
-                    <p style="text-align: center; line-height: 2em; margin: 40px 0px  ;"><span
-                        style="font-size:1.5rem; color: #333;font-weight: 600; ">{{ t('home.PRODUCTS_SHOW') }}</span>
+                    <!-- Hot Sales -->
+                    <p style="text-align: center; line-height: 2em; margin: 40px 0px  ;"><span class="PRODUCTS_SHOW"
+                        style="font-size: 31px; color: #333;font-weight: 600;">{{ t('home.PRODUCTS_SHOW') }}</span>
                     </p>
                   </div>
                 </div>
@@ -113,7 +114,9 @@ const props = defineProps({
   .pro-item {
     width: 50%;
   }
-
+  .PRODUCTS_SHOW{
+    font-size: 1.5rem !important;
+  }
   .BodyCenter {
     width: 95%;
     max-width: 1200px;
@@ -200,7 +203,7 @@ const props = defineProps({
 
 /* 产品按钮 */
 .pro-btn {
-  margin-top: 10px;
+  margin-top: 6px;
   text-align: right;
   color: #0095d7;
   font-size: 12px;

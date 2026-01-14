@@ -1,21 +1,17 @@
 <template>
+  <div class="top_img">
+    <!-- <img v-if="!isMobile" style="width: 100%" src="https://picsum.photos/1920/300" alt="">
+    <img v-else style="width: 100%" src="https://picsum.photos/500/200" alt=""> -->
+  </div>
   <section class="factory-module">
     <!-- 模块标题 + 路由切换tab -->
     <div class="factory-header">
       <!-- <div class="factory-title">Our Factory</div> -->
       <div class="section-tab-wrapper">
-        <div 
-          class="section-tab-item" 
-          :class="{ active: currentTab === 'production' }"
-          @click="switchTab('production')"
-        >
+        <div class="section-tab-item" :class="{ active: currentTab === 'production' }" @click="switchTab('production')">
           {{ t('factory.production.subtitle') }}
         </div>
-        <div 
-          class="section-tab-item" 
-          :class="{ active: currentTab === 'testing' }"
-          @click="switchTab('testing')"
-        >
+        <div class="section-tab-item" :class="{ active: currentTab === 'testing' }" @click="switchTab('testing')">
           {{ t('factory.testing.subtitle') }}
         </div>
       </div>
@@ -43,13 +39,8 @@
           </div>
           <div class="step-image">
             <!-- 添加点击事件 -->
-            <img 
-              :src="step.image" 
-              :alt="step.title" 
-              loading="lazy"
-              @click="openImagePreview(step.image, step.title)"
-              class="clickable-image"
-            />
+            <img :src="step.image" :alt="step.title" loading="lazy" @click="openImagePreview(step.image, step.title)"
+              class="clickable-image" />
           </div>
         </div>
       </div>
@@ -64,13 +55,8 @@
       <!-- 测试设备展示 -->
       <div class="equipment-grid">
         <div class="equipment-item" v-for="(equipment, index) in testingEquipments" :key="index">
-          <img 
-            :src="equipment.image" 
-            :alt="equipment.name" 
-            loading="lazy"
-            @click="openImagePreview(equipment.image, equipment.name)"
-            class="clickable-image"
-          />
+          <img :src="equipment.image" :alt="equipment.name" loading="lazy"
+            @click="openImagePreview(equipment.image, equipment.name)" class="clickable-image" />
           <div class="equipment-name">{{ equipment.name }}</div>
         </div>
       </div>
@@ -79,30 +65,17 @@
       <div class="section-subtitle" style="margin-top: 40px;">Testing Process</div>
       <div class="process-images">
         <div v-for="(img, index) in testingProcessImages" :key="index" class="process-img-item">
-          <img 
-            :src="img" 
-            :alt="`Testing Process ${index + 1}`" 
-            loading="lazy"
-            @click="openImagePreview(img, `Testing Process ${index + 1}`)"
-            class="clickable-image"
-          />
+          <img :src="img" :alt="`Testing Process ${index + 1}`" loading="lazy"
+            @click="openImagePreview(img, `Testing Process ${index + 1}`)" class="clickable-image" />
         </div>
       </div>
     </div>
 
     <!-- 图片预览弹窗 -->
-    <div 
-      class="image-preview-modal" 
-      v-if="previewVisible"
-      @click.self="closeImagePreview"
-    >
+    <div class="image-preview-modal" v-if="previewVisible" @click.self="closeImagePreview">
       <button class="preview-close-btn" @click="closeImagePreview">×</button>
       <div class="preview-content">
-        <img 
-          :src="previewImageUrl" 
-          :alt="previewImageAlt"
-          class="preview-image"
-        />
+        <img :src="previewImageUrl" :alt="previewImageAlt" class="preview-image" />
       </div>
     </div>
   </section>
@@ -126,7 +99,7 @@ import productionStep7 from '@/assets/images/Factory/7仓库1280-720.jpg'
 const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
-
+const isMobile = computed(() => window.innerWidth <= 768)
 // 路由Tab切换状态（优先从路由获取，实现路由联动）
 const currentTab = ref<string>(
   route.path === '/Factory/Testing' ? 'testing' : 'production'
@@ -148,7 +121,7 @@ onMounted(() => {
   const routeWatcher = router.afterEach((to) => {
     currentTab.value = to.path === '/Factory/Testing' ? 'testing' : 'production';
   });
-  
+
   // 组件卸载时取消监听
   onUnmounted(() => {
     routeWatcher();
@@ -201,7 +174,7 @@ const productionSteps = computed(() => [
   },
   {
     title: t('factory.production.steps[1].title'),
-    desc: t('factory.production.steps[1].desc'),  
+    desc: t('factory.production.steps[1].desc'),
     image: productionStep2
   },
   {
@@ -222,12 +195,12 @@ const productionSteps = computed(() => [
   {
     title: t('factory.production.steps[5].title'),
     desc: t('factory.production.steps[5].desc'),
-    image: productionStep6 
+    image: productionStep6
   },
   {
     title: t('factory.production.steps[6].title'),
     desc: t('factory.production.steps[6].desc'),
-    image: productionStep7 
+    image: productionStep7
   },
 ])
 
@@ -274,7 +247,7 @@ const testingProcessImages = ref([
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 20px 20px;
   box-sizing: border-box;
 }
 
@@ -538,6 +511,7 @@ const testingProcessImages = ref([
   .factory-header {
     display: block;
   }
+
   .factory-module {
     padding: 20px 10px;
   }

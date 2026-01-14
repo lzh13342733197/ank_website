@@ -20,11 +20,11 @@ export default {
   home: {
     MORE: "More",
     aboutUs: "ABOUT US",
-    homeAboutUs: `Ankbit is a high-tech enterprise specializing in audio equipment manufacturing, with profound technical expertise and production experience in earphones, speakers, and Bluetooth transceivers. We provide comprehensive <strong style="color: #efeded;"> ODM, OEM, and CUSTOMIZATION SERVICES </strong> covering product definition, industrial design, hardware/software R&D, and mass production. Supported by a complete supply chain and automated production lines, we are committed to delivering high-quality, customizable, one-stop audio solutions to global clients with strict quality control and agile delivery capabilities.`,
+    homeAboutUs: `Ankbit is a high-tech enterprise specializing in audio equipment manufacturing, with profound technical expertise and production experience in earphones, speakers, and Bluetooth transceivers. We provide comprehensive <strong> ODM, OEM, and CUSTOMIZATION SERVICES </strong> covering product definition, industrial design, hardware/software R&D, and mass production. Supported by a complete supply chain and automated production lines, we are committed to delivering high-quality, customizable, one-stop audio solutions to global clients with strict quality control and agile delivery capabilities.`,
     companyName: "Shenzhen Ankbit Electronics Limited",
     partner: "Partners",
     PRODUCTS_SHOW: "Hot Sales",
-    PatentsAwards: "PATENTS & AWARDS",
+    PatentsAwards: "Patents & Awards",
   },
   common: {
     contactUs: "Contact Us",

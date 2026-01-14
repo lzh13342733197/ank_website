@@ -56,7 +56,7 @@ const closePreview = () => {
 }
 
 .partner-title {
-  font-size: 24px;
+  font-size: 31px;
   color: #333;
 }
 

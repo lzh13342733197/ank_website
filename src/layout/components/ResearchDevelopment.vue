@@ -1,8 +1,8 @@
 <template>
-  <div class="banner">
+  <!-- <div class="banner">
     <img src="@/assets/images/aboutUs/1研发图1280-720.jpg" alt="研发与开发" class="banner-bg">
     <div class="bannerTitle">{{ $t('common.researchDevelopment') }}</div>
-  </div>
+  </div> -->
 
   <div class="container">
 

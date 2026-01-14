@@ -17,7 +17,7 @@
                 <img :src="factoryVideo.placeholder" class="cover-img" alt="Video Placeholder" />
                 <div class="play-button">
                   <span class="play-icon">
-                    <SvgIcon name="rightDeltoid" size="60" ></SvgIcon>
+                    <SvgIcon name="rightDeltoid" :size="windowWidth > 992 ? 60 : 45" ></SvgIcon>
                   </span>
                 </div>
                 <div v-if="isYouTubeAvailable === false" class="network-tip">
@@ -27,8 +27,8 @@
             </template>
           </div>
         </div>
-
-        <div class="links-section">
+        <!-- 多个链接 -->
+        <!-- <div class="links-section">
           <h2 class="section-title">{{ $t('social.followUs') || 'Follow Us' }}</h2>
           <p class="section-desc">
             Explore our factory live streams and latest updates.
@@ -47,7 +47,7 @@
               </div>
             </a>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>
@@ -59,14 +59,13 @@ import { ref, onMounted } from 'vue';
 import SvgIcon from '@/components/SvgIcon.vue'
 const isPlaying = ref(false);
 const isYouTubeAvailable = ref(null); // null: 探测中, true: 可用, false: 不可用
-
+import videoYoutube from '@/assets/images/video_youtube.png'
 const factoryVideo = ref({
-  embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-  pageUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-  // 建议使用本地一张工厂大图作为占位图
-  placeholder: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200'
+  embedUrl: 'https://www.youtube.com/embed/B7ExfBoQedA',
+  pageUrl: 'https://www.youtube.com/watch?v=B7ExfBoQedA',
+  placeholder: videoYoutube
 });
-
+const windowWidth = ref(window.innerWidth);
 // 探测 YouTube 是否可访问
 const checkYouTube = () => {
   return new Promise((resolve) => {
@@ -108,7 +107,7 @@ const socialPlatforms = ref([
   padding: 80px 0;
   max-width: 1200px;
   margin: 0 auto;
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
 }
 
 .container {
@@ -252,6 +251,13 @@ const socialPlatforms = ref([
   .video-section,
   .links-section {
     width: 100%;
+  }
+  .factory-social-media {
+    padding: 50px 0 10px 0 ;
+  }
+  .play-button{
+    width: 50px;
+    height: 50px;
   }
 }
 </style>

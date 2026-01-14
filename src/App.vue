@@ -12,4 +12,8 @@ const route = useRoute()
 img[v-lazy] {
   opacity: 0.5 !important;
 }
+.el-popup-parent--hidden{
+  overflow: initial !important;
+  width: 100% !important;
+}
 </style>

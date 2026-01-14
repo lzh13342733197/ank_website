@@ -38,8 +38,8 @@
   <SwiperModule v-if="!loading" :images="swiperList" class="swiperModule_" />
   <SkeletonComponent :loading="loading" />
   <div v-if="!loading">
-    <AboutUsModule />
-    <!-- <SocialMediaVideo style="margin: 0 auto" /> -->
+    <!-- <AboutUsModule /> -->
+    <SocialMediaVideo style="margin: 0 auto" />
     <ProductShowcase :products="templateData" />
     <!-- <NewsSlider /> -->
     <PatentsAwards />

@@ -89,7 +89,7 @@ const goTo = (item) => {
 }
 
 .BodyCenter {
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 30px auto;
   width: 95%;
 }
@@ -144,7 +144,7 @@ const goTo = (item) => {
 
 @media (min-width: 768px) {
   .sidebar-container {
-    flex-basis: 25%;
+    flex-basis: 20%;
     padding-right: 20px;
   }
 

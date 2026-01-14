@@ -1,12 +1,8 @@
 <template>
   <div class="awards-page">
-    <div class="awards-header">
-      <p class="awards-desc">
-        {{ t('aboutUs.awards.description') }}
-      </p>
-    </div>
+    
 
-    <div class="awards-grid">
+     <div class="awards-grid">
       <div 
         v-for="(award, index) in awardList" 
         :key="index"
@@ -21,6 +17,12 @@
           </div>
         </div>
       </div>
+   </div>
+
+    <div class="awards-header">
+      <p class="awards-desc">
+        {{ t('aboutUs.awards.description') }}
+      </p>
     </div>
   </div>
 </template>
@@ -94,7 +96,8 @@ watch(locale, (newLocale) => {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 25px;
-  align-items: start;
+  align-items: center;
+  margin-bottom: 40px;
 }
 
 /* ================= 奖项卡片样式 ================= */

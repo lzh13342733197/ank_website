@@ -30,19 +30,19 @@
         </div>
         <div class="social-links">
             <div>
-            <a href="https://www.instagram.com/1mii.shop/" target="_blank">
+            <a href="#" target="_blank">
               <!-- <SvgIcon :name="`add`" size="24" color="#222"></SvgIcon> -->
-              <img v-lazy="facebook" alt="" class="iconImg">
+              <img v-lazy="facebook" alt="" class="iconImg"  style="scale: 1.2;">
             </a>
           </div>
             <div>
-            <a href="https://www.instagram.com/1mii.shop/" target="_blank">
+            <a href="#" target="_blank">
               <!-- <SvgIcon :name="`add`" size="24" color="#222"></SvgIcon> -->
               <img v-lazy="linkedin" alt="" class="iconImg" style="scale: 0.8;">
             </a>
           </div>
           <div>
-            <a href="https://x.com/YeeMall_1Mii " target="_blank">
+            <a href="#" target="_blank">
               <img v-lazy="newTwiter" alt="" class="iconImg" style="scale: 0.8;">
             </a>
           </div>
@@ -51,10 +51,9 @@
               <img v-lazy="tiktok" alt="" class="iconImg">
             </a>
           </div> -->
-          <div style="width: 20px; height: 20px;">
-            <a href="https://www.youtube.com/@YeeMall.1Mii" target="_blank">
+          <div style="width: 20px; height: 20px; scale: 1.4;" >
+            <a href="#" target="_blank">
               <img v-lazy="youtube" alt="" class="iconImg">
-
             </a>
           </div>
         </div>
