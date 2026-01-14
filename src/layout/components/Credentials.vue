@@ -5,6 +5,8 @@
       <img :src="cert1" alt="Patent Certificate" class="patent-bg" @click="handlePreviewFormDad(cert1)" />
     </div> -->
     <!-- 专利预览组件 -->
+    <div class="patentTitle">{{ $t('research.patents1') }}</div>
+
     <Patent ref="patentRef" />
 
     <div class="patentTitle">{{ $t('research.patents') }}</div>

@@ -1,8 +1,8 @@
 <template>
   <div style="background-color: #fff;">
     <div class="top_img">
-       <!-- <img v-if="!isMobile" style="width: 100%" src="https://picsum.photos/1920/300" alt="">
-        <img v-else style="width: 100%" src="https://picsum.photos/500/200" alt=""> -->
+    <img v-if="!isMobile" style="width: 100%" :src="fairBannerPc" alt="">
+    <img v-else style="width: 100%" :src="fairBannerMobile" alt="">
     </div>
     <div class="news-list-container">
       <div class="news-header">
@@ -52,6 +52,10 @@
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 const { locale } = useI18n();
+
+
+import fairBannerMobile from '@/assets/images/Fari/fair_banner_mobile.jpg'
+import fairBannerPc from '@/assets/images/Fari/fair_banner-pc.jpg'
 
 // --- 导入图片资源 ---
 import news202401CES展1 from '@/assets/images/Fari/1-202401CES展-720-405-1.jpg'

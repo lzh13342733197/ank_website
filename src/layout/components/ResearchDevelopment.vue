@@ -28,13 +28,14 @@
     <div class="introdution">
       <!-- <div class="introdutionTitle">{{ $t('research.teamIntro') }}</div> -->
       <p>{{ $t('research.teamDesc1') }}</p>
-      <p>{{ $t('research.teamDesc2') }}</p>
     <div class="banner">
       <img src="@/assets/images/aboutUs/5研发图1280-720.jpg" alt="研发与开发" class="banner-bg">
     </div>
-      <p>{{ $t('research.teamDesc3') }}</p>
+      <p>{{ $t('research.teamDesc2') }}</p>
+
+      <!-- <p>{{ $t('research.teamDesc3') }}</p>
       <p>{{ $t('research.teamDesc4') }}</p>
-      <!-- <p>{{ $t('research.teamDesc5') }}</p> -->
+      <p>{{ $t('research.teamDesc5') }}</p> -->
     </div>
 
 

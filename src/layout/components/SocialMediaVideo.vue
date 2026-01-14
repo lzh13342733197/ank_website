@@ -28,10 +28,10 @@
           </div>
         </div>
         <!-- 多个链接 -->
-        <!-- <div class="links-section">
+        <div class="links-section">
           <h2 class="section-title">{{ $t('social.followUs') || 'Follow Us' }}</h2>
           <p class="section-desc">
-            Explore our factory live streams and latest updates.
+           {{ $t('social.explore') || 'Explore our factory live streams and latest updates.' }}
           </p>
 
           <div class="social-grid">
@@ -47,7 +47,7 @@
               </div>
             </a>
           </div>
-        </div> -->
+        </div>
 
       </div>
     </div>
@@ -56,6 +56,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n()
 import SvgIcon from '@/components/SvgIcon.vue'
 const isPlaying = ref(false);
 const isYouTubeAvailable = ref(null); // null: 探测中, true: 可用, false: 不可用
@@ -94,10 +96,10 @@ onMounted(async () => {
 
 // 模拟社媒平台数据
 const socialPlatforms = ref([
-  { name: 'YouTube', link: 'https://youtube.com', icon: 'icon-youtube', color: '#FF0000' },
-  { name: 'Facebook', link: 'https://facebook.com', icon: 'icon-facebook', color: '#1877F2' },
-  { name: 'Twitter', link: 'https://twitter.com', icon: 'icon-twitter', color: '#1DA1F2' },
-  { name: 'LinkedIn', link: 'https://linkedin.com', icon: 'icon-linkedin', color: '#0A66C2' }
+  { name: 'YouTube', link: 'https://www.youtube.com/@Ankbit', icon: 'icon-youtube', color: '#FF0000' },
+  { name: 'Facebook', link: 'https://www.facebook.com/profile.php?id=61585788553085', icon: 'icon-facebook', color: '#1877F2' },
+  { name: 'Twitter', link: 'https://x.com/AnkbitSales', icon: 'icon-twitter', color: '#1DA1F2' },
+  { name: 'LinkedIn', link: '/', icon: 'icon-linkedin', color: '#0A66C2' }
 ]);
 </script>
 

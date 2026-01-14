@@ -30,7 +30,7 @@
         </div>
         <div class="social-links">
             <div>
-            <a href="#" target="_blank">
+            <a href="https://www.facebook.com/profile.php?id=61585788553085" target="_blank">
               <!-- <SvgIcon :name="`add`" size="24" color="#222"></SvgIcon> -->
               <img v-lazy="facebook" alt="" class="iconImg"  style="scale: 1.2;">
             </a>
@@ -42,7 +42,7 @@
             </a>
           </div>
           <div>
-            <a href="#" target="_blank">
+            <a href="https://x.com/AnkbitSales" target="_blank">
               <img v-lazy="newTwiter" alt="" class="iconImg" style="scale: 0.8;">
             </a>
           </div>
@@ -52,7 +52,7 @@
             </a>
           </div> -->
           <div style="width: 20px; height: 20px; scale: 1.4;" >
-            <a href="#" target="_blank">
+            <a href="https://www.youtube.com/@Ankbit" target="_blank">
               <img v-lazy="youtube" alt="" class="iconImg">
             </a>
           </div>

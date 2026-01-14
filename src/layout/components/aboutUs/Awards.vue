@@ -20,8 +20,7 @@
    </div>
 
     <div class="awards-header">
-      <p class="awards-desc">
-        {{ t('aboutUs.awards.description') }}
+      <p class="awards-desc" v-html="t('aboutUs.awards.description')">
       </p>
     </div>
   </div>

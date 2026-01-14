@@ -1,7 +1,7 @@
 <template>
   <div class="top_img">
-    <!-- <img v-if="!isMobile" style="width: 100%" src="https://picsum.photos/1920/300" alt="">
-    <img v-else style="width: 100%" src="https://picsum.photos/500/200" alt=""> -->
+    <img v-if="!isMobile" style="width: 100%" :src="factoryBannerPc" alt="">
+    <img v-else style="width: 100%" :src="factoryBannerMobile" alt="">
   </div>
   <section class="factory-module">
     <!-- 模块标题 + 路由切换tab -->
@@ -92,7 +92,9 @@ import productionStep4 from '@/assets/images/Factory/4成品组装1280-720.jpg'
 import productionStep5 from '@/assets/images/Factory/5测试设备1280-720.jpg'
 import productionStep5RAC from '@/assets/images/Factory/5测试设备RAC耐磨1280-720.jpg'
 import productionStep6 from '@/assets/images/Factory/6包装入库1280-720.jpg'
-import productionStep7 from '@/assets/images/Factory/7仓库1280-720.jpg'
+import productionStep7 from '@/assets/images/Factory/11生产线1280-720.jpg'
+import factoryBannerPc from '@/assets/images/Factory/factory_banner_pc.jpg'
+import factoryBannerMobile from '@/assets/images/Factory/factory_banner-mobile.jpg'
 
 
 

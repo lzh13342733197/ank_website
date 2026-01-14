@@ -1,4 +1,6 @@
 <template>
+  <img v-if="!isMobile" style="width: 100%" :src="factoryBannerPc" alt="">
+  <img v-else style="width: 100%" :src="factoryBannerMobile" alt="">
   <section class="factory-module">
     <div class="factory-header">
       <!-- <div class="factory-title">Our Factory</div> -->
@@ -14,9 +16,9 @@
 
     <!-- 2. Testing 测试流程板块 -->
     <div class="factory-section testing-section">
-      <div class="section-subtitle">         
+      <div class="section-subtitle">
         {{ t('factory.testing.subtitle') }}
-</div>
+      </div>
 
       <!-- 2.1 测试设备部分 -->
       <div class="testing-equipment">
@@ -92,8 +94,12 @@ import testingProcess2 from '@/assets/images/Factory/8测试过程1280-720-2.jpg
 import testingProcess3 from '@/assets/images/Factory/8测试过程1280-720-3.jpg'
 import testingProcess4 from '@/assets/images/Factory/8测试过程1280-720-4.jpg'
 import testingProcess5 from '@/assets/images/Factory/9测试室1280-720.jpg'
-import testingProcess6 from '@/assets/images/Factory/10测试1280-720.jpg' 
-import testingProcess7 from '@/assets/images/Factory/11生产线1280-720.jpg' 
+import testingProcess6 from '@/assets/images/Factory/10测试1280-720.jpg'
+import testingProcess7 from '@/assets/images/Factory/11生产线1280-720.jpg'
+
+import factoryBannerPc from '@/assets/images/Factory/factory_banner_pc.jpg'
+import factoryBannerMobile from '@/assets/images/Factory/factory_banner-mobile.jpg'
+const isMobile = computed(() => window.innerWidth <= 768)
 
 // 路由Tab切换状态（优先从路由获取，实现路由联动）
 const currentTab = ref<string>(
@@ -190,10 +196,10 @@ const testingEquipments = computed(() => [
     name: t('factory.testing.equipment.list[6].name'),
     image: productionStep7
   },
-  {
-    name: t('factory.testing.equipment.list[7].name'),
-    image: productionStep8
-  },
+  // {
+  //   name: t('factory.testing.equipment.list[7].name'),
+  //   image: productionStep8
+  // },
   {
     name: t('factory.testing.equipment.list[8].name'),
     image: productionStep9
@@ -205,7 +211,7 @@ const testingEquipments = computed(() => [
 // 测试流程图片
 const testingProcessImages = ref([
   testingProcess1,
-  testingProcess2,
+  // testingProcess2,
   testingProcess3,
   testingProcess4,
   testingProcess5,
@@ -391,7 +397,7 @@ const testingProcessImages = ref([
 /* 测试设备样式 */
 .equipment-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   margin-bottom: 60px;
 }
@@ -402,7 +408,7 @@ const testingProcessImages = ref([
 
 .equipment-item img {
   width: 100%;
-  height: 180px;
+  /* height: 180px; */
   object-fit: contain;
   border-radius: 4px;
   margin-bottom: 10px;
@@ -423,13 +429,12 @@ const testingProcessImages = ref([
 /* 测试流程图片 */
 .process-images {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 
 .process-images img {
   width: 100%;
-  height: 200px;
   object-fit: cover;
   border-radius: 4px;
 }
@@ -549,6 +554,7 @@ const testingProcessImages = ref([
   .factory-header {
     display: block;
   }
+
   .factory-module {
     padding: 20px 10px;
   }

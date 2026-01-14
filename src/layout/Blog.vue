@@ -1,8 +1,8 @@
 <template>
 
   <div class="top_img">
-    <!-- <img v-if="!isMobile" style="width: 100%" src="https://picsum.photos/1920/300" alt="">
-    <img v-else style="width: 100%" src="https://picsum.photos/500/200" alt=""> -->
+    <img v-if="!isMobile" style="width: 100%" src="@/assets/images/blog_banner_pc.jpg" alt="">
+    <img v-else style="width: 100%" src="@/assets/images/blog_banner_mobile.jpg" alt="">
   </div>
   <div class="blog-container">
 

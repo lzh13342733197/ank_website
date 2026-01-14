@@ -17,10 +17,14 @@ export default {
     Production: "Production",
     Testing: "Testing",
   },
+  social:{
+    followUs: "Follow Us",
+    explore:"Explore our factory live streams and latest updates."
+  },
   home: {
     MORE: "More",
     aboutUs: "ABOUT US",
-    homeAboutUs: `Ankbit is a high-tech enterprise specializing in audio equipment manufacturing, with profound technical expertise and production experience in earphones, speakers, and Bluetooth transceivers. We provide comprehensive <strong> ODM, OEM, and CUSTOMIZATION SERVICES </strong> covering product definition, industrial design, hardware/software R&D, and mass production. Supported by a complete supply chain and automated production lines, we are committed to delivering high-quality, customizable, one-stop audio solutions to global clients with strict quality control and agile delivery capabilities.`,
+    homeAboutUs: `Ankbit was established in February 2012. Since 2019, we have focused on the audio equipment and digital products sector, with a product line covering noise-canceling headphones, TWS bluetooth earphones, speakers, audio transceivers, professional decoders, and power amplifiers.`,
     companyName: "Shenzhen Ankbit Electronics Limited",
     partner: "Partners",
     PRODUCTS_SHOW: "Hot Sales",
@@ -113,9 +117,9 @@ export default {
     title: "Research & Development",
     teamIntro: "Team Introduction",
     teamDesc1:
-      "Shenzhen Ankbit Electronics Limited has spent years building a large-scale and strong R&D center. It has built a professional and innovative scientific research team composed of undergraduate, master and doctoral degree researchers, including professional acoustic doctors with many years of industry R&D experience, leaders in the field of wireless audio, various designers, software and hardware engineers.",
+      "Over the years, we have built a large and robust R&D center, forming a professional and innovative research team composed of bachelor's, master's, and doctoral graduates. The team includes acoustic PhDs, wireless audio experts, designers, and hardware/software engineers—nearly 200 professionals in total—providing strong support for high-quality products.",
     teamDesc2:
-      "A comprehensive innovation center with up to 200 people guarantees Ankbit's high-quality products.",
+      "Leveraging strong independent innovation capabilities and a deep-rooted commitment to quality, Ankbit has evolved into a high-tech enterprise with a complete industrial chain, integrating R&D, production, and sales. Under the strategic guidance of the board of directors and management committee, we are setting sail toward a broader future.",
     teamDesc3:
       "Over the years, relying on the company's strong strength, its own innovative R&D capabilities and in-depth quality philosophy,",
     teamDesc4:
@@ -130,6 +134,8 @@ export default {
     },
     patents:
       "The company's independently developed products have passed 3C, CE, FCC, BQB, ROHS, Hi-Res and other inspections and certifications, and have obtained more than 150 utility model patents in the United States, the European Union, the United Kingdom, Japan and other countries.",
+    patents1:
+      "We have been honored with the ISO 9001 Quality Management System Certification, High-Tech Enterprise Certificate, and Specialized, Refined, Distinctive, and Innovative SME Certification, three authoritative credentials that fully demonstrate our core competitiveness, thanks to our outstanding technical capabilities and rigorous quality management.",
   },
   company: {
     profile: {
@@ -185,11 +191,11 @@ export default {
     companyProfile: {
       title: "R & D",
       firstParagraph:
-        "Ankbit is a high-tech enterprise specializing in audio equipment manufacturing, with profound technical expertise and production experience in earphones, speakers, and Bluetooth transceivers. We provide comprehensive ODM, OEM, and deep customization services covering product definition, industrial design, hardware/software R&D, and mass production. Supported by a complete supply chain and automated production lines, we are committed to delivering high-quality, customizable, one-stop audio solutions to global clients with strict quality control and agile delivery capabilities.",
+        "We provide <strong>ODM, OEM, and CUSTOMIZATION</strong> services spanning product definition, industrial design, software/hardware development, and mass production, supported by a robust supply chain and automated production lines. Leveraging stringent quality control and efficient delivery capabilities, we are committed to offering global clients high-quality, customizable one-stop audio solutions.",
       secondParagraph:
-        "Over 85% of our sales and R&D staff hold bachelor’s or master’s degrees, and our products have been sold in more than a dozen countries and regions. Ankbit adheres to an engineering-driven culture, guided by the philosophy of creating value through design. With a pragmatic and dedicated approach, we are committed to deepening our expertise in the audio field and striving to become a leading technology enterprise in the audio industry.",
+        "Over 85% of our sales and R&D team members hold bachelor's or master's degrees, and our products have been exported to more than ten countries and regions worldwide. ",
       thirdParagraph:
-        "Founded in February 2012, we are a modern enterprise integrating R&D, production, and sales. Since 2019, we have focused on audio equipment and digital products, offering a range including audio transceivers, professional decoders, earphones, power amplifiers, high-quality true wireless stereo (TWS) Bluetooth headphones, noise-canceling headphones, gaming headsets, and more—all aimed at providing users with a superior audiovisual experience and a more comfortable lifestyle.",
+        `Ankbit upholds an engineering-driven corporate culture, guided by the principle of "Creating Value through Design", and remains dedicated to practical focus and continuous innovation in the audio field, striving to become a leading technology enterprise in the industry.`,
     },
     VisionAndMission: {
       title: "Vision and Mission",
@@ -209,7 +215,7 @@ export default {
     },
     awards: {
       description:
-        'Our product design focuses not only on aesthetics but also on superior user experience. With innovative design concepts, we have been honored with multiple international awards, including the French DNA Design Awards, London Design Awards, American Muse Design Awards, and the prestigious German Red Dot Design Award, often regarded as the "Oscar" of industrial design. These accolades are the best testament to our design team\'s expertise and forward-thinking vision.',
+        'Our product design focuses not only on aesthetics but also on delivering an exceptional user experience. With innovative design concepts, we have been honored with multiple international awards, including the <strong>French DNA Paris Design Awards, London Design Awards, American Muse Design Awards, and the prestigious German Red Dot Design Award</strong>, often referred to as the "Oscar" of the industrial design world. These accolades stand as the best testament to our design team\'s professional expertise and forward-thinking vision.',
     },
     DevelopmentCourse: {
       title: "Development Course",
