@@ -17,6 +17,7 @@
             {{ $t('productDetail.shopNow') }}
           </div>
         </div>
+        <!-- About This Item -->
         <div class="product-detail-info-wrapper">
           <div v-if="productAttrList.length > 0">
             <div class="product-detail-info-item-title">
@@ -25,7 +26,7 @@
 
             <div class="specs-grid">
               <div v-for="(item, index) in productAttrList" :key="item.id || index" class="specs-item">
-                <div class="specs-label">{{ item.name }}</div>
+                <div class="specs-label">{{ item.name }} : </div>
                 <div class="specs-value">{{ item.value }}</div>
               </div>
             </div>
@@ -175,6 +176,7 @@ const handleInquireSubmit = (formData: any) => {
   z-index: 9;
   height: fit-content;
   width: auto;
+  margin-bottom: 3vw;
 }
 
 .detail-swiper {
@@ -233,26 +235,21 @@ const handleInquireSubmit = (formData: any) => {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   /* 核心：一行两列 */
-  border-top: 1px solid #ebeef5;
-  border-left: 1px solid #ebeef5;
   border-radius: 4px;
   overflow: hidden;
 }
 
 .specs-item {
   display: flex;
-  border-right: 1px solid #ebeef5;
   border-bottom: 1px solid #ebeef5;
 }
 
 .specs-label {
-  width: 120px;
-  background-color: #f5f7fa;
-  padding: 12px 15px;
+  min-width: 100px;
+  white-space: nowrap;
   font-weight: 600;
   color: #333;
   font-size: 13px;
-  border-right: 1px solid #ebeef5;
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -264,7 +261,6 @@ const handleInquireSubmit = (formData: any) => {
   color: #666;
   font-size: 13px;
   line-height: 1.4;
-  background-color: #fff;
   display: flex;
   align-items: center;
 }
@@ -311,11 +307,11 @@ const handleInquireSubmit = (formData: any) => {
 
 @media screen and (max-width: 768px) {
   .specs-item {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .specs-label {
-    width: 100%;
+    width: 130px;
     border-right: none;
     border-bottom: 1px solid #ebeef5;
     padding: 8px 12px;

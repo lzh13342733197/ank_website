@@ -36,31 +36,50 @@
             <div class="form-item">
               <div class="form-item-row">
                 <p class="form-item-label">{{ $t('contact.form.ContactLabel') }}</p>
-                <input type="text" v-model="formData.Name" :placeholder="$t('contact.form.Contact')" class="input-field" />
+                <input
+                  type="text"
+                  v-model="formData.Name"
+                  :placeholder="$t('contact.form.Contact')"
+                  class="input-field"
+                />
               </div>
-              <p class="error-msg" v-if="errors.Name">{{ $t('contact.form.required') }}</p>
             </div>
 
             <div class="form-item">
               <div class="form-item-row">
-                <p class="form-item-label">{{ $t('contact.form.EmailLabel') }}</p>
-                <input type="text" v-model="formData.Email" :placeholder="$t('contact.form.Email')" class="input-field" />
+                <p class="form-item-label form-item-required">{{ $t('contact.form.EmailLabel') }}</p>
+                <input
+                  type="text"
+                  v-model="formData.Email"
+                  :placeholder="$t('contact.form.Email')"
+                  class="input-field"
+                />
               </div>
-              <p class="error-msg" v-if="errors.Email">{{ $t('contact.form.required') }}</p>
+              <p class="error-msg" v-if="errors.Email">
+                {{ $t('contact.form.required') }}
+              </p>
             </div>
 
             <div class="form-item">
               <div class="form-item-row align-start">
                 <p class="form-item-label">{{ $t('contact.form.messageLabel') }}</p>
-                <textarea v-model="formData.message" :placeholder="$t('contact.form.message')" class="textarea-field"></textarea>
+                <textarea
+                  v-model="formData.message"
+                  :placeholder="$t('contact.form.message')"
+                  class="textarea-field"
+                ></textarea>
               </div>
-              <p class="error-msg" v-if="errors.message">{{ $t('contact.form.required') }}</p>
             </div>
 
             <div class="form-footer">
-              <button type="submit" class="submit-btn">{{ $t('contact.form.submit') }}</button>
+              <button type="submit" class="submit-btn">
+                {{ $t('contact.form.submit') }}
+              </button>
             </div>
-            <p class="general-error" v-if="generalError">{{ $t('contact.form.generalError') }}</p>
+
+            <p class="general-error" v-if="generalError">
+              {{ $t('contact.form.generalError') }}
+            </p>
           </form>
         </div>
       </transition>
@@ -69,7 +88,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, defineProps } from 'vue';
+import { ref, onMounted, watch, defineProps } from 'vue'
 import { useFetchWithLanguage } from '@/utils/http'
 import { useI18n } from 'vue-i18n'
 import axios from 'axios'
@@ -83,80 +102,95 @@ const props = defineProps({
 })
 
 const { t, locale } = useI18n()
-const submitSuccess = ref(false);
-const generalError = ref(false);
-const productList = ref([]);
+const submitSuccess = ref(false)
+const generalError = ref(false)
+const productList = ref([])
 
 const formData = ref({
   productId: '',
   Name: '',
   Email: '',
   message: ''
-});
+})
 
+/* 仅 Email 校验 */
 const errors = ref({
-  Name: false,
   Email: false,
-  message: false,
-});
+})
 
 const getProductMsg = async () => {
   try {
-    const data = await useFetchWithLanguage.post(`${import.meta.env.VITE_API_URL}/product/getProductSpuList`, {});
-    productList.value = data || [];
+    const data = await useFetchWithLanguage.post(
+      `${import.meta.env.VITE_API_URL}/product/getProductSpuList`,
+      {}
+    )
+    productList.value = data || []
   } catch (error) {
-    console.error('Failed to fetch product list:', error);
+    console.error('Failed to fetch product list:', error)
   }
 }
 
 const resetForm = () => {
-  formData.value = { productId: '', Name: '', Email: '', message: '' };
-  errors.value = { Name: false, Email: false, message: false };
-  submitSuccess.value = false;
-  generalError.value = false;
-};
+  formData.value = {
+    productId: '',
+    Name: '',
+    Email: '',
+    message: ''
+  }
+  errors.value = { Email: false }
+  submitSuccess.value = false
+  generalError.value = false
+}
 
 const handleSubmit = async () => {
   errors.value = {
-    Name: !formData.value.Name.trim(),
     Email: !formData.value.Email.trim(),
-    message: !formData.value.message.trim(),
-  };
+  }
 
-  const hasError = Object.values(errors.value).some((val) => val);
-  generalError.value = hasError;
+  generalError.value = errors.value.Email
 
-  if (!hasError) {
+  if (!generalError.value) {
     const submitData = {
       productSpuld: formData.value.productId,
       name: formData.value.Name,
       email: formData.value.Email,
       comment: formData.value.message,
-    };
+    }
+
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/contactMessage/create`, submitData, {
-        headers: { 'Accept-Language': getCurrentLang(), 'Content-Type': 'application/json' },
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/contactMessage/create`,
+        submitData,
+        {
+          headers: {
+            'Accept-Language': getCurrentLang(),
+            'Content-Type': 'application/json'
+          },
+        }
+      )
+
       if (response.data.code === 1) {
-        submitSuccess.value = true;
-        generalError.value = false;
+        submitSuccess.value = true
+        generalError.value = false
       } else {
-        alert(response.data.msg);
+        alert(response.data.msg)
       }
     } catch (error) {
-      alert("Submission failed.");
+      alert('Submission failed.')
     }
   }
-};
+}
 
 onMounted(() => {
-  getProductMsg();
+  getProductMsg()
   if (props.productSpuId) {
-    formData.value.productId = props.productSpuId;
+    formData.value.productId = props.productSpuId
   }
-});
+})
 
-watch(() => locale.value, () => { getProductMsg() })
+watch(() => locale.value, () => {
+  getProductMsg()
+})
 </script>
 
 <style scoped>
@@ -198,7 +232,11 @@ watch(() => locale.value, () => { getProductMsg() })
   color: #333;
   font-weight: 500;
 }
-
+.form-item-required:after {
+  content: '*';
+  color: #f00;
+  margin-left: 4px;
+}
 .input-field,
 .textarea-field {
   flex: 1;

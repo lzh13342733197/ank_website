@@ -4,7 +4,7 @@
     <div class="brief-information-block">
       <div class="brief-information-block-title">
         <!-- {{ eightLanguage.footer.contactInfo['en'] }} -->
-         {{ $t('footer.ContactInformation') }}
+        {{ $t('footer.ContactInformation') }}
       </div>
       <div class="brief-information-block-content">
         <div class="brief-information-block-content-item">
@@ -29,21 +29,21 @@
           {{ $t('footer.FollowUsInfo') }}
         </div>
         <div class="social-links">
-            <div>
+          <div>
             <a href="https://www.facebook.com/profile.php?id=61585788553085" target="_blank">
               <!-- <SvgIcon :name="`add`" size="24" color="#222"></SvgIcon> -->
-              <img v-lazy="facebook" alt="" class="iconImg"  style="scale: 1.2;">
+              <img v-lazy="facebook" alt="" class="iconImg" >
             </a>
           </div>
-            <div>
+          <div>
             <a href="#" target="_blank">
               <!-- <SvgIcon :name="`add`" size="24" color="#222"></SvgIcon> -->
-              <img v-lazy="linkedin" alt="" class="iconImg" style="scale: 0.8;">
+              <img v-lazy="linkedin" alt="" class="iconImg" >
             </a>
           </div>
           <div>
             <a href="https://x.com/AnkbitSales" target="_blank">
-              <img v-lazy="newTwiter" alt="" class="iconImg" style="scale: 0.8;">
+              <img v-lazy="newTwiter" alt="" class="iconImg">
             </a>
           </div>
           <!-- <div>
@@ -51,7 +51,7 @@
               <img v-lazy="tiktok" alt="" class="iconImg">
             </a>
           </div> -->
-          <div style="width: 20px; height: 20px; scale: 1.4;" >
+          <div>
             <a href="https://www.youtube.com/@Ankbit" target="_blank">
               <img v-lazy="youtube" alt="" class="iconImg">
             </a>
@@ -75,7 +75,8 @@ import youtube from '@/assets/images/footer/youtube.png'
 <style scoped>
 .brief-introduction-container {
   display: flex;
-  flex-wrap: wrap; /* 移动端换行 */
+  flex-wrap: wrap;
+  /* 移动端换行 */
   align-items: center;
   justify-content: space-between;
   gap: 20px;
@@ -85,7 +86,7 @@ import youtube from '@/assets/images/footer/youtube.png'
 
 /* 单个信息区块 */
 .brief-information-block {
- /* flex: 1 1 120px;  自适应宽度，最小250px */
+  /* flex: 1 1 120px;  自适应宽度，最小250px */
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -115,9 +116,10 @@ import youtube from '@/assets/images/footer/youtube.png'
   gap: 10px;
   margin-top: 5px;
 }
+
 .iconImg {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   object-fit: cover;
 }
 
@@ -132,7 +134,7 @@ import youtube from '@/assets/images/footer/youtube.png'
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
-  padding: 20px 0  0 20px ;
+    padding: 20px 0 0 20px;
 
   }
 

@@ -93,7 +93,7 @@ watch(locale, (newLocale) => {
 .awards-grid {
   /* 使用 CSS Grid 实现自动列数 */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 25px;
   align-items: center;
   margin-bottom: 40px;
@@ -185,7 +185,8 @@ watch(locale, (newLocale) => {
 /* ================= 响应式适配 ================= */
 @media (max-width: 768px) {
   .awards-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+      align-items: center;
     gap: 15px;
   }
   

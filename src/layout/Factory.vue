@@ -8,6 +8,9 @@
     <div class="factory-header">
       <!-- <div class="factory-title">Our Factory</div> -->
       <div class="section-tab-wrapper">
+        <div class="section-tab-item" :class="{ active: currentTab === 'overView' }" @click="switchTab('overView')">
+          {{ t('factory.Overview.subtitle') }}
+        </div>
         <div class="section-tab-item" :class="{ active: currentTab === 'production' }" @click="switchTab('production')">
           {{ t('factory.production.subtitle') }}
         </div>
@@ -26,15 +29,14 @@
 
       <!-- 生产流程步骤列表 -->
       <div class="production-steps">
-        <div class="step-item" v-for="(step, index) in productionSteps" :key="index">
-          <div class="step-number">{{ index + 1 }}</div>
+        <div class="step-item" :class="{ 'reverse': index % 2 === 1 }" v-for="(step, index) in productionSteps" :key="index">
           <div class="step-content">
+            <!-- <div class="step-number">{{ index + 1 }}</div> -->
             <div class="step-title">
-              {{ step.title }}
+              <div  class="step-number">{{ index + 1 }}</div><div>{{ step.title }}</div>
             </div>
             <div class="step-desc">
               {{ step.desc }}
-              <br />
             </div>
           </div>
           <div class="step-image">
@@ -46,30 +48,6 @@
       </div>
     </div>
 
-    <!-- 2. Testing 测试板块（路由跳转占位/直接展示） -->
-    <div class="factory-section testing-section" v-if="currentTab === 'testing'">
-      <div class="section-desc">
-        {{ t('factory.testing.desc') || 'Testing Process & Equipment Introduction' }}
-      </div>
-
-      <!-- 测试设备展示 -->
-      <div class="equipment-grid">
-        <div class="equipment-item" v-for="(equipment, index) in testingEquipments" :key="index">
-          <img :src="equipment.image" :alt="equipment.name" loading="lazy"
-            @click="openImagePreview(equipment.image, equipment.name)" class="clickable-image" />
-          <div class="equipment-name">{{ equipment.name }}</div>
-        </div>
-      </div>
-
-      <!-- 测试流程图片 -->
-      <div class="section-subtitle" style="margin-top: 40px;">Testing Process</div>
-      <div class="process-images">
-        <div v-for="(img, index) in testingProcessImages" :key="index" class="process-img-item">
-          <img :src="img" :alt="`Testing Process ${index + 1}`" loading="lazy"
-            @click="openImagePreview(img, `Testing Process ${index + 1}`)" class="clickable-image" />
-        </div>
-      </div>
-    </div>
 
     <!-- 图片预览弹窗 -->
     <div class="image-preview-modal" v-if="previewVisible" @click.self="closeImagePreview">
@@ -108,12 +86,15 @@ const currentTab = ref<string>(
 );
 
 // 切换Tab + 路由跳转
-const switchTab = (tab: 'production' | 'testing') => {
+const switchTab = (tab: 'production' | 'testing' | 'overView') => {
   currentTab.value = tab;
   // 根据Tab跳转对应路由
   if (tab === 'testing') {
     router.push('/Factory/Testing');
-  } else {
+  } else if (tab === 'overView') {
+    router.push('/Factory/Overview'); // 生产板块默认跳回首页（可根据实际需求修改）
+  }
+  else {
     router.push('/Factory/Production'); // 生产板块默认跳回首页（可根据实际需求修改）
   }
 };
@@ -121,7 +102,7 @@ const switchTab = (tab: 'production' | 'testing') => {
 // 监听路由变化，同步Tab状态
 onMounted(() => {
   const routeWatcher = router.afterEach((to) => {
-    currentTab.value = to.path === '/Factory/Testing' ? 'testing' : 'production';
+    currentTab.value = to.path === '/Factory/Testing' ? 'testing' : to.path === '/Factory/Overview' ? 'overView' : 'production';
   });
 
   // 组件卸载时取消监听
@@ -329,41 +310,66 @@ const testingProcessImages = ref([
 .production-steps {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 60px;
 }
 
 .step-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+
+/* 奇数项：文字在左40%，图片在右60% */
+.step-item:not(.reverse) {
+  grid-template-columns: 4fr 6fr;
+}
+
+.step-item:not(.reverse) .step-content {
+  order: 1;
+}
+
+.step-item:not(.reverse) .step-image {
+  order: 2;
+}
+
+/* 偶数项：图片在左60%，文字在右40% */
+.step-item.reverse {
+  grid-template-columns: 6fr 4fr;
+}
+
+.step-item.reverse .step-image {
+  order: 1;
+}
+
+.step-item.reverse .step-content {
+  order: 2;
+}
+
+.step-content {
   padding: 20px;
-  background: #f9f9f9;
-  border-radius: 8px;
 }
 
 .step-number {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background: #0095d7;
   color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  font-weight: 600;
-  flex-shrink: 0;
-}
-
-.step-content {
-  flex: 1;
+  font-size: 24px;
+  font-weight: 700;
 }
 
 .step-title {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 600;
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .step-title-en {
@@ -375,8 +381,8 @@ const testingProcessImages = ref([
 }
 
 .step-desc {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.8;
   color: #666;
 }
 
@@ -388,11 +394,11 @@ const testingProcessImages = ref([
 }
 
 .step-image {
-  width: 200px;
-  height: 150px;
-  flex-shrink: 0;
-  border-radius: 4px;
+  width: 100%;
+  height: 350px;
+  border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .step-image img {
@@ -532,14 +538,40 @@ const testingProcessImages = ref([
     font-size: 20px;
   }
 
-  .step-item {
-    flex-direction: column;
-    gap: 15px;
+  /* 移动端：单列上下布局 */
+  .step-item,
+  .step-item.reverse {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+
+  /* 移动端统一布局顺序：文字在上，图片在下 */
+  .step-item .step-content,
+  .step-item.reverse .step-content {
+    order: 1 !important;
+  }
+
+  .step-item .step-image,
+  .step-item.reverse .step-image {
+    order: 2 !important;
   }
 
   .step-image {
-    width: 100%;
-    height: 200px;
+    height: 220px;
+  }
+
+  .step-number {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+
+  .step-title {
+    font-size: 18px;
+  }
+
+  .step-desc {
+    font-size: 14px;
   }
 
   .equipment-grid {

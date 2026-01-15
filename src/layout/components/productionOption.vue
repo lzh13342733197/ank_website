@@ -1,164 +1,129 @@
 <template>
-  <div class="box">
-    <div class="production_info">{{$t('productDetail.productInfo')}}</div>
-    <div class="optionItem" v-for="item in categoryList" :key="item.id" @click="handleChange(item.id)"
-      @mouseenter="handleMouseEnter(item.id)" @mouseleave="handleMouseLeave" :class="{ 'actived': item.id === activeId }">
-      <div :class="{ 'hovered': item.id === hoverId || item.id === activeId }" style="white-space-collapse: collapse;" type="" link
-        @click="handleChange(item.id)">{{ item.name }}</div>
-      <div class="arrow" v-if="item.id === activeId || item.id === hoverId" style="color: #0095d7;">></div>
+  <div class="category-bar" >
+    <!-- PC 标题 -->
+    <div class="title" :style="{display: !isMobile ? 'block' : 'none' }" >
+      {{ $t('productDetail.productInfo') }}
     </div>
+
+    <!-- 下拉选择 -->
+    <el-select
+      v-model="activeId"
+      class="category-select"
+      popper-class="category-popper"
+      @change="handleChange"
+    >
+      <el-option
+        v-for="item in categoryList"
+        :key="item.id"
+        :label="item.name"
+        :value="item.id"
+      />
+    </el-select>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-const route = useRoute()
-const router = useRouter()
-const activeId = ref('')
-const hoverId = ref('')
+import type { PropType } from 'vue'
+
 type CategoryItem = {
   id: string
   name: string
-  children: CategoryItem[]
+  children?: CategoryItem[]
 }
+
 const props = defineProps({
   categoryList: {
     type: Array as PropType<CategoryItem[]>,
     default: () => [],
   },
 })
-const emit = defineEmits(['changeOption'])
+
+const emit = defineEmits<{
+  (e: 'changeOption', id: string): void
+}>()
+
+const route = useRoute()
+const router = useRouter()
+
+const activeId = ref<string>('')
+
+/* 是否移动端 */
+const isMobile = computed(() => window.innerWidth < 1355)
+
 const handleChange = (id: string) => {
   activeId.value = id
   emit('changeOption', id)
-  // 改变路由参数
+
   router.push({
     query: {
       ...route.query,
       categoryId: id,
-    }
+    },
   })
 }
+
 onMounted(async () => {
   await nextTick()
-  const curId = route.query.categoryId || props.categoryList[0].id
-  activeId.value = curId
-  emit('changeOption', curId)
+  const curId =
+    (route.query.categoryId as string) ||
+    props.categoryList?.[0]?.id
+
+  if (curId) {
+    activeId.value = curId
+    emit('changeOption', curId)
+  }
 })
-
-// 鼠标进入事件处理函数
-const handleMouseEnter = (itemId: string) => {
-  hoverId.value = itemId
-}
-
-// 鼠标离开事件处理函数
-const handleMouseLeave = () => {
-  hoverId.value = ''
-}
 </script>
+
 <style scoped>
-.box {
-  width: 420px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  font-weight: 400;
-}
-
-.optionItem {
-  padding: 10px 20px;
-  border-bottom: 1px solid #ccc;
-  background-color: #fff;
-  cursor: pointer;
-  transition: all 0.3s linear;
-  white-space: nowrap;
-  display: flex;
-  justify-content: space-between;
-}
-
-.production_info {
-  padding: 0 20px;
-  border-bottom: 1px solid #ccc;
-  white-space: nowrap;
-  height: 55px;
-  line-height: 55px;
-  font-size: 18px;
-  font-family: '微软雅黑';
-  background-color: rgba(229, 229, 229, 0.9);
-  text-align: left;
-}
-
-.optionItem:last-child {
-  border-bottom: none;
-}
-
-.optionItem:active {
-  transform: scale(0.99);
-}
-
-.hovered {
-  transform: translateX(5px);
-  transition: transform 0.3s ease-out;
- 
-}
-
-
-/* 
-
-
-@media (max-width: 768px) {
- 
-}
-
-@media (min-width: 768px) {
-
-}
-
-*/
-
-/* 移动 */
-@media (max-width: 1355px) {
- .production_info{
-  display: none;
- }
- .box {
+/* 通栏整体 */
+.category-bar {
   width: 100%;
+  height: 64px;
+  padding: 20px;
   display: flex;
-  flex-direction: row;
-  border: none;
-  font-size: 12px;
-  font-weight: 400;
-  overflow: auto;
-  gap: 10px;
-  padding-left: 10px;
-  scrollbar-width: none;
+  align-items: center;
+  gap: 16px;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  box-sizing: border-box;
+  border-radius: 18px;
 }
-.optionItem{
-  border: none;
-  border: 1px solid #000;
-  width: auto;
+
+/* 标题（PC） */
+.title {
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
 }
-.optionItem:last-child {
-  border-bottom: 1px solid #000;
+
+/* 下拉框 */
+.category-select {
+  width: 260px;
 }
-.actived{
-  background-color: #000;
-  color: #fff;
+
+/* 移动端 */
+@media (max-width: 1355px) {
+  .category-bar {
+    height: auto;
+    padding: 20px;
+  }
+
+  .category-select {
+    width: 100%;
+  }
+   :deep(.category-select input) {
+    font-size: 16px !important;
+  }
 }
-.arrow{
-  display: none;
-}
-}
-/* pc */
-@media (min-width: 1355px) {
-.box{
-  background-color: white;
-}
-.hovered {
+</style>
+
+<!-- 非 scoped，用于 el-select 下拉样式 -->
+<style>
+.category-popper .el-select-dropdown__item.is-selected {
   color: #0095d7;
-}
+  font-weight: 500;
 }
 </style>

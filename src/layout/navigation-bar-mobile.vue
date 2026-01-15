@@ -67,7 +67,7 @@ const menus = ref([
     // ] 
   },
   { id: 3, name: 'Products', url: '/ProductCenter', isActive: false },
-  { id: 4, name: 'Fair', url: '/NewsList', isActive: false },
+  { id: 4, name: 'Exhibitions', url: '/NewsList', isActive: false },
   { id: 6, name: 'Contact', url: '/Contact_us', isActive: false,
   },
 ])

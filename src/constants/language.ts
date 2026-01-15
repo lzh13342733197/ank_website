@@ -49,7 +49,7 @@ const productDetailInfo = {
 const footer = {
   copyright: returnEightLanguage(
     'Copyright © 深圳市爱科贝电子有限公司 | All Rights Reserved',
-    'Copyright © 2019 Shenzhen Ankbit Electronics Limited | All Rights Reserved',
+    'Copyright © 2026 Shenzhen Ankbit Electronics Limited | All Rights Reserved',
     '',
     '',
     '',

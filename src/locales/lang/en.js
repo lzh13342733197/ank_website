@@ -7,15 +7,16 @@ export default {
     Credentials: "Credentials",
     Products: "Product Category",
     Factory: "Factory",
-    Fair: "Fair",
+    Exhibitions: "Exhibitions",
     Blog: "Blog",
     Contact: "Contact Us",
     pleaseInputKeyword: "Search",
     search: "Search",
     searchPlaceholder: "Enter the keyword",
     showDetails: "Show Details",
-    Production: "Production",
-    Testing: "Testing",
+    Production: "SO",
+    Testing: "QA",
+    Overview: "The entire factory layout",
   },
   social:{
     followUs: "Follow Us",
@@ -97,7 +98,7 @@ export default {
       submitSuccessDesc: "We will contact you as soon as possible!",
       continue: "Continue",
       generalError:
-        "One or more fields have not been filled in as required. Please check and try again.",
+        "One have not been filled in as required. Please check and try again.",
       captcha: "Please enter captcha",
       captchaError: "Captcha error",
     },
@@ -184,7 +185,7 @@ export default {
     },
   },
   news: {
-    title: "Fair",
+    title: "Exhibitions",
   },
   aboutUs: {
     title: "About Us",
@@ -259,13 +260,17 @@ export default {
     ContactInformation: "Contact Information",
     Address:
       "Address：4th Floor, Bldg B, Runfeng Industrial Park, Baoan, Shenzhen, Guangdong, China",
-    Phone: "Tel：0755-27903287",
-    Email: "Email： sales{'@'}ankbit.com",
+    Phone: "Tel：+86-755-27903287 （9:00 AM - 6:00 PM）",
+    Email: "Email： Sales{'@'}ankbit.com",
     FollowUs: "Follow Us",
     FollowUsInfo: "Get our updates, please contact us through one of following channels.",
   },
   factory: {
     title: "Our Factory",
+    Overview: {
+      subtitle: "Overview",
+    },
+    
     production: {
       subtitle: "Production",
       desc: "Through standardized processes and stringent quality control, we provide our clients with stable and reliable audio product manufacturing services.",
@@ -301,7 +306,7 @@ export default {
       ],
     },
     testing: {
-      subtitle: "Testing",
+      subtitle: "QA",
       equipment: {
         title: "Comprehensive Testing Capabilities",
         desc: "We are equipped with a full range of professional testing equipment, establishing a robust testing environment. From functional verification to performance evaluation, all equipment is regularly calibrated and maintained to ensure accurate and reliable test data, providing a solid hardware foundation for product quality.",

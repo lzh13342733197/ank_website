@@ -71,7 +71,7 @@
 @media (min-width: 1355px) {
   .card-peek-list > * {
     /* 三栏，中间有 2 个 gap (2 * 20px = 40px) */
-    flex-basis: calc((100% - 40px) / 3); 
+ flex-basis: calc((100% - (@item-gap * 3)) / 4);
     flex-shrink: 0;
  
   }

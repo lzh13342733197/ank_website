@@ -102,6 +102,10 @@ const router = createRouter({
             {
               path: 'Testing',
               component: () => import('../layout/Testing.vue'),
+            },
+            {
+              path: 'Overview',
+              component: () => import('../layout/Overview.vue'),
             }
           ]
         },

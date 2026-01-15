@@ -134,11 +134,13 @@ const menus = computed(() => {
       ]
     },
     { name: t('navigationBar.Factory'), url: '/Factory/Production', children: [
+      { id: 3, name: t('navigationBar.Overview'), url: '/Factory/Overview' },
       { id: 1, name: t('navigationBar.Production'), url: '/Factory/Production' },
       { id: 2, name: t('navigationBar.Testing'), url: '/Factory/Testing' },
+
     ] },
     { id: 3, name: t('navigationBar.Products'), url: `/CategoryList` },
-    { id: 4, name: t('navigationBar.Fair'), url: '/NewsList' },
+    { id: 4, name: t('navigationBar.Exhibitions'), url: '/NewsList' },
     { id: 5, name: t('navigationBar.Blog'), url: '/Blog' },
     { id: 6, name: t('navigationBar.Contact'), url: '/Contact_us' },
   ];

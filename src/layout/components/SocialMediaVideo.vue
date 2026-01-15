@@ -20,15 +20,15 @@
                     <SvgIcon name="rightDeltoid" :size="windowWidth > 992 ? 60 : 45" ></SvgIcon>
                   </span>
                 </div>
-                <div v-if="isYouTubeAvailable === false" class="network-tip">
+                <!-- <div v-if="isYouTubeAvailable === false" class="network-tip">
                   YouTube is not available in your region. Click to open in new tab.
-                </div>
+                </div> -->
               </div>
             </template>
           </div>
         </div>
         <!-- 多个链接 -->
-        <div class="links-section">
+        <!-- <div class="links-section">
           <h2 class="section-title">{{ $t('social.followUs') || 'Follow Us' }}</h2>
           <p class="section-desc">
            {{ $t('social.explore') || 'Explore our factory live streams and latest updates.' }}
@@ -47,7 +47,7 @@
               </div>
             </a>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>

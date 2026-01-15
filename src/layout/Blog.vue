@@ -1,5 +1,5 @@
 <template>
-
+<div style="margin-bottom: 300px;">
   <div class="top_img">
     <img v-if="!isMobile" style="width: 100%" src="@/assets/images/blog_banner_pc.jpg" alt="">
     <img v-else style="width: 100%" src="@/assets/images/blog_banner_mobile.jpg" alt="">
@@ -40,6 +40,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script setup lang="ts">

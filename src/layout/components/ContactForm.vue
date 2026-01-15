@@ -47,13 +47,13 @@
             <form @submit.prevent="handleSubmit">
               
               <div class="form-group" :class="{ 'has-error': errors.Name }">
-                <p class="form-label">{{ $t('contact.form.ContactLabel') }}</p>
+                <p class="form-label ">{{ $t('contact.form.ContactLabel') }}</p>
                 <input type="text" v-model="formData.Name" :placeholder="$t('contact.form.Contact')" class="input-field" />
                 <p class="error-msg" v-if="errors.Name">{{ $t('contact.form.required') }}</p>
               </div>
 
               <div class="form-group" :class="{ 'has-error': errors.Email }">
-                <p class="form-label">{{ $t('contact.form.EmailLabel') }}</p>
+                <p class="form-label form-label1">{{ $t('contact.form.EmailLabel') }}</p>
                 <input type="email" v-model="formData.Email" :placeholder="$t('contact.form.Email')" class="input-field" />
                 <p class="error-msg" v-if="errors.Email">{{ $t('contact.form.required') }}</p>
               </div>
@@ -88,20 +88,18 @@ const submitSuccess = ref(false);
 const generalError = ref(false);
 
 const formData = ref({ Name: '', Email: '', message: '' });
-const errors = ref({ Name: false, Email: false, message: false });
+const errors = ref({  Email: false });
 
 const resetForm = () => {
   formData.value = { Name: '', Email: '', message: '' };
-  errors.value = { Name: false, Email: false, message: false };
+  errors.value = { Email: false };
   submitSuccess.value = false;
   generalError.value = false;
 };
 
 const handleSubmit = async () => {
   errors.value = {
-    Name: !formData.value.Name.trim(),
     Email: !formData.value.Email.trim(),
-    message: !formData.value.message.trim(),
   };
 
   const hasError = Object.values(errors.value).some((val) => val);
@@ -240,9 +238,9 @@ const handleSubmit = async () => {
   color: #444;
 }
 
-.form-label::after {
+.form-label1::after {
   content: " *";
-  color: #0095d7;
+  color: #ff4d4f;
 }
 
 .input-field,

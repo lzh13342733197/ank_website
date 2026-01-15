@@ -5,11 +5,11 @@
   </div>
   <SkeletonComponent :loading="loading" />
   <div style="max-width: 1600px; margin: 0 auto;">
-    <div v-if="!loading" class="card-wrap-container" style="display: flex; gap: 40px;">
+    <div v-if="!loading" class="card-wrap-container" style="display: flex; flex-direction: column; gap: 20px;">
       <div class="leftOption">
         <production-option :category-list="categoryList" @changeOption="handleChangeOption" />
       </div>
-      <div class="rightProduction">
+      <div class="rightProduction" v-loading="loading">
         <card-peek-list ref="cardPeekListRef" :id="currentId" :title="'null'" :card-list="currentData" />
       </div>
     </div>
@@ -272,6 +272,9 @@ defineExpose({
   .productCenter-title {
     font-size: 48px;
   }
+  .card-wrap-container {
+  padding: 0 20px;
+}
 }
 
 .productCenter-head {

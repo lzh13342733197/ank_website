@@ -1,14 +1,7 @@
 <template>
-  <div 
-    :class="[styles.cardPreview, 'card-preview-container']" 
-    @click="handleClick"
-  >
+  <div :class="[styles.cardPreview, 'card-preview-container']" @click="handleClick">
     <div class="card-image-wrapper">
-      <img 
-        v-lazy="props.detail.imageUrls[0]" 
-        alt="product" 
-        class="card-image" 
-      />
+      <img v-lazy="props.detail.imageUrls[0]" alt="product" class="card-image" />
     </div>
 
     <div class="card-preview-item">
@@ -44,13 +37,10 @@ const handleClick = () => {
    1. 容器样式 (原内联样式)
    ================================= */
 .card-preview-container {
-  /* width: 313px;*/
-  height: 480px;
-  /* 326px; */
+
   background-color: #fff;
   border-radius: 18px;
   position: relative;
-  /* 避免重复定义，使用从 less 导入的 styles.cardPreview */
 }
 
 /* =================================
@@ -83,18 +73,20 @@ const handleClick = () => {
 .card-title-text {
   font-size: 20px;
   font-weight: 400;
-  
+
   /* 文本截断（省略号）样式 */
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* 限制 2 行 */
+  -webkit-line-clamp: 2;
+  /* 限制 2 行 */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  
+
   /* 行高和高度控制 */
-  height: 48px; /* 2行 * 24px line-height */
-  line-height: 24px; 
-  margin: 0; 
+  height: 48px;
+  /* 2行 * 24px line-height */
+  line-height: 24px;
+  margin: 0;
 }
 
 /* =================================
@@ -104,19 +96,32 @@ const handleClick = () => {
   position: relative;
   top: 380px;
   /* 231px; */
-  width: 280px; /* PC 默认宽度 */
+  width: 231px;
+  /* PC 默认宽度 */
   margin: auto;
   text-align: center;
 }
 
 /* PC 端样式 (min-width: 768px) - 保持原样 */
 @media (min-width: 768px) {
+
   /* * 由于我们已经设置了 .card-preview-item 的默认 width: 280px; 
    * 这一块可以省略，除非你想设置不同的 PC 宽度。
    */
   /* .card-preview-item {
     width: 280px;
   } */
+  .card-image-wrapper {
+    width: 200px;
+  }
+
+  .card-preview-item {
+    top: 310px;
+  }
+
+  .card-preview-container {
+    height: 410px;
+  }
 }
 
 /* 移动端样式 (max-width: 768px) - 保持原样 */
@@ -125,11 +130,17 @@ const handleClick = () => {
     width: calc((100vw - 100px) / 2);
     top: 231px;
   }
-  .card-title-text{
+
+  .card-image-wrapper {
+    width: 160px;
+  }
+
+  .card-title-text {
     font-size: 16px;
   }
-  .card-preview-container{
-    height: 326px;
+
+  .card-preview-container {
+    height: 310px;
   }
 }
 </style>

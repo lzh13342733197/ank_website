@@ -14,35 +14,18 @@
         <div class="section-tab-item" :class="{ active: currentTab === 'QA' }" @click="switchTab('QA')">
           QA
         </div>
+        
       </div>
     </div>
 
     <!-- 2. Testing 测试流程板块 -->
     <div class="factory-section testing-section">
       <div class="section-subtitle">
-        {{ t('factory.testing.subtitle') }}
+        {{ t('factory.Overview.subtitle') }}
       </div>
-
-      <!-- 2.2 双重全检流程 -->
-      <div class="testing-process">
-        <div class="section-desc">
-          {{ t('factory.testing.process.title') }}
-          <p class="desc-detail">
-            {{ t('factory.testing.process.desc') }}
-          </p>
-        </div>
-
-        <!-- 测试过程图片 -->
-        <div class="process-images">
-          <img v-for="(img, index) in testingProcessImages" :key="index" :src="img" alt="测试流程" loading="lazy"
-            @click="openImagePreview(img, `测试流程-${index + 1}`)" class="clickable-image" />
-        </div>
-      </div>
-
-
 
       <!-- 2.1 测试设备部分 -->
-      <div class="testing-equipment" style="margin-top: 20px;">
+      <div class="testing-equipment">
         <div class="section-desc">
           {{ t('factory.testing.equipment.title') }}
           <p class="desc-detail">
@@ -62,7 +45,21 @@
         </div>
       </div>
 
-    
+      <!-- 2.2 双重全检流程 -->
+      <div class="testing-process">
+        <div class="section-desc">
+          {{ t('factory.testing.process.title') }}
+          <p class="desc-detail">
+            {{ t('factory.testing.process.desc') }}
+          </p>
+        </div>
+
+        <!-- 测试过程图片 -->
+        <div class="process-images">
+          <img v-for="(img, index) in testingProcessImages" :key="index" :src="img" alt="测试流程" loading="lazy"
+            @click="openImagePreview(img, `测试流程-${index + 1}`)" class="clickable-image" />
+        </div>
+      </div>
     </div>
 
     <!-- 图片预览弹窗 -->
@@ -110,7 +107,7 @@ const isMobile = computed(() => globalThis.innerWidth <= 768)
 
 // 路由Tab切换状态（优先从路由获取，实现路由联动）
 const currentTab = ref<string>(
-  route.path === '/Factory/Testing' ? 'QA' : route.path === '/Factory/Overview' ? 'overView' : 'production' 
+  route.path === '/Factory/Testing' ? 'QA' : route.path === '/Factory/Overview' ? 'overView' : 'production'
 );
 
 // 切换Tab + 路由跳转
@@ -120,7 +117,7 @@ const switchTab = (tab: 'production' | 'QA' | 'overView') => {
   if (tab === 'QA') {
     router.push('/Factory/Testing');
   } else if (tab === 'overView') {
-    router.push('/Factory/Overview'); 
+    router.push('/Factory/Overview'); // 生产板块默认跳回首页（可根据实际需求修改）
   } else {
     router.push('/Factory/Production'); // 生产板块默认跳回首页（可根据实际需求修改）
   }
@@ -129,7 +126,7 @@ const switchTab = (tab: 'production' | 'QA' | 'overView') => {
 // 监听路由变化，同步Tab状态
 onMounted(() => {
   const routeWatcher = router.afterEach((to) => {
-    currentTab.value = to.path === '/Factory/Testing' ?  'QA' : to.path === '/Factory/Overview' ? 'overView' : 'production';
+    currentTab.value = to.path === '/Factory/Testing' ? 'QA' : to.path === '/Factory/Overview' ? 'overView' : 'production';
   });
 
   // 组件卸载时取消监听

@@ -17,6 +17,8 @@ declare module 'vue' {
     DetailSwiper: typeof import('./components/detail-swiper.vue')['default']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
+    ElOption: typeof import('element-plus/es')['ElOption']
+    ElSelect: typeof import('element-plus/es')['ElSelect']
     ImagePreview: typeof import('./components/GlobalPreview/ImagePreview.vue')['default']
     PcDetailSwiper: typeof import('./components/pc-detail-swiper.vue')['default']
     Privacy: typeof import('./components/privacy.vue')['default']
@@ -27,6 +29,9 @@ declare module 'vue' {
     SvgIcon: typeof import('./components/SvgIcon.vue')['default']
     Swiper: typeof import('./components/swiper.vue')['default']
   }
+  export interface GlobalDirectives {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }
 
 // For TSX support
@@ -36,6 +41,8 @@ declare global {
   const DetailSwiper: typeof import('./components/detail-swiper.vue')['default']
   const ElDialog: typeof import('element-plus/es')['ElDialog']
   const ElDrawer: typeof import('element-plus/es')['ElDrawer']
+  const ElOption: typeof import('element-plus/es')['ElOption']
+  const ElSelect: typeof import('element-plus/es')['ElSelect']
   const ImagePreview: typeof import('./components/GlobalPreview/ImagePreview.vue')['default']
   const PcDetailSwiper: typeof import('./components/pc-detail-swiper.vue')['default']
   const Privacy: typeof import('./components/privacy.vue')['default']
