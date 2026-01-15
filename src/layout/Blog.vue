@@ -14,11 +14,13 @@
       <div v-if="isLoading" class="loading">Loading...</div>
 
       <div v-else class="blog-card" v-for="post in blogPostsList" :key="post.id" @click="openDetailModal(post)">
-        <img :src="post.coverImageUrl" :alt="post.title" class="blog-img" />
+       <div v-if="post.title && post.coverImageUrl">
+         <img :src="post.coverImageUrl" :alt="post.title" class="blog-img" />
         <div class="blog-content">
           <h3 class="blog-subtitle">{{ post.title }}</h3>
           <!-- <p class="blog-desc">{{ post.title }}</p> -->
         </div>
+       </div>
       </div>
 
       <div v-if="!isLoading && blogPostsList.length === 0" class="empty">No Blog yet.</div>
@@ -51,7 +53,7 @@ const isModalOpen = ref(false)
 const currentPost = ref<any>(null)
 const blogPostsList = ref<any[]>([])
 const isMobile = computed(() => {
-  return window.innerWidth <= 768
+  return globalThis.innerWidth <= 768
 })
 
 const processedContent = computed(() => {

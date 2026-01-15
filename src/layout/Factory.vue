@@ -101,7 +101,7 @@ import factoryBannerMobile from '@/assets/images/Factory/factory_banner-mobile.j
 const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
-const isMobile = computed(() => window.innerWidth <= 768)
+const isMobile = computed(() => globalThis.innerWidth <= 768)
 // 路由Tab切换状态（优先从路由获取，实现路由联动）
 const currentTab = ref<string>(
   route.path === '/Factory/Testing' ? 'testing' : 'production'

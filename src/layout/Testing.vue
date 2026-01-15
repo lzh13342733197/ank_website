@@ -99,7 +99,7 @@ import testingProcess7 from '@/assets/images/Factory/11生产线1280-720.jpg'
 
 import factoryBannerPc from '@/assets/images/Factory/factory_banner_pc.jpg'
 import factoryBannerMobile from '@/assets/images/Factory/factory_banner-mobile.jpg'
-const isMobile = computed(() => window.innerWidth <= 768)
+const isMobile = computed(() => globalThis.innerWidth <= 768)
 
 // 路由Tab切换状态（优先从路由获取，实现路由联动）
 const currentTab = ref<string>(

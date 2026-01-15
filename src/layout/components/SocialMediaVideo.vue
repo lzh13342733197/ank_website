@@ -38,7 +38,7 @@
             <a v-for="platform in socialPlatforms" :key="platform.name" :href="platform.link" target="_blank"
               class="social-item" :style="{ '--hover-color': platform.color }">
               <div class="icon-box">
-                <SvgIcon name="rightDeltoid" size="30" ></SvgIcon>
+                <SvgIcon name="rightDeltoid" size="30" color="#0095FF" ></SvgIcon>
                 <i :class="['iconfont', platform.icon]"></i>
               </div>
               <div class="platform-info">
@@ -96,10 +96,10 @@ onMounted(async () => {
 
 // 模拟社媒平台数据
 const socialPlatforms = ref([
-  { name: 'YouTube', link: 'https://www.youtube.com/@Ankbit', icon: 'icon-youtube', color: '#FF0000' },
-  { name: 'Facebook', link: 'https://www.facebook.com/profile.php?id=61585788553085', icon: 'icon-facebook', color: '#1877F2' },
-  { name: 'Twitter', link: 'https://x.com/AnkbitSales', icon: 'icon-twitter', color: '#1DA1F2' },
-  { name: 'LinkedIn', link: '/', icon: 'icon-linkedin', color: '#0A66C2' }
+  { name: 'YouTube', link: 'https://www.youtube.com/@Ankbit', icon: 'Youtube.png', color: '#FF0000' },
+  { name: 'Facebook', link: 'https://www.facebook.com/profile.php?id=61585788553085', icon: 'Facebook.png', color: '#1877F2' },
+  { name: 'Twitter', link: 'https://x.com/AnkbitSales', icon: 'newTwiter.png', color: '#1DA1F2' },
+  { name: 'LinkedIn', link: '/', icon: 'LinkedIn.png', color: '#0A66C2' }
 ]);
 </script>
 
@@ -244,10 +244,16 @@ const socialPlatforms = ref([
   font-weight: bold;
   color: #333;
 }
+.platform-action {
+  display: block;
+  font-size: 14px;
+  color: #666;
+}
 
 @media (max-width: 992px) {
   .content-wrapper {
     flex-direction: column;
+    gap: 10px;
   }
 
   .video-section,

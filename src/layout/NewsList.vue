@@ -81,7 +81,7 @@ import news202601CES展2 from '@/assets/images/Fari/4-202601CES展-720-405-2.jpg
 import news202601CES展3 from '@/assets/images/Fari/4-202601CES展-720-405-3.jpg'
 import news202601CES展4 from '@/assets/images/Fari/4-202601CES展-720-405-4.jpg'
 import news202601CES展5 from '@/assets/images/Fari/4-202601CES展-720-405-5.jpg'
-const isMobile = computed(() => window.innerWidth <= 768)
+const isMobile = computed(() => globalThis.innerWidth <= 768)
 // --- 数据定义 ---
 const newsData = ref([
   {
