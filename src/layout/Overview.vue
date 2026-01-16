@@ -6,13 +6,13 @@
       <!-- <div class="factory-title">Our Factory</div> -->
       <div class="section-tab-wrapper">
         <div class="section-tab-item" :class="{ active: currentTab === 'overView' }" @click="switchTab('overView')">
-          Overview
+         {{$t('factory.Overview.subtitle')}}
         </div>
         <div class="section-tab-item" :class="{ active: currentTab === 'production' }" @click="switchTab('production')">
-          Production
+          {{$t('factory.production.subtitle')}}
         </div>
         <div class="section-tab-item" :class="{ active: currentTab === 'QA' }" @click="switchTab('QA')">
-          QA
+          {{$t('factory.testing.subtitle')}}
         </div>
         
       </div>
@@ -27,39 +27,23 @@
       <!-- 2.1 测试设备部分 -->
       <div class="testing-equipment">
         <div class="section-desc">
-          {{ t('factory.testing.equipment.title') }}
           <p class="desc-detail">
-            {{ t('factory.testing.equipment.desc') }}
+            {{ t('factory.Overview.desc') }}
           </p>
         </div>
+
 
         <!-- 测试设备图片网格 -->
         <div class="equipment-grid">
           <div class="equipment-item" v-for="(equipment, index) in testingEquipments" :key="index">
-            <img :src="equipment.image" :alt="equipment.name" loading="lazy"
-              @click="openImagePreview(equipment.image, equipment.name)" class="clickable-image" />
-            <div class="equipment-name">
-              {{ equipment.name }}
-            </div>
+            <img :src="equipment.image" alt="factory" loading="lazy"
+              @click="openImagePreview(equipment.image, 'factory')" class="clickable-image" />
+           
           </div>
         </div>
       </div>
 
-      <!-- 2.2 双重全检流程 -->
-      <div class="testing-process">
-        <div class="section-desc">
-          {{ t('factory.testing.process.title') }}
-          <p class="desc-detail">
-            {{ t('factory.testing.process.desc') }}
-          </p>
-        </div>
 
-        <!-- 测试过程图片 -->
-        <div class="process-images">
-          <img v-for="(img, index) in testingProcessImages" :key="index" :src="img" alt="测试流程" loading="lazy"
-            @click="openImagePreview(img, `测试流程-${index + 1}`)" class="clickable-image" />
-        </div>
-      </div>
     </div>
 
     <!-- 图片预览弹窗 -->
@@ -81,16 +65,15 @@ const route = useRoute(); // 初始化路由实例
 
 const { t } = useI18n();
 
-import productionStep1 from '@/assets/images/Factory/5测试设备RAC耐磨1280-720.jpg'
-import productionStep2 from '@/assets/images/Factory/5测试设备USB插拔1280-720.jpg'
-import productionStep3 from '@/assets/images/Factory/5测试设备耳机夹力1280-720.jpg'
-import productionStep4 from '@/assets/images/Factory/5测试设备耳机扩张1280-720.jpg'
-import productionStep5 from '@/assets/images/Factory/5测试设备高低温1280-720.jpg'
-import productionStep6 from '@/assets/images/Factory/5测试设备酒精耐摩擦1280-720.jpg'
-import productionStep7 from '@/assets/images/Factory/5测试设备蓝牙测试1280-720.jpg'
+import productionStep1 from '@/assets/images/Factory/12工厂外景1280-720.jpg'
+import productionStep2 from '@/assets/images/Factory/13工厂车间1280-720.jpg'
+import productionStep3 from '@/assets/images/Factory/15实验室1280-720.jpg'
+import productionStep4 from '@/assets/images/Factory/14仓库1280-720.jpg'
+import productionStep5 from '@/assets/images/Factory/11生产区1920-1080.jpg'
+import productionStep6 from '@/assets/images/Factory/7办公区1920-1080.jpg'
+import productionStep7 from '@/assets/images/Factory/12展厅1920-1080.jpg'
 import productionStep8 from '@/assets/images/Factory/5测试设备卧式插拔1280-720.jpg'
 import productionStep9 from '@/assets/images/Factory/5测试设备线材弯折1280-720.jpg'
-
 
 // \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\11生产线1280-720.jpg \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\8测试过程1280-720.jpg \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\8测试过程1280-720-2.jpg \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\8测试过程1280-720-3.jpg \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\8测试过程1280-720-4.jpg \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\9测试室1280-720.jpg \\file.1mii\张会强\0店铺装修品牌图\Ankbit官网装修图\4Factory页\10测试1280-720.jpg
 import testingProcess1 from '@/assets/images/Factory/8测试过程1280-720.jpg'
@@ -175,41 +158,33 @@ onUnmounted(() => {
 // 测试设备数据
 const testingEquipments = computed(() => [
   {
-    name: t('factory.testing.equipment.list[0].name'),
     image: productionStep1
   },
   {
-    name: t('factory.testing.equipment.list[1].name'),
     image: productionStep2
   },
   {
-    name: t('factory.testing.equipment.list[2].name'),
     image: productionStep3
   },
   {
-    name: t('factory.testing.equipment.list[3].name'),
     image: productionStep4
   },
   {
-    name: t('factory.testing.equipment.list[4].name'),
     image: productionStep5
   },
+  // {
+  //   image: productionStep6
+  // },
   {
-    name: t('factory.testing.equipment.list[5].name'),
-    image: productionStep6
-  },
-  {
-    name: t('factory.testing.equipment.list[6].name'),
     image: productionStep7
   },
   // {
   //   name: t('factory.testing.equipment.list[7].name'),
   //   image: productionStep8
   // },
-  {
-    name: t('factory.testing.equipment.list[8].name'),
-    image: productionStep9
-  }
+  // {
+  //   image: productionStep9
+  // }
 
 
 ])
@@ -320,7 +295,7 @@ const testingProcessImages = ref([
 
 .desc-detail {
   margin-top: 16px;
-  font-size: 14px;
+  font-size: 20px;
   color: #777;
 }
 
@@ -387,8 +362,8 @@ const testingProcessImages = ref([
 }
 
 .step-image {
-  width: 200px;
-  height: 150px;
+  width:100%;
+  height: auto;
   flex-shrink: 0;
   border-radius: 4px;
   overflow: hidden;
@@ -403,7 +378,7 @@ const testingProcessImages = ref([
 /* 测试设备样式 */
 .equipment-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat( 1fr);
   gap: 20px;
   margin-bottom: 60px;
 }
@@ -503,6 +478,9 @@ const testingProcessImages = ref([
 
 /* 响应式适配 */
 @media (max-width: 768px) {
+  .desc-detail{
+    font-size: 14px;
+  }
   .factory-module {
     padding: 20px 10px;
   }

@@ -6,13 +6,13 @@
       <!-- <div class="factory-title">Our Factory</div> -->
       <div class="section-tab-wrapper">
         <div class="section-tab-item" :class="{ active: currentTab === 'overView' }" @click="switchTab('overView')">
-          Overview
+         {{ t('factory.Overview.subtitle') }}
         </div>
         <div class="section-tab-item" :class="{ active: currentTab === 'production' }" @click="switchTab('production')">
-          Production
+          {{ t('factory.production.title') }}
         </div>
         <div class="section-tab-item" :class="{ active: currentTab === 'QA' }" @click="switchTab('QA')">
-          QA
+          {{ t('factory.testing.subtitle') }}
         </div>
       </div>
     </div>
@@ -31,10 +31,20 @@
             {{ t('factory.testing.process.desc') }}
           </p>
         </div>
-
+        <p class="desc-detail">
+          {{ t('factory.testing.process.desc1') }}
+        </p>
         <!-- 测试过程图片 -->
         <div class="process-images">
-          <img v-for="(img, index) in testingProcessImages" :key="index" :src="img" alt="测试流程" loading="lazy"
+          <img v-for="(img, index) in testingProcessImages.slice(0, 3)" :key="index" :src="img" alt="测试流程"
+            loading="lazy" @click="openImagePreview(img, `测试流程-${index + 1}`)" class="clickable-image" />
+        </div>
+        <p class="desc-detail">
+          {{ t('factory.testing.process.desc2') }}
+        </p>
+
+        <div class="process-images">
+          <img v-for="(img, index) in testingProcessImages.slice(3)" :key="index" :src="img" alt="测试流程" loading="lazy"
             @click="openImagePreview(img, `测试流程-${index + 1}`)" class="clickable-image" />
         </div>
       </div>
@@ -49,7 +59,9 @@
             {{ t('factory.testing.equipment.desc') }}
           </p>
         </div>
-
+        <div style="width: 100%; margin-bottom: 30px;">
+          <img :src="ComprehensiveOverview" alt="ComprehensiveOverview"  style="width: 100%; border-radius: 15px;">
+        </div>
         <!-- 测试设备图片网格 -->
         <div class="equipment-grid">
           <div class="equipment-item" v-for="(equipment, index) in testingEquipments" :key="index">
@@ -62,7 +74,7 @@
         </div>
       </div>
 
-    
+
     </div>
 
     <!-- 图片预览弹窗 -->
@@ -102,15 +114,19 @@ import testingProcess3 from '@/assets/images/Factory/8测试过程1280-720-3.jpg
 import testingProcess4 from '@/assets/images/Factory/8测试过程1280-720-4.jpg'
 import testingProcess5 from '@/assets/images/Factory/9测试室1280-720.jpg'
 import testingProcess6 from '@/assets/images/Factory/10测试1280-720.jpg'
-import testingProcess7 from '@/assets/images/Factory/11生产线1280-720.jpg'
+import testingProcess7 from '@/assets/images/Factory/18测试1280-720.jpg'
 
 import factoryBannerPc from '@/assets/images/Factory/factory_banner_pc.jpg'
 import factoryBannerMobile from '@/assets/images/Factory/factory_banner-mobile.jpg'
+
+
+
+import ComprehensiveOverview from '@/assets/images/Factory/19测试1280-720.jpg'
 const isMobile = computed(() => globalThis.innerWidth <= 768)
 
 // 路由Tab切换状态（优先从路由获取，实现路由联动）
 const currentTab = ref<string>(
-  route.path === '/Factory/Testing' ? 'QA' : route.path === '/Factory/Overview' ? 'overView' : 'production' 
+  route.path === '/Factory/Testing' ? 'QA' : route.path === '/Factory/Overview' ? 'overView' : 'production'
 );
 
 // 切换Tab + 路由跳转
@@ -120,7 +136,7 @@ const switchTab = (tab: 'production' | 'QA' | 'overView') => {
   if (tab === 'QA') {
     router.push('/Factory/Testing');
   } else if (tab === 'overView') {
-    router.push('/Factory/Overview'); 
+    router.push('/Factory/Overview');
   } else {
     router.push('/Factory/Production'); // 生产板块默认跳回首页（可根据实际需求修改）
   }
@@ -129,7 +145,7 @@ const switchTab = (tab: 'production' | 'QA' | 'overView') => {
 // 监听路由变化，同步Tab状态
 onMounted(() => {
   const routeWatcher = router.afterEach((to) => {
-    currentTab.value = to.path === '/Factory/Testing' ?  'QA' : to.path === '/Factory/Overview' ? 'overView' : 'production';
+    currentTab.value = to.path === '/Factory/Testing' ? 'QA' : to.path === '/Factory/Overview' ? 'overView' : 'production';
   });
 
   // 组件卸载时取消监听
@@ -322,8 +338,8 @@ const testingProcessImages = ref([
 }
 
 .desc-detail {
-  margin-top: 16px;
-  font-size: 14px;
+  margin: 30px 0;
+  font-size: 16px;
   color: #777;
 }
 

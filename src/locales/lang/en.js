@@ -16,7 +16,7 @@ export default {
     showDetails: "Show Details",
     Production: "SO",
     Testing: "QA",
-    Overview: "The entire factory layout",
+    Overview: "Factory Overview",
   },
   social:{
     followUs: "Follow Us",
@@ -269,40 +269,41 @@ export default {
     title: "Our Factory",
     Overview: {
       subtitle: "Overview",
+      desc:"Our factory is situated in a modern industrial park, covering an area of 8,000 square meters. Equipped with advanced production facilities and a professional technical team, we present a complete manufacturing ecosystem—from the factory exterior to its internal functional zones."
     },
     
     production: {
-      subtitle: "Production",
-      desc: "Through standardized processes and stringent quality control, we provide our clients with stable and reliable audio product manufacturing services.",
+      subtitle: "SO",
+      desc: "We have established a full-process standardized operation system from raw materials to finished products, with strict procedures and inspection standards at every stage to ensure consistent quality.",
       steps: [
         {
-          title: "Incoming Quality Control (IQC)",
-          desc: "All incoming components (such as speakers, PCBs, casings, and cables) undergo strict inspection to ensure the reliability of raw materials.",
+          title: "IOS System​",
+          desc: "We create standardized operation instructions for each production position, defining steps and quality requirements. Visual management with on-site samples and continuous process optimization ensure uniform operations.",
         },
         {
-          title: "Board Programming & Testing",
-          desc: "Program firmware onto the mainboards of Bluetooth transceivers and smart audio devices, followed by preliminary functional testing.",
+          title: "IQC",
+          desc: "All incoming components (e.g., speakers, PCBs, housings, cables) are rigorously inspected to control raw material quality from the source.",
         },
         {
-          title: "Semi-Finished Product Assembly",
-          desc: "Precisely install core components like speakers, mainboards, and batteries into the product housing to complete the core module assembly.",
+          title: "IPQC",
+          desc: "Mainboard Programming & Testing:  Program burning and functional testing for Bluetooth and smart audio device mainboards.<br/>Semi-Finished Assembly:  Precise installation of core components (speakers, mainboards, batteries) into product housings.<br/>Finished Product Assembly:  External structure assembly (ear cushions, face covers, buttons) and cable connection/welding.",
         },
         {
-          title: "Final Product Assembly",
-          desc: "Carry out external structure assembly, including installing earpads, face covers, buttons, and soldering or connecting cables.",
+          title: "FQC",
+          desc: "Aging & Functional Testing:  Power-on aging tests and comprehensive checks (Bluetooth, sound quality, button response, battery life).<br/>Packaging & Warehousing:  Standardized packaging (cleaning, anti-static sealing, accessory sorting) ensures safety and aesthetics, with barcode scanning for inventory.",
         },
         {
-          title: "Aging & Functional Testing",
-          desc: "Subject the fully assembled products to powered aging tests and conduct comprehensive functional checks, including Bluetooth connectivity, sound quality, button response, and battery life.",
+          title: "OQC",
+          desc: "Pre-shipment sampling inspection follows AQL standards to guarantee batch quality stability and customer satisfaction.",
         },
-        {
-          title: "Packaging & Warehousing",
-          desc: "Execute a standardized packaging procedure, including product cleaning, anti-static sealing, accessory sorting, and retail box packaging, ensuring product safety and visual appeal during transit and storage, followed by final barcode scanning for warehousing.",
-        },
-        {
-          title: "Outgoing Quality Control (OQC)",
-          desc: "Conduct random sampling inspections on finished products before shipment to guarantee consistent quality across the batch.",
-        },
+        // {
+        //   title: "Packaging & Warehousing",
+        //   desc: "Execute a standardized packaging procedure, including product cleaning, anti-static sealing, accessory sorting, and retail box packaging, ensuring product safety and visual appeal during transit and storage, followed by final barcode scanning for warehousing.",
+        // },
+        // {
+        //   title: "Outgoing Quality Control (OQC)",
+        //   desc: "Conduct random sampling inspections on finished products before shipment to guarantee consistent quality across the batch.",
+        // },
       ],
     },
     testing: {
@@ -324,7 +325,9 @@ export default {
       },
       process: {
         title: "Dual 100% Inspection Process",
-        desc: 'Our testing process aims for "zero defects" by implementing a strict dual 100% full inspection system. First, immediately after product assembly is completed, a 100% full inspection is conducted on every unit, covering all core functions such as Bluetooth pairing, audio playback, microphone call quality, and button responsiveness to ensure flawless basic performance. Subsequently, before products enter the packaging stage, a second 100% full inspection is carried out, focusing on verifying appearance, cleanliness, and final functional stability to prevent any defective products from reaching the market. These two stringent checkpoints guarantee that every product delivered to our clients is of superior quality.',
+         desc: `Our testing process targets "zero defects" through a strict dual 100% full inspection system.`,
+        desc1: "① After product assembly, the first 100% full inspection​ immediately checks all core functions—Bluetooth pairing, audio playback, microphone calls, and button response—ensuring flawless basic performance.",
+        desc2: "② Before packaging, the second 100% full inspection​ focuses on product appearance, cleanliness, and final functional stability, eliminating any defective products from reaching the market.",
       },
     },
   },

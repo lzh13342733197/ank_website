@@ -20,29 +20,40 @@
       </div>
     </div>
 
+
     <!-- 1. Production 生产流程板块 -->
     <div class="factory-section production-section" v-if="currentTab === 'production'">
       <div class="section-subtitle">{{ t('factory.production.subtitle') }}</div>
+
+      <div style="text-align: center;margin-bottom: 40px; cursor: pointer;">
+        <img :src="banner" alt="" style="width: 40%; border-radius: 12px;" @click="openImagePreview(banner, t('factory.production.subtitle'))" class="cerImg">
+      </div>
+
       <div class="section-desc">
         {{ t('factory.production.desc') }}
       </div>
 
+
+
+
       <!-- 生产流程步骤列表 -->
       <div class="production-steps">
-        <div class="step-item" :class="{ 'reverse': index % 2 === 1 }" v-for="(step, index) in productionSteps" :key="index">
+        <div class="step-item" :class="{ 'reverse': index % 2 === 1 }" v-for="(step, index) in productionSteps"
+          :key="index">
           <div class="step-content">
             <!-- <div class="step-number">{{ index + 1 }}</div> -->
             <div class="step-title">
-              <div  class="step-number">{{ index + 1 }}</div><div>{{ step.title }}</div>
+              <div class="step-number">{{ index + 1 }}</div>
+              <div>{{ step.title }}</div>
             </div>
-            <div class="step-desc">
-              {{ step.desc }}
+            <div class="step-desc" v-html="step.desc">
+
             </div>
           </div>
           <div class="step-image">
             <!-- 添加点击事件 -->
             <img :src="step.image" :alt="step.title" loading="lazy" @click="openImagePreview(step.image, step.title)"
-              class="clickable-image" />
+              style="display: block;" class="clickable-image" />
           </div>
         </div>
       </div>
@@ -63,16 +74,17 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, useRoute } from 'vue-router' // 引入路由相关API
-import productionStep1 from '@/assets/images/Factory/1来料检验1280-720.jpg'
-import productionStep2 from '@/assets/images/Factory/2主板测试1280-720.jpg'
+import productionStep1 from '@/assets/images/Factory/11生产线1280-720.jpg'
+import productionStep2 from '@/assets/images/Factory/1来料检验1280-720.jpg'
 import productionStep3 from '@/assets/images/Factory/3半成品组装1280-720.jpg'
-import productionStep4 from '@/assets/images/Factory/4成品组装1280-720.jpg'
-import productionStep5 from '@/assets/images/Factory/5测试设备1280-720.jpg'
+import productionStep4 from '@/assets/images/Factory/6包装入库1280-720.jpg'
+import productionStep5 from '@/assets/images/Factory/21生产线1280-720.jpg'
 import productionStep5RAC from '@/assets/images/Factory/5测试设备RAC耐磨1280-720.jpg'
 import productionStep6 from '@/assets/images/Factory/6包装入库1280-720.jpg'
 import productionStep7 from '@/assets/images/Factory/11生产线1280-720.jpg'
 import factoryBannerPc from '@/assets/images/Factory/factory_banner_pc.jpg'
 import factoryBannerMobile from '@/assets/images/Factory/factory_banner-mobile.jpg'
+import banner from '@/assets/images/Factory/爱科贝ISO9001证书_page-0001.jpg'
 
 
 
@@ -175,16 +187,16 @@ const productionSteps = computed(() => [
     desc: t('factory.production.steps[4].desc'),
     image: productionStep5
   },
-  {
-    title: t('factory.production.steps[5].title'),
-    desc: t('factory.production.steps[5].desc'),
-    image: productionStep6
-  },
-  {
-    title: t('factory.production.steps[6].title'),
-    desc: t('factory.production.steps[6].desc'),
-    image: productionStep7
-  },
+  // {
+  //   title: t('factory.production.steps[5].title'),
+  //   desc: t('factory.production.steps[5].desc'),
+  //   image: productionStep6
+  // },
+  // {
+  //   title: t('factory.production.steps[6].title'),
+  //   desc: t('factory.production.steps[6].desc'),
+  //   image: productionStep7
+  // },
 ])
 
 // 测试设备数据
@@ -294,7 +306,7 @@ const testingProcessImages = ref([
 }
 
 .section-desc {
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.8;
   color: #666;
   margin-bottom: 40px;
@@ -395,7 +407,7 @@ const testingProcessImages = ref([
 
 .step-image {
   width: 100%;
-  height: 350px;
+  height: auto;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -516,6 +528,12 @@ const testingProcessImages = ref([
 
 /* 响应式适配 */
 @media (max-width: 768px) {
+  .section-desc{
+    font-size: 16px;
+  }
+  .cerImg{
+    width: 80% !important;
+  }
   .factory-header {
     display: block;
   }
