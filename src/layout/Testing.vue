@@ -9,7 +9,7 @@
          {{ t('factory.Overview.subtitle') }}
         </div>
         <div class="section-tab-item" :class="{ active: currentTab === 'production' }" @click="switchTab('production')">
-          {{ t('factory.production.title') }}
+          {{ t('factory.production.subtitle') }}
         </div>
         <div class="section-tab-item" :class="{ active: currentTab === 'QA' }" @click="switchTab('QA')">
           {{ t('factory.testing.subtitle') }}
