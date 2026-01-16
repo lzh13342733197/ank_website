@@ -245,7 +245,7 @@ const handleInquireSubmit = (formData: any) => {
 }
 
 .specs-label {
-  min-width: 100px;
+  /* min-width: 100px; */
   white-space: nowrap;
   font-weight: 600;
   color: #333;
@@ -310,14 +310,14 @@ const handleInquireSubmit = (formData: any) => {
   }
 
   .specs-label {
-    width: 130px;
+    /* width: 130px; */
     border-right: none;
     /* border-bottom: 1px solid #ebeef5; */
     padding: 8px 12px;
   }
 
   .specs-value {
-    padding: 10px 12px;
+    padding: 10px 0px;
   }
   .product-banner {
   width: 100%;
