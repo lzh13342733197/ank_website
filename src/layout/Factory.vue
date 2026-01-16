@@ -350,7 +350,7 @@ const testingProcessImages = ref([
 }
 
 .step-number {
-  width: 50px;
+  min-width: 50px;
   height: 50px;
   background: #0095d7;
   color: #fff;

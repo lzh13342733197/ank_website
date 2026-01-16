@@ -26,7 +26,7 @@ export default {
     MORE: "更多",
     aboutUs: "关于我们",
     homeAboutUs:
-      "Ankbit 成立于 2012 年 2 月。自 2019 年起，我们专注于音频设备与数字产品领域，产品线涵盖降噪耳机、高品质真无线立体声（TWS）蓝牙耳机、扬声器、音频收发器、专业解码器及功率放大器等。",
+      "Ankbit 成立于 2010 年 2 月。自 2019 年起，我们专注于音频设备与数字产品领域，产品线涵盖降噪耳机、高品质真无线立体声（TWS）蓝牙耳机、扬声器、音频收发器、专业解码器及功率放大器等。",
     companyName: "深圳市爱科贝电子有限公司",
     partner: "合作伙伴",
     PRODUCTS_SHOW: "热门产品",
@@ -195,7 +195,7 @@ export default {
     VisionAndMission: {
       title: "愿景与使命",
       firstParagraph: "愿景：成为音频领域卓越的服务提供商",
-      secondParagraph: "使命：让世界充满好声音",
+      // secondParagraph: "使命：让世界充满好声音",
     },
     CoreValue: {
       title: "核心价值观",

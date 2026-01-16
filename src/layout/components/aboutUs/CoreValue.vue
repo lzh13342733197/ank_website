@@ -6,7 +6,7 @@
     </div>
     <div class="value-item">
       <img :src="missionIcon" />
-      <span>{{ t('aboutUs.VisionAndMission.secondParagraph') }}</span>
+      <!-- <span>{{ t('aboutUs.VisionAndMission.secondParagraph') }}</span> -->
     </div>
     <div class="value-item">
       <img :src="responsibilityIcon" />

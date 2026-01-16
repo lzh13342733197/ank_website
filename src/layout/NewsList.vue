@@ -1,10 +1,13 @@
 <template>
   <div style="background-color: #fff;">
     <div class="top_img">
-    <img v-if="!isMobile" style="width: 100%" :src="fairBannerPc" alt="">
-    <img v-else style="width: 100%" :src="fairBannerMobile" alt="">
+
+      <img v-if="!isMobile" style="width: 100%;display: block;" :src="news1920_300" alt="">
+      <img v-else style="width: 100%;display: block;" :src="news500_200" alt="">
+      <img v-if="!isMobile" style="width: 100%;display: block;" :src="fairBannerPc" alt="">
+      <img v-else style="width: 100%;display: block;" :src="fairBannerMobile" alt="">
     </div>
-    <div class="news-list-container">
+    <!-- <div class="news-list-container">
       <div class="news-header">
         <div class="page-title">{{ $t('news.title') }}</div>
       </div>
@@ -36,7 +39,7 @@
 
         <div v-if="newsData.length === 0" class="empty-status">No news available.</div>
       </div>
-    </div>
+    </div> -->
 
     <Transition name="fade">
       <div v-if="lightboxVisible" class="lightbox-overlay" @click="closeLightbox">
@@ -45,7 +48,7 @@
       </div>
     </Transition>
 
-    </div>
+  </div>
 </template>
 
 <script setup>
@@ -53,7 +56,8 @@ import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 const { locale } = useI18n();
 
-
+import news500_200 from '@/assets/images/Fari/500-200.jpg'
+import news1920_300 from '@/assets/images/Fari/1920-300.jpg'
 import fairBannerMobile from '@/assets/images/Fari/fair_banner_mobile.jpg'
 import fairBannerPc from '@/assets/images/Fari/fair_banner-pc.jpg'
 

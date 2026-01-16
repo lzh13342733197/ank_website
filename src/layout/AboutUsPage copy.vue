@@ -120,7 +120,7 @@ const CONTENT_DATA = computed(() => ({
     title: t('aboutUs.CoreValue.title'),
     html: `
       <p><img src="${enterpriseVisionIcon}" style="width: 25px; height: 25px; margin-right: 5px;">${t('aboutUs.VisionAndMission.firstParagraph')}</p>
-      <p><img src="${missionIcon}" style="width: 25px; height: 25px; margin-right: 5px;">${t('aboutUs.VisionAndMission.secondParagraph')}</p>
+      
       <p><img src="${responsibilityIcon}" style="width: 25px; height: 25px; margin-right: 5px;">${t('aboutUs.CoreValue.firstParagraph')}</p>
       <p><img src="${qualityIcon}" style="width: 25px; height: 25px; margin-right: 5px;">${t('aboutUs.CoreValue.secondParagraph')}</p>
       <p><img src="${teamIcon}" style="width: 25px; height: 25px; margin-right: 5px;">${t('aboutUs.CoreValue.thirdParagraph')}</p>

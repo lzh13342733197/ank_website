@@ -25,7 +25,7 @@ export default {
   home: {
     MORE: "More",
     aboutUs: "ABOUT US",
-    homeAboutUs: `Ankbit was established in February 2012. Since 2019, we have focused on the audio equipment and digital products sector, with a product line covering noise-canceling headphones, TWS bluetooth earphones, speakers, audio transceivers, professional decoders, and power amplifiers.`,
+    homeAboutUs: `Ankbit was established in February 2010. Since 2019, we have focused on the audio equipment and digital products sector, with a product line covering noise-canceling headphones, TWS bluetooth earphones, speakers, audio transceivers, professional decoders, and power amplifiers.`,
     companyName: "Shenzhen Ankbit Electronics Limited",
     partner: "Partners",
     PRODUCTS_SHOW: "Hot Sales",
@@ -201,7 +201,7 @@ export default {
     VisionAndMission: {
       title: "Vision and Mission",
       firstParagraph: "Vision: To be an Outstanding Service Provider in the Audio Field.",
-      secondParagraph: "Mission: Bring Music to Life.",
+      // secondParagraph: "Mission: Bring Music to Life.",
     },
     CoreValue: {
       title: "Core Value",

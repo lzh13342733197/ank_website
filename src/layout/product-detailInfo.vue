@@ -50,10 +50,10 @@
     <div class="product-detail-info-item-content">
       <img v-for="item in productBanner" :src="item" alt="" class="product-banner">
     </div>
-    <div class="product-category-container">
+    <!-- <div class="product-category-container">
       <cardPeekList :id="String(route.query.categoryId || '')" :title="String(route.query.cardName || '')"
         :card-list="productCategoryList.slice(0, 6)" />
-    </div>
+    </div> -->
 
     <el-dialog v-model="isInquire" top="30px" :width="windowWidth" :close-on-click-modal="true"
       :close-on-press-escape="false" :show-close="true">
@@ -233,7 +233,7 @@ const handleInquireSubmit = (formData: any) => {
 /* ================= 一行两个参数的 Grid 布局 ================= */
 .specs-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   /* 核心：一行两列 */
   border-radius: 4px;
   overflow: hidden;
@@ -241,7 +241,7 @@ const handleInquireSubmit = (formData: any) => {
 
 .specs-item {
   display: flex;
-  border-bottom: 1px solid #ebeef5;
+  /* border-bottom: 1px solid #ebeef5; */
 }
 
 .specs-label {
@@ -257,10 +257,9 @@ const handleInquireSubmit = (formData: any) => {
 
 .specs-value {
   flex: 1;
-  padding: 12px 15px;
+  padding: 7px 15px;
   color: #666;
   font-size: 13px;
-  line-height: 1.4;
   display: flex;
   align-items: center;
 }
@@ -313,7 +312,7 @@ const handleInquireSubmit = (formData: any) => {
   .specs-label {
     width: 130px;
     border-right: none;
-    border-bottom: 1px solid #ebeef5;
+    /* border-bottom: 1px solid #ebeef5; */
     padding: 8px 12px;
   }
 
