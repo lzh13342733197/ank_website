@@ -241,14 +241,14 @@ defineExpose({
    =========================== */
 @media (max-width: 1200px) {
   .cert-img {
-    width: 40%;
+    width: 75%;
   }
 }
 
 /* 手机 */
 @media (max-width: 768px) {
   .cert-img {
-    width: 40%;
+    width: 75%;
   }
 
   .carousel-btn svg {

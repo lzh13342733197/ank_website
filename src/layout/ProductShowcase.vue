@@ -165,14 +165,14 @@ const props = defineProps({
 /* 产品标题区域 */
 .pro-tit {
   padding: 10px 15px;
-  height: 90px;
+  height: 70px;
 }
 
 .pro-n-p {
   display: flex;
   height: 100%;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 /* hover交互效果 */

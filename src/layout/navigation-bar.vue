@@ -133,7 +133,7 @@ const menus = computed(() => {
         // { id: 3, name: t('aboutUs.menu.CoreValue'), url: '/AboutUs/CoreValue' },
       ]
     },
-    { name: t('navigationBar.Factory'), url: '/Factory/Production', children: [
+    { name: t('navigationBar.Factory'), url: '/Factory/Overview', children: [
       { id: 3, name: t('navigationBar.Overview'), url: '/Factory/Overview' },
       { id: 1, name: t('navigationBar.Production'), url: '/Factory/Production' },
       { id: 2, name: t('navigationBar.Testing'), url: '/Factory/Testing' },

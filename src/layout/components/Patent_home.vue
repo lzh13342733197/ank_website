@@ -3,13 +3,10 @@
     <div class="carousel-container">
       <div class="carousel-wrapper">
         <div class="carousel-track">
-          <div 
-            class="partner-item" 
-            v-for="(item, index) in loopPartners" 
-            :key="index"
-          >
+          <div class="partner-item" v-for="(item, index) in loopPartners" :key="index">
             <div class="img-box">
-              <img :src="item.logo" :alt="item.name" @click="showPreview(loopPreviewImgs,index%basePartners.length)" class="partner-logo" />
+              <img :src="item.logo" :alt="item.name" @click="showPreview(loopPreviewImgs, index % basePartners.length)"
+                class="partner-logo" />
             </div>
           </div>
         </div>
@@ -60,7 +57,7 @@ const basePartners = [
 // 组合出 3 组数据，确保在大屏或快速滚动下绝对无缝
 const loopPartners = computed(() => [...basePartners, ...basePartners, ...basePartners])
 
-const loopPreviewImgs = [patent1,patent2,patent3,patent4,patent5,patent6,patent7,patent8,patent9,patent10,patent11,patent12,patent13,patent14,patent15]
+const loopPreviewImgs = [patent1, patent2, patent3, patent4, patent5, patent6, patent7, patent8, patent9, patent10, patent11, patent12, patent13, patent14, patent15]
 </script>
 
 <style scoped>
@@ -82,7 +79,10 @@ const loopPreviewImgs = [patent1,patent2,patent3,patent4,patent5,patent6,patent7
   overflow: hidden;
   z-index: 1;
   -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  /* 可选：补充 mask-mode 确保遮罩模式一致（部分浏览器需要） */
+  -webkit-mask-mode: alpha;
+  mask-mode: alpha;
 }
 
 /* 轨道优化 */
@@ -96,7 +96,7 @@ const loopPreviewImgs = [patent1,patent2,patent3,patent4,patent5,patent6,patent7
 
 .partner-item {
   /* 必须使用固定宽度，确保 CSS 计算 transform百分比时绝对精确 */
-  width: 200px; 
+  width: 200px;
   margin: 0 15px;
   flex-shrink: 0;
 }
@@ -109,7 +109,7 @@ const loopPreviewImgs = [patent1,patent2,patent3,patent4,patent5,patent6,patent7
   align-items: center;
   justify-content: center;
   padding: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .partner-logo {
@@ -118,14 +118,17 @@ const loopPreviewImgs = [patent1,patent2,patent3,patent4,patent5,patent6,patent7
   object-fit: contain;
   cursor: pointer;
 }
+
 .carousel-track:hover {
   animation-play-state: paused;
 }
+
 /* 核心无缝滚动动画 */
 @keyframes infinite-scroll {
   0% {
     transform: translate3d(0, 0, 0);
   }
+
   100% {
     /* 因为有三组，移动到 1/3 的位置即为完整的一轮循环 */
     transform: translate3d(calc(-100% / 3), 0, 0);
@@ -138,6 +141,7 @@ const loopPreviewImgs = [patent1,patent2,patent3,patent4,patent5,patent6,patent7
     width: 140px;
     margin: 0 8px;
   }
+
   .img-box {
     height: 200px;
   }

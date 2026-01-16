@@ -63,8 +63,8 @@ const swiperOptions = {
   // ===================================
 
   autoplay: {
-    delay: 3000, // 3秒自动播放
-    disableOnInteraction: false,
+    delay: 4000, // 3秒自动播放
+    disableOnInteraction: true,
   },
   pagination: {
     clickable: true,
