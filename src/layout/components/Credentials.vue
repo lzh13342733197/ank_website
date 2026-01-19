@@ -1,9 +1,7 @@
 <template>
   <div class="patent">
 
-    <!-- <div class="patent-image-wrapper">
-      <img :src="cert1" alt="Patent Certificate" class="patent-bg" @click="handlePreviewFormDad(cert1)" />
-    </div> -->
+   
     <!-- 专利预览组件 -->
     <div class="patentTitle">{{ $t('research.patents1') }}</div>
 
@@ -20,8 +18,6 @@
 import { ref } from 'vue'
 import Patent from '@/layout/components/Patent.vue'
 import PatentSwiper from '@/layout/components/aboutUs/PatentSwiper.vue'
-// 专利图片
-import cert1 from '@/assets/images/certificate_0.jpg'
 // 子组件 ref
 const patentRef = ref(null)
 

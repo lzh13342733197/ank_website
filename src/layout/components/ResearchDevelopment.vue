@@ -33,21 +33,12 @@
     </div>
       <p>{{ $t('research.teamDesc2') }}</p>
 
-      <!-- <p>{{ $t('research.teamDesc3') }}</p>
-      <p>{{ $t('research.teamDesc4') }}</p>
-      <p>{{ $t('research.teamDesc5') }}</p> -->
+    
     </div>
 
 
   </div>
 
-  <!-- <div class="patent">
-    <div class="patentTitle">{{ $t('research.patents') }}</div>
-    <div style="width: 100%; text-align: center;">
-      <img :src='cert1' alt="" class="patent-bg" @click="handlePreviewFormDad(cert1)"></img>
-    </div>
-    <Patent ref="patentRef" />
-  </div> -->
 </template>
 
 <script setup>
@@ -56,7 +47,6 @@ import SvgIcon from '@/components/SvgIcon.vue'
 import { onMounted, ref } from 'vue'
 
 const patentRef = ref(null)
-const cert1 = '@/assets/images/certificate_0.jpg'
 
 const handlePreviewFormDad = (cert1) => {
   patentRef.value.handlePreviewFormDad(cert1)

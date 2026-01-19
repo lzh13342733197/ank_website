@@ -34,11 +34,9 @@
       </div>
     </div>
   </div> -->
-  <!-- <PosterBanner /> -->
   <SwiperModule v-if="!loading" :images="swiperList" class="swiperModule_" />
   <SkeletonComponent :loading="loading" />
   <div v-if="!loading">
-    <!-- <AboutUsModule /> -->
     <SocialMediaVideo style="margin: 0 auto" />
     <ProductShowcase :products="templateData" />
     <!-- <NewsSlider /> -->
@@ -55,20 +53,11 @@ import { useLanguageStore } from '@/stores/language'
 import { useRoute } from 'vue-router'
 import SwiperModule from '@/layout/components/SwiperModule.vue'
 import ProductShowcase from '@/layout/ProductShowcase.vue'
-import AboutUsModule from '@/layout/components/AboutUsModule.vue'
 import NewsSlider from '@/layout/components/NewsSlider.vue'
 import partner from '@/layout/components/partner.vue'
 import SocialMediaVideo from '@/layout/components/SocialMediaVideo.vue'
 import PatentsAwards from '@/layout/components/PatentsAwards.vue'
-import banner1 from '@/assets/images/home/banner1.jpg'
-import banner1Mobile from '@/assets/images/home/banner1-mobile.jpg'
-import banner2 from '@/assets/images/home/banner2.jpg'
-import banner2Mobile from '@/assets/images/home/banner2-mobile.jpg'
-import banner3 from '@/assets/images/home/banner3.jpg'
-import banner3Mobile from '@/assets/images/home/banner3-mobile.jpg'
-import banner4 from '@/assets/images/home/banner4.jpg'
-import banner4Mobile from '@/assets/images/home/banner4-mobile.jpg'
-// import banner5 from '@/assets/images/home/banner5.jpg'
+
 import { useI18n } from 'vue-i18n'
 const { t, locale } = useI18n()
 const route = useRoute()
@@ -84,74 +73,24 @@ const getImageUrl = (item: any) => {
   return `/ankbit.png`
 }
 
-const slideData = computed(() => {
-  if (window.innerWidth > 768) {
-    return [
-      {
-        src: banner1,
-        url: '',
-        alt: 'Slide 1'
-      },
-      {
-        src: banner2,
-        url: '',
-        alt: 'Slide 2'
-      },
-      {
-        src: banner3,
-        url: '', // 没有链接
-        alt: 'Slide 3'
-      },
-      {
-        src: banner4,
-        url: '', // 没有链接
-        alt: 'Slide 4'
-      },
-    ]
-  } else {
-    return [
-      {
-        src: banner1Mobile,
-        url: '',
-        alt: 'Slide 1'
-      },
-      {
-        src: banner2Mobile,
-        url: '',
-        alt: 'Slide 2'
-      },
-      {
-        src: banner3Mobile,
-        url: '', // 没有链接
-        alt: 'Slide 3'
-      },
-      {
-        src: banner4Mobile,
-        url: '',
-        alt: 'Slide 4'
-      },
-    ]
-  }
-})
+
 const loading = ref(true)
 const activeId = ref('')
 
-const handleChangeOption = (id: string) => {
-  activeId.value = id
-}
 const swiperList = ref<any[]>([])
 const categoryList = ref<any[]>([])
 const isLoadingData = ref(false)
 let pendingPromise: Promise<void> | null = null
 
-const homdic = ref<any>()
+// const homdic = ref<any>()
 const homInit = async () => {
   if (import.meta.env.SSR) return
-  const res = await useFetchWithLanguage.post(
-    `${import.meta.env.VITE_API_URL}/siteConfig/getSiteConfig`,
-    {},
-  )
-  homdic.value = res
+  // 加载项目配置
+  // const res = await useFetchWithLanguage.post(
+  //   `${import.meta.env.VITE_API_URL}/siteConfig/getSiteConfig`,
+  //   {},
+  // )
+  // homdic.value = res
   if (pendingPromise) {
     console.log('等待当前数据加载完成...')
     await pendingPromise
@@ -198,8 +137,8 @@ const fetchSwiperList = async () => {
 
 
 onMounted(() => {
-  homInit()
   fetchSwiperList()
+  homInit()
 })
 
 watch(() => locale.value, (newLocale) => {

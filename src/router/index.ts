@@ -36,13 +36,6 @@ const router = createRouter({
           path: 'product-detailInfo',
           component: () => import('../layout/product-detailInfo.vue'),
         },
-
-
-        {
-          path: 'Market-layout',
-          component: () => import('../layout/components/Market-layout.vue'),
-        },
-
         {
           path: 'Contact_us',
           component: () => import('../layout/components/Contact_us.vue'),

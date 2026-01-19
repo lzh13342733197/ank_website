@@ -17,6 +17,6 @@ export const createApp = ViteSSG(App, { routes }, ({ app }) => {
   app.use(i18n)
   app.use(VueLazyload, {
     loading: '/loading-placeholder-gray.jpg',
-    error: '/error-placeholder.webp',
+    error: '/error-placeholder.jpg',
   })
 })

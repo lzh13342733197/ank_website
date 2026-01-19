@@ -9,7 +9,7 @@
         :key="item.id"
       >
         <img
-          :src="item.logo"
+          v-lazy="item.logo"
           :alt="item.name"
           class="partner-logo"
         />

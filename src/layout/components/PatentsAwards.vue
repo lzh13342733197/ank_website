@@ -27,8 +27,6 @@ const { t } = useI18n()
 
 
 
-// 导入图片
-import img1 from '@/assets/images/certificate_0.jpg'
 
 // 放大预览状态
 const previewVisible = ref(false)

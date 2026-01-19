@@ -5,7 +5,7 @@
         <div class="carousel-track">
           <div class="partner-item" v-for="(item, index) in loopPartners" :key="index">
             <div class="img-box">
-              <img :src="item.logo" :alt="item.name" @click="showPreview(loopPreviewImgs, index % basePartners.length)"
+              <img v-lazy="item.logo" :alt="item.name" @click="showPreview(loopPreviewImgs, index % basePartners.length)"
                 class="partner-logo" />
             </div>
           </div>

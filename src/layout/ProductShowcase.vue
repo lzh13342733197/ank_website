@@ -27,7 +27,7 @@
                       <div class="pro-img">
                         <div class="dummy"></div>
                         <div class="pro-img-wrap">
-                          <img :src="product.imageUrls[0]" :alt="product.name" :title="product.name" loading="lazy"
+                          <img v-lazy="product.imageUrls[0]" :alt="product.name" :title="product.name" loading="lazy"
                             class="pc-img">
                         </div>
                       </div>

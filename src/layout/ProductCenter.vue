@@ -27,8 +27,7 @@ import productionOption from '@/layout/components/productionOption.vue'
 import SwiperModule from '@/layout/components/SwiperModule.vue'
 import partner from '@/layout/components/partner.vue'
 import { useI18n } from 'vue-i18n'
-import product_pc from '@/assets/images/product/product_pc.png'
-import product_mb from '@/assets/images/product/product_mb.png'
+
 
 const { locale, t } = useI18n()
 const route = useRoute()
@@ -44,14 +43,7 @@ const getImageUrl = (item: any) => {
   }
   return `/ankbit.png`
 }
-const slideData = computed(() => [
-  {
-    src: globalThis.innerWidth > 768 ? product_pc : product_mb,
-    url: '', // 没有链接
-    alt: 'Slide 3'
-  },
 
-])
 
 const loading = ref(true)
 const subLoading = ref(false)
