@@ -29,6 +29,7 @@ const timelineData = computed(() => [
       { year: t('aboutUs.DevelopmentCourse.eighthDate'), desc: t('aboutUs.DevelopmentCourse.eighthParagraph') },
       { year: t('aboutUs.DevelopmentCourse.ninthDate'), desc: t('aboutUs.DevelopmentCourse.ninthParagraph') },
       { year: t('aboutUs.DevelopmentCourse.tenthDate'), desc: t('aboutUs.DevelopmentCourse.tenthParagraph') },
+      { year: t('aboutUs.DevelopmentCourse.eleventhDate'), desc: t('aboutUs.DevelopmentCourse.eleventhParagraph') },
   // ... 按需添加更多
 ]);
 </script>

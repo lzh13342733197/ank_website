@@ -99,6 +99,7 @@ export default {
       generalError: "有一项未按要求填写。请检查后重试。",
       captcha: "请输入验证码",
       captchaError: "验证码错误",
+      selectPlaceholder: "请选择产品",
     },
   },
   marketLayout: {
@@ -233,7 +234,9 @@ export default {
       ninthDate: "2019年12月",
       ninthParagraph: "累计申请与已注册的专利和商标数量突破600项，覆盖中国、欧美、日韩及台湾地区。",
       tenthDate: "2019年6月",
-      tenthParagraph: "爱科贝成立，专注OEM业务。",
+      tenthParagraph: "爱科贝专注于 OEM/ODM 服务。",
+      eleventhDate: "2010年6月",
+      eleventhParagraph: "爱科贝成立。",
     },
     menu: {
       CompanyProfile: "公司简介",

@@ -101,6 +101,7 @@ export default {
         "One have not been filled in as required. Please check and try again.",
       captcha: "Please enter captcha",
       captchaError: "Captcha error",
+      selectPlaceholder: "Please select product",
     },
   },
   marketLayout: {
@@ -243,7 +244,9 @@ export default {
       ninthParagraph:
         "The cumulative number of patents and trademarks registered and applied for has exceeded 600, covering China, Europe, America, Japan, South Korea and Taiwan.",
       tenthDate: "June 2019",
-      tenthParagraph: "Ankbit established and focusing on OEM.",
+      tenthParagraph: "Ankbit focused on OEM/ODM services.",
+      eleventhDate: "June 2010",
+      eleventhParagraph: "Ankbit was founded.",
     },
     menu: {
       CompanyProfile: "Company Profile",

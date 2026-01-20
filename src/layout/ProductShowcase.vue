@@ -194,7 +194,6 @@ const props = defineProps({
   font-size: 14px;
   height: auto;
   word-break: break-word;
-  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
