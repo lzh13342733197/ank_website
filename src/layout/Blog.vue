@@ -1,46 +1,47 @@
 <template>
-<div style="margin-bottom: 300px;">
-  <div class="top_img">
-    <img v-if="!isMobile" style="width: 100%" src="@/assets/images/blog_banner_pc.jpg" alt="">
-    <img v-else style="width: 100%" src="@/assets/images/blog_banner_mobile.jpg" alt="">
-  </div>
-  <div class="blog-container">
-
-    <div class="blog-header">
-      <div class="page-title">Blog</div>
+  <div style="margin-bottom: 300px;">
+    <div class="top_img">
+      <img v-if="!isMobile" style="width: 100%" src="@/assets/images/blog_banner_pc.jpg" alt="">
+      <img v-else style="width: 100%" src="@/assets/images/blog_banner_mobile.jpg" alt="">
+      <div class="top_img_title">Stay Ahead with the Latest in Tech!</div>
     </div>
+    <div class="blog-container">
 
-    <div class="blog-list">
-      <div v-if="isLoading" class="loading">Loading...</div>
-
-      <div v-else class="blog-card" v-for="post in blogPostsList" :key="post.id" @click="openDetailModal(post)">
-       <div v-if="post.title && post.coverImageUrl">
-         <img :src="post.coverImageUrl" :alt="post.title" class="blog-img" />
-        <div class="blog-content">
-          <h3 class="blog-subtitle">{{ post.title }}</h3>
-          <!-- <p class="blog-desc">{{ post.title }}</p> -->
-        </div>
-       </div>
+      <div class="blog-header">
+        <div class="page-title">Blog</div>
       </div>
 
-      <div v-if="!isLoading && blogPostsList.length === 0" class="empty">No Blog yet.</div>
-    </div>
+      <div class="blog-list">
+        <div v-if="isLoading" class="loading">Loading...</div>
 
-    <div v-if="isModalOpen" class="modal-mask" @click="closeDetailModal">
-      <div class="modal-content" @click.stop>
-        <button class="modal-close" @click="closeDetailModal" aria-label="Close">×</button>
+        <div v-else class="blog-card" v-for="post in blogPostsList" :key="post.id" @click="openDetailModal(post)">
+          <div v-if="post.title && post.coverImageUrl">
+            <img :src="post.coverImageUrl" :alt="post.title" class="blog-img" />
+            <div class="blog-content">
+              <h3 class="blog-subtitle">{{ post.title }}</h3>
+              <!-- <p class="blog-desc">{{ post.title }}</p> -->
+            </div>
+          </div>
+        </div>
 
-        <div class="modal-body">
-          <h2 class="modal-title">{{ currentPost?.title }}</h2>
+        <div v-if="!isLoading && blogPostsList.length === 0" class="empty">No Blog yet.</div>
+      </div>
 
-          <div class="rich-text-wrapper">
-            <div class="modal-content-html" v-html="processedContent"></div>
+      <div v-if="isModalOpen" class="modal-mask" @click="closeDetailModal">
+        <div class="modal-content" @click.stop>
+          <button class="modal-close" @click="closeDetailModal" aria-label="Close">×</button>
+
+          <div class="modal-body">
+            <h2 class="modal-title">{{ currentPost?.title }}</h2>
+
+            <div class="rich-text-wrapper">
+              <div class="modal-content-html" v-html="processedContent"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script setup lang="ts">
@@ -106,14 +107,23 @@ watch(locale, () => {
 
 .top_img {
   width: 100%;
-  margin: 0px auto 20px;
+  margin: 0px auto 60px;
+  position: relative;
+}
+.top_img_title{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 33px;
+  font-weight: 700;
+  text-shadow: 0 0 10px #fff;
+;
 }
 
-
 .blog-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px 0 20px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -266,8 +276,14 @@ watch(locale, () => {
 
 /* --- 移动端适配 (重点) --- */
 @media (max-width: 768px) {
+  .top_img_title{
+    font-size: 19px;
+    text-align: center;
+  }
   .blog-container {
     padding: 15px;
+    padding: 0 20px 0 20px;
+
   }
 
   .blog-title {

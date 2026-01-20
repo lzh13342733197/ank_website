@@ -1,9 +1,15 @@
 <template>
   <div style="background-color: #fff;">
     <div class="top_img">
-
-      <img v-if="!isMobile" style="width: 100%;display: block;" :src="news1920_300" alt="">
-      <img v-else style="width: 100%;display: block;" :src="news500_200" alt="">
+      <div class="top_img_container">
+        <img v-if="!isMobile" style="width: 100%;display: block;" :src="news1920_300" alt="">
+        <img v-else style="width: 100%;display: block;" :src="news500_200" alt="">
+        <div class="top_img_title">Experience Tomorrow's Trends Today!</div>
+      </div>
+      <div style="margin-bottom: 60px;"></div>
+      <div style="max-width: 1200px;margin: 0 auto;">
+        <div class="page-title">Exhibitions</div>
+      </div>
       <img v-if="!isMobile" style="width: 100%;display: block;" :src="fairBannerPc" alt="">
       <img v-else style="width: 100%;display: block;" :src="fairBannerMobile" alt="">
     </div>
@@ -40,6 +46,7 @@
         <div v-if="newsData.length === 0" class="empty-status">No news available.</div>
       </div>
     </div> -->
+
 
     <Transition name="fade">
       <div v-if="lightboxVisible" class="lightbox-overlay" @click="closeLightbox">
@@ -176,13 +183,31 @@ const closeLightbox = () => {
   padding: 20px 20px;
   background-color: #fff;
 }
+.top_img_container{
+  position: relative;
+}
+.top_img_title{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 33px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+
 
 .page-title {
   font-size: 1.5rem;
+  position: relative;
+  display: inline-block;
   border-left: 4px solid #0095D7;
   font-weight: 700;
-  padding-left: 12px;
-  margin-bottom: 40px;
+  padding-left: 8px;
+  line-height: 1.2;
+  margin-bottom: 20px;
 }
 
 .news-container {
@@ -304,6 +329,14 @@ const closeLightbox = () => {
 
   .is-expanded .stack-item {
     height: 120px;
+  }
+
+  .page-title {
+    margin-left: 15px;
+  }
+  .top_img_title{
+    font-size: 19px;
+    white-space: nowrap;
   }
 }
 

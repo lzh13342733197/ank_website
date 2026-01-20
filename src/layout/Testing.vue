@@ -250,7 +250,7 @@ const testingProcessImages = ref([
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 60px 20px;
   box-sizing: border-box;
 }
 
@@ -299,14 +299,7 @@ const testingProcessImages = ref([
   color: #333;
 }
 
-/* 基础样式 */
-.factory-module {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  box-sizing: border-box;
-}
+
 
 .factory-title {
   font-size: 32px;

@@ -242,7 +242,7 @@ const testingProcessImages = ref([
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 20px;
+  padding: 60px 20px;
   box-sizing: border-box;
 }
 
