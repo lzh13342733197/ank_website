@@ -12,17 +12,20 @@ build-job:
   stage: build
   image: node:18
   script:
-    # 输出 Node/NPM 版本，确保正确环境
+    # 输出 Node/NPM 版本
     - echo "Node version: $(node -v)"
     - echo "NPM version: $(npm -v)"
 
-    # 安装依赖并构建
+    # 安装依赖
     - npm install
-    - npm run build
+
+    # 跳过 type-check，直接用 Vite-SSG 构建
+    - npm run buildssg
+
   artifacts:
     paths:
       - dist
-    expire_in: 1 hour  # 构建产物保留时间，可按需调整
+    expire_in: 1 hour
 
 # =========================
 # Deploy Job
@@ -33,7 +36,7 @@ deploy-pages:
   dependencies:
     - build-job
   script:
-    # 安装 git
+    # 安装 git 和 bash
     - apk add --no-cache git bash
 
     # 配置 Git 用户信息
