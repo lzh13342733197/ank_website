@@ -10,7 +10,7 @@ variables:
 # =========================
 build-job:
   stage: build
-  image: node:18
+  image: node:20
   script:
     # 输出 Node/NPM 版本
     - echo "Node version: $(node -v)"
