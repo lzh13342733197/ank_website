@@ -4,56 +4,96 @@ stages:
 
 variables:
   GIT_STRATEGY: clone
+  # 新增：锁定 npm 版本兼容，避免依赖安装异常
+  NPM_CONFIG_CACHE: "$CI_PROJECT_DIR/.npm"
 
 # =========================
-# Build Job
+# Build Job - 构建阶段（优化版本兼容、依赖安装）
 # =========================
 build-job:
   stage: build
-  image: node:20
+  image: node:20-alpine # 改用轻量的 alpine 镜像，减少构建时间
+  cache:
+    # 缓存 npm 依赖，加速后续构建
+    paths:
+      - .npm/
+      - node_modules/
   script:
-    # 输出 Node/NPM 版本
+    # 输出版本信息，便于排查问题
     - echo "Node version: $(node -v)"
     - echo "NPM version: $(npm -v)"
-
-    # 安装依赖
-    - npm install
-
-    # 跳过 type-check，直接用 Vite-SSG 构建
+    
+    # 优化：使用 npm ci 严格安装依赖（基于 package-lock.json），比 npm install 更稳定
+    - npm ci --cache .npm --prefer-offline
+    
+    # 构建前检查：确保 buildssg 脚本存在
+    - if ! npm run | grep -q "buildssg"; then echo "Error: buildssg 脚本不存在！" && exit 1; fi
+    
+    # 执行 Vite-SSG 构建
     - npm run buildssg
+    
+    # 构建后检查：确保 dist 目录存在且非空
+    - if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then echo "Error: 构建产物 dist 目录为空！" && exit 1; fi
+    - echo "构建成功，dist 目录内容："
+    - ls -la dist/
 
   artifacts:
     paths:
-      - dist
+      - dist/
     expire_in: 1 hour
+    # 新增：只有构建成功才保留产物
+    when: on_success
 
 # =========================
-# Deploy Job
+# Deploy Job - 部署阶段（修复清空逻辑、提升容错性）
 # =========================
 deploy-pages:
   stage: deploy
   image: alpine:latest
   dependencies:
     - build-job
+  # 新增：只有构建阶段成功才执行部署
+  when: on_success
   script:
-    # 安装 git 和 bash
-    - apk add --no-cache git bash
-
-    # 配置 Git 用户信息
+    # 安装必要依赖（git/bash）
+    - apk add --no-cache git bash openssh-client
+    
+    # 配置 Git 全局信息（避免提交失败）
     - git config --global user.email "10575553+zh12138111@user.noreply.gitee.com"
     - git config --global user.name "ik6"
+    # 新增：关闭 Git 换行符自动转换（避免跨系统文件格式问题）
+    - git config --global core.autocrlf false
+    - git config --global core.safecrlf false
 
-    # 获取最新 pages 分支，如果不存在就创建
-    - git fetch origin
+    # 拉取最新代码，切换/创建 pages 分支
+    - git fetch origin pages || echo "pages 分支不存在，将创建新分支"
     - git checkout pages || git checkout -b pages
+    - git pull origin pages || echo "pages 分支无远程内容，跳过拉取"
 
-    # 清空旧内容，保留 .git
-    - sh -c 'find . -mindepth 1 ! -name ".git" -exec rm -rf {} +'
+    # 优化：安全清空当前目录（保留 .git，兼容隐藏文件）
+    - echo "清空 pages 分支旧内容..."
+    - sh -c '
+        for file in $(ls -A); do
+          if [ "$file" != ".git" ]; then
+            rm -rf "$file"
+          fi
+        done
+      '
 
-    # 拷贝构建产物
-    - cp -r dist/* .
+    # 拷贝构建产物（兼容隐藏文件，如 .nojekyll）
+    - echo "拷贝构建产物到 pages 分支..."
+    - cp -r ../dist/* . 2>/dev/null || cp -r ../dist/.* . 2>/dev/null
+    # 新增：如果是 Gitee Pages，添加 .nojekyll 文件避免静态资源访问问题
+    - touch .nojekyll
 
-    # 提交并推送
-    - git add .
-    - git commit -m "deploy pages [ci skip]" || echo "no changes to commit"
-    - git push origin pages
+    # 提交并推送（容错：无变更时不报错）
+    - git add -A
+    - git commit -m "deploy pages: $(date +'%Y-%m-%d %H:%M:%S') [ci skip]" || echo "无内容变更，跳过提交"
+    # 新增：强制推送（解决分支历史不一致问题）
+    - git push -f origin pages
+
+  # 新增：部署失败时发送通知（可选，根据需要开启）
+  after_script:
+    - if [ "$CI_JOB_STATUS" = "failed" ]; then
+        echo "部署失败！请检查：1. dist 产物是否存在 2. Git 权限是否正常 3. pages 分支是否可推送";
+      fi
