@@ -1,0 +1,40 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  GIT_STRATEGY: clone
+
+build-job:
+  stage: build
+  image: node:18
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - dist
+
+deploy-pages:
+  stage: deploy
+  image: alpine:latest
+  dependencies:
+    - build-job
+  script:
+    - apk add --no-cache git
+    - git config --global user.email "ci@gitee.com"
+    - git config --global user.name "gitee-ci"
+
+    # 切换到 pages 分支
+    - git checkout pages || git checkout -b pages
+
+    # 清空旧内容
+    - rm -rf *
+
+    # 把 dist 内容复制到根目录
+    - cp -r dist/* .
+
+    # 提交并推送
+    - git add .
+    - git commit -m "deploy pages [ci skip]" || echo "no changes"
+    - git push origin pages
