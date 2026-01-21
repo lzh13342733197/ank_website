@@ -1,0 +1,59 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  GIT_STRATEGY: clone
+
+# =========================
+# Build Job
+# =========================
+build-job:
+  stage: build
+  image: node:20
+  script:
+    # 输出 Node/NPM 版本
+    - echo "Node version: $(node -v)"
+    - echo "NPM version: $(npm -v)"
+
+    # 安装依赖
+    - npm install
+
+    # 跳过 type-check，直接用 Vite-SSG 构建
+    - npm run buildssg
+
+  artifacts:
+    paths:
+      - dist
+    expire_in: 1 hour
+
+# =========================
+# Deploy Job
+# =========================
+deploy-pages:
+  stage: deploy
+  image: alpine:latest
+  dependencies:
+    - build-job
+  script:
+    # 安装 git 和 bash
+    - apk add --no-cache git bash
+
+    # 配置 Git 用户信息
+    - git config --global user.email "10575553+zh12138111@user.noreply.gitee.com"
+    - git config --global user.name "ik6"
+
+    # 获取最新 pages 分支，如果不存在就创建
+    - git fetch origin
+    - git checkout pages || git checkout -b pages
+
+    # 清空旧内容，保留 .git
+    - sh -c 'find . -mindepth 1 ! -name ".git" -exec rm -rf {} +'
+
+    # 拷贝构建产物
+    - cp -r dist/* .
+
+    # 提交并推送
+    - git add .
+    - git commit -m "deploy pages [ci skip]" || echo "no changes to commit"
+    - git push origin pages
