@@ -1,43 +1,59 @@
-version: '1.0'
-name: branch-pipeline
-displayName: BranchPipeline
 stages:
-  - stage: 
-    name: compile
-    displayName: 编译
-    steps:
-      - step: build@nodejs
-        name: build_nodejs
-        displayName: Nodejs 构建
-        # 升级到 18.x 版本（兼容所有依赖的最低要求，若流水线不支持 18.18.0，可替换为支持的 18.x 版本）
-        nodeVersion: 18.18.0
-        # 构建命令保持不变，新增清理依赖缓存步骤（避免旧版本依赖冲突）
-        commands:
-          - npm install && rm -rf ./dist && npm run build
-        artifacts:
-          - name: BUILD_ARTIFACT
-            path:
-              - ./dist
-      - step: publish@general_artifacts
-        name: publish_general_artifacts
-        displayName: 上传制品
-        dependArtifact: BUILD_ARTIFACT
-        artifactName: output
-        dependsOn: build_nodejs
-  - stage: 
-    name: release
-    displayName: 发布
-    steps:
-      - step: publish@release_artifacts
-        name: publish_release_artifacts
-        displayName: '发布'
-        dependArtifact: output
-        version: '1.0.0.0'
-        autoIncrement: true
-triggers:
-  push:
-    branches:
-      exclude:
-        - master
-      include:
-        - .*
+  - build
+  - deploy
+
+variables:
+  GIT_STRATEGY: clone
+
+# =========================
+# Build Job
+# =========================
+build-job:
+  stage: build
+  image: node:20
+  script:
+    # 输出 Node/NPM 版本
+    - echo "Node version: $(node -v)"
+    - echo "NPM version: $(npm -v)"
+
+    # 安装依赖
+    - npm install
+
+    # 跳过 type-check，直接用 Vite-SSG 构建
+    - npm run buildssg
+
+  artifacts:
+    paths:
+      - dist
+    expire_in: 1 hour
+
+# =========================
+# Deploy Job
+# =========================
+deploy-pages:
+  stage: deploy
+  image: alpine:latest
+  dependencies:
+    - build-job
+  script:
+    # 安装 git 和 bash
+    - apk add --no-cache git bash
+
+    # 配置 Git 用户信息
+    - git config --global user.email "10575553+zh12138111@user.noreply.gitee.com"
+    - git config --global user.name "ik6"
+
+    # 获取最新 pages 分支，如果不存在就创建
+    - git fetch origin
+    - git checkout pages || git checkout -b pages
+
+    # 清空旧内容，保留 .git
+    - sh -c 'find . -mindepth 1 ! -name ".git" -exec rm -rf {} +'
+
+    # 拷贝构建产物
+    - cp -r dist/* .
+
+    # 提交并推送
+    - git add .
+    - git commit -m "deploy pages [ci skip]" || echo "no changes to commit"
+    - git push origin pages
