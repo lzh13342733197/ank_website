@@ -245,7 +245,7 @@ export default {
         "The cumulative number of patents and trademarks registered and applied for has exceeded 600, covering China, Europe, America, Japan, South Korea and Taiwan.",
       tenthDate: "June 2019",
       tenthParagraph: "Ankbit focused on OEM/ODM services.",
-      eleventhDate: "June 2010",
+      eleventhDate: "February 2010",
       eleventhParagraph: "Ankbit was founded.",
     },
     menu: {

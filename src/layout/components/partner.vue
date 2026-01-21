@@ -36,8 +36,8 @@ import img18 from '@/assets/images/partner/图片18.png'
 
 const partners = ref([
   { id: 1, name: 'amazon', logo: img1 },
-  { id: 2, name: 'MONDIAL', logo: img2 },
-  { id: 3, name: 'aiwa', logo: img3 },
+  // { id: 2, name: 'MONDIAL', logo: img2 },
+  // { id: 3, name: 'aiwa', logo: img3 },
   { id: 6, name: 'Qualcomm', logo: img6 },
   { id: 7, name: 'BROADCOM', logo: img7 },
   { id: 8, name: 'AIROHA', logo: img8 },

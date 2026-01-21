@@ -35,7 +35,6 @@ import patent11 from '@/assets/images/patents/法国巴黎设计奖_page-0001.jp
 import patent12 from '@/assets/images/patents/伦敦设计奖_page-0001.jpg'
 import patent13 from '@/assets/images/patents/RT807英国外观专利证书_page-0001.jpg'
 import patent14 from '@/assets/images/patents/锐爱转让一魔 2016211581436 新型无线音响 手续合格通知书_pages-to-jpg-0001.jpg'
-import patent15 from '@/assets/images/patents/107306737台湾外观专利证书_page-0001.jpg'
 const basePartners = [
   { id: 1, logo: patent1 },
   { id: 2, logo: patent2 },
@@ -51,13 +50,12 @@ const basePartners = [
   { id: 16, logo: patent12 },
   { id: 17, logo: patent13 },
   { id: 18, logo: patent14 },
-  { id: 19, logo: patent15 },
 ]
 
 // 组合出 3 组数据，确保在大屏或快速滚动下绝对无缝
 const loopPartners = computed(() => [...basePartners, ...basePartners, ...basePartners])
 
-const loopPreviewImgs = [patent1, patent2, patent3, patent4, patent5, patent6, patent7, patent8, patent9, patent10, patent11, patent12, patent13, patent14, patent15]
+const loopPreviewImgs = [patent1, patent2, patent3, patent4, patent5, patent6, patent7, patent8, patent9, patent10, patent11, patent12, patent13, patent14]
 </script>
 
 <style scoped>

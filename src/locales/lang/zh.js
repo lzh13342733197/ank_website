@@ -235,7 +235,7 @@ export default {
       ninthParagraph: "累计申请与已注册的专利和商标数量突破600项，覆盖中国、欧美、日韩及台湾地区。",
       tenthDate: "2019年6月",
       tenthParagraph: "爱科贝专注于 OEM/ODM 服务。",
-      eleventhDate: "2010年6月",
+      eleventhDate: "2010年2月",
       eleventhParagraph: "爱科贝成立。",
     },
     menu: {
