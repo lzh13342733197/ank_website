@@ -5,37 +5,52 @@ stages:
 variables:
   GIT_STRATEGY: clone
 
+# =========================
+# Build Job
+# =========================
 build-job:
   stage: build
   image: node:18
   script:
+    # 输出 Node/NPM 版本，确保正确环境
+    - echo "Node version: $(node -v)"
+    - echo "NPM version: $(npm -v)"
+
+    # 安装依赖并构建
     - npm install
     - npm run build
   artifacts:
     paths:
       - dist
+    expire_in: 1 hour  # 构建产物保留时间，可按需调整
 
+# =========================
+# Deploy Job
+# =========================
 deploy-pages:
   stage: deploy
   image: alpine:latest
   dependencies:
     - build-job
   script:
-    - apk add --no-cache git
+    # 安装 git
+    - apk add --no-cache git bash
+
+    # 配置 Git 用户信息
     - git config --global user.email "10575553+zh12138111@user.noreply.gitee.com"
     - git config --global user.name "ik6"
 
-    # 切换到 pages 分支（拉取最新）
+    # 获取最新 pages 分支，如果不存在就创建
     - git fetch origin
     - git checkout pages || git checkout -b pages
 
-    # 清空旧内容（保留 .git）
-    - rm -rf ./*
+    # 清空旧内容，保留 .git
+    - sh -c 'find . -mindepth 1 ! -name ".git" -exec rm -rf {} +'
 
     # 拷贝构建产物
     - cp -r dist/* .
 
     # 提交并推送
     - git add .
-    - git commit -m "deploy pages [ci skip]" || echo "no changes"
+    - git commit -m "deploy pages [ci skip]" || echo "no changes to commit"
     - git push origin pages
