@@ -25,13 +25,14 @@ deploy-pages:
     - git config --global user.email "10575553+zh12138111@user.noreply.gitee.com"
     - git config --global user.name "ik6"
 
-    # 切换到 pages 分支
+    # 切换到 pages 分支（拉取最新）
+    - git fetch origin
     - git checkout pages || git checkout -b pages
 
-    # 清空旧内容
-    - rm -rf *
+    # 清空旧内容（保留 .git）
+    - rm -rf ./*
 
-    # 把 dist 内容复制到根目录
+    # 拷贝构建产物
     - cp -r dist/* .
 
     # 提交并推送
