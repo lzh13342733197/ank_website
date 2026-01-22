@@ -16,7 +16,7 @@ import viteImagemin from 'vite-plugin-imagemin'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/ank_website/',
+  base: import.meta.env.VITE_BASE,
   server: {
     port: 3345,
     host: '0.0.0.0',
