@@ -289,11 +289,11 @@ export default {
         },
         {
           title: "IPQC",
-          desc: "Mainboard Programming & Testing:  Program burning and functional testing for Bluetooth and smart audio device mainboards.<br/>Semi-Finished Assembly:  Precise installation of core components (speakers, mainboards, batteries) into product housings.<br/>Finished Product Assembly:  External structure assembly (ear cushions, face covers, buttons) and cable connection/welding.",
+          desc: "<strong>Mainboard Programming & Testing:</strong>  Program burning and functional testing for Bluetooth and smart audio device mainboards.<br/><strong>Semi-Finished Assembly:</strong>  Precise installation of core components (speakers, mainboards, batteries) into product housings.<br/><strong>Finished Product Assembly:</strong>  External structure assembly (ear cushions, face covers, buttons) and cable connection/welding.",
         },
         {
           title: "FQC",
-          desc: "Aging & Functional Testing:  Power-on aging tests and comprehensive checks (Bluetooth, sound quality, button response, battery life).<br/>Packaging & Warehousing:  Standardized packaging (cleaning, anti-static sealing, accessory sorting) ensures safety and aesthetics, with barcode scanning for inventory.",
+          desc: "<strong>Aging & Functional Testing:</strong>  Power-on aging tests and comprehensive checks (Bluetooth, sound quality, button response, battery life).<br/><strong>Packaging & Warehousing:</strong>  Standardized packaging (cleaning, anti-static sealing, accessory sorting) ensures safety and aesthetics, with barcode scanning for inventory.",
         },
         {
           title: "OQC",

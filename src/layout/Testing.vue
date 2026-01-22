@@ -25,8 +25,8 @@
 
       <!-- 2.2 双重全检流程 -->
       <div class="testing-process">
-        <div class="section-desc">
-          {{ t('factory.testing.process.title') }}
+        <div class="section-desc" >
+         <p style="font-weight: bold;"> {{ t('factory.testing.process.title') }}</p>
           <p class="desc-detail">
             {{ t('factory.testing.process.desc') }}
           </p>
@@ -53,8 +53,8 @@
 
       <!-- 2.1 测试设备部分 -->
       <div class="testing-equipment" style="margin-top: 20px;">
-        <div class="section-desc">
-          {{ t('factory.testing.equipment.title') }}
+        <div class="section-desc" >
+         <p style="font-weight: bold;"> {{ t('factory.testing.equipment.title') }}</p>
           <p class="desc-detail">
             {{ t('factory.testing.equipment.desc') }}
           </p>
