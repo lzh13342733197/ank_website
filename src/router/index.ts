@@ -112,10 +112,10 @@ const router = createRouter({
       path: '/privacy',
       component: () => import('@/components/privacy.vue'),
     },
-    {
-      path: '/:pathMatch(.*)*',
-      component: () => import('../views/404.vue'),
-    },
+    // {
+    //   path: '/:pathMatch(.*)*',
+    //   component: () => import('../views/404.vue'),
+    // },
   ],
   scrollBehavior(to, from, savedPosition) {
     return {
