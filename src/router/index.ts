@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory, createMemoryHistory } from 'vue-router'
+import { createRouter, createWebHistory, createMemoryHistory,createWebHashHistory  } from 'vue-router'
 import { isMobileDevice } from '@/utils/utils'
 const isServer = import.meta.env.SSR
 const history = isServer
   ? createMemoryHistory(import.meta.env.BASE_URL)
-  : createWebHistory(import.meta.env.BASE_URL)
+  : createWebHashHistory(import.meta.env.BASE_URL)
 
 const router = createRouter({
   history,
