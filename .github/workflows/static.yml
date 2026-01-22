@@ -34,7 +34,7 @@ jobs:
       - name: 上传到 GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/ank_website/
+          path: dist/
   
   deploy:
     needs: build
